@@ -1,0 +1,4 @@
+#!/bin/bash
+sudo hdiutil mount "@DOXYGEN_DMG@"
+sudo cp -R "/Volumes/Doxygen/Doxygen.app" /Applications
+sudo hdiutil unmount "/Volumes/Doxygen/"
