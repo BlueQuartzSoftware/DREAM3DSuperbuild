@@ -24,9 +24,6 @@ set_property(DIRECTORY PROPERTY EP_BASE ${DOXYGEN_PREFIX})
 
 get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
 
-
-
-
 #-- On OS X systems we are going to simply download Doxygen and copy the .app bundle to the /Applications DIRECTORY
 #-- which is where CMake expects to find it.
 if(APPLE)
@@ -37,7 +34,7 @@ if(APPLE)
   set(DOXYGEN_DMG ${DOX_OSX_DMG_ABS_PATH})
 
 	configure_file(
-	  "${_self_dir}/../Doxygen_osx_install.sh.in"
+	  "${_self_dir}/Doxygen_osx_install.sh.in"
 	  "${CMAKE_BINARY_DIR}/Doxygen_osx_install.sh"
 	  @ONLY
 	)
@@ -64,26 +61,26 @@ elseif(WIN32)
 
 else()
 
-ExternalProject_Add( Doxygen
-	#--Download step--------------
-	#   GIT_REPOSITORY ""
-	#   GIT_TAG ""
-	URL ${DOXYGEN_URL}
-	# URL_MD5
-	#--Update/Patch step----------
-	UPDATE_COMMAND ""
-  PATCH_COMMAND ""
-	#--Configure step-------------
-	SOURCE_DIR "${DOXYGEN_SOURCE_DIR}"
-	CONFIGURE_COMMAND ""
-	#--Build step-----------------
-	BINARY_DIR "${DOXYGEN_BINARY_DIR}"
-	BUILD_COMMAND ""
-	#--Install step-----------------
-	INSTALL_DIR "${DOXYGEN_INSTALL_DIR}"
-	INSTALL_COMMAND ""
-	DEPENDS ${DOXYGEN_DEPENDENCIES}
-)
+	ExternalProject_Add( Doxygen
+		#--Download step--------------
+		#   GIT_REPOSITORY ""
+		#   GIT_TAG ""
+		URL ${DOXYGEN_URL}
+		# URL_MD5
+		#--Update/Patch step----------
+		UPDATE_COMMAND ""
+	  PATCH_COMMAND ""
+		#--Configure step-------------
+		SOURCE_DIR "${DOXYGEN_SOURCE_DIR}"
+		CONFIGURE_COMMAND ""
+		#--Build step-----------------
+		BINARY_DIR "${DOXYGEN_BINARY_DIR}"
+		BUILD_COMMAND ""
+		#--Install step-----------------
+		INSTALL_DIR "${DOXYGEN_INSTALL_DIR}"
+		INSTALL_COMMAND ""
+		DEPENDS ${DOXYGEN_DEPENDENCIES}
+	)
 
 endif()
 
