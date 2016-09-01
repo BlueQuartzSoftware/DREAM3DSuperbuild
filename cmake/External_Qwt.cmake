@@ -1,0 +1,76 @@
+
+set(extProjectName "qwt")
+message(STATUS "External Project: ${extProjectName}" )
+set(qwt_VERSION "6.1.3")
+set(qwt_url "http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/${qwt_VERSION}/${extProjectName}-${qwt_VERSION}.zip")
+set(qwt_INSTALL "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}")
+#set(qwt_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
+
+#http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/6.1.3/qwt-6.1.3.zip
+
+
+
+set(qwt_INSTALL_LOCATION "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}")
+set(qwtConfig_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/qwtconfig.pri")
+set(qwtSrcPro_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/src.pro")
+set(COMMENT "")
+if(NOT APPLE)
+  set(COMMENT "#")
+endif()
+
+get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
+
+configure_file(
+  "${_self_dir}/qwt/qwtconfig.pri.in"
+  "${qwtConfig_FILE}"
+  @ONLY
+)
+
+configure_file(
+  "${_self_dir}/qwt/src/src.pro.in"
+  "${qwtSrcPro_FILE}"
+  @ONLY
+)
+
+if(WIN32)
+  set(qwt_BUILD_COMMAND "${CMAKE_MAKE_COMMAND}")
+else()
+  set(qwt_BUILD_COMMAND "${CMAKE_MAKE_COMMAND} -j${CoreCount}")
+endif()
+
+ExternalProject_Add(${extProjectName}
+  DOWNLOAD_NAME ${extProjectName}-${qwt_VERSION}.zip
+  URL ${qwt_url}
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}-${qwt_VERSION}"
+  #BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+  INSTALL_DIR "${qwt_INSTALL}"
+  BUILD_IN_SOURCE 1
+  CONFIGURE_COMMAND ${QMAKE_EXECUTABLE} qwt.pro
+  PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${qwtConfig_FILE} <SOURCE_DIR>/qwtconfig.pri
+                COMMAND ${CMAKE_COMMAND} -E copy ${qwtSrcPro_FILE} <SOURCE_DIR>/src/src.pro
+  #BUILD_COMMAND ${qwt_BUILD_COMMAND}
+  #INSTALL_COMMAND ${qwt_BUILD_COMMAND} install
+  LOG_DOWNLOAD 1
+  LOG_UPDATE 1
+  LOG_CONFIGURE 1
+  LOG_BUILD 1
+  LOG_TEST 1
+  LOG_INSTALL 1
+)
+
+#-- Append this information to the DREAM3D_SDK CMake file that helps other developers
+#-- configure DREAM3D for building
+FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "# Qt ${qt5_version} Library\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(QWT_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${qwt_VERSION}\" CACHE PATH \"\")\n")
+
+
+
+
+
+
+
