@@ -2,16 +2,27 @@ set(extProjectName "ITK")
 message(STATUS "External Project: ${extProjectName}" )
 
 set(ITK_VERSION "4.9.1")
-set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
+#set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
+set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
+
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
 
-# get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
+if(WIN32)
+  set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
+  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake")
+else()
+  set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
+  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake")
+endif()
 
-# configure_file(
-#   "${_self_dir}/ITK_DartConfiguration.tcl.in"
-#   "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}/DartConfiguration.tcl"
-#   @ONLY
-#   )
+if( CMAKE_BUILD_TYPE MATCHES Debug )
+  set(HDF5_SUFFIX "_debug")
+  set(upper "DEBUG")
+else()
+  set(HDF5_SUFFIX "")
+  set(upper "RELEASE")
+ENDif( CMAKE_BUILD_TYPE MATCHES Debug )
+
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 
@@ -29,7 +40,7 @@ ExternalProject_Add(${extProjectName}
     -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
     -DCMAKE_BUILD_TYPE:=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-    -DCMAKE_CXX_FLAGS=-stdlib=libc++ -std=c++11
+    -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
     -DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET}
     -DCMAKE_OSX_SYSROOT=${OSX_SDK}
     -DCMAKE_CXX_STANDARD=11 
@@ -54,14 +65,14 @@ ExternalProject_Add(${extProjectName}
 		-DUSE_COMPILER_HIDDEN_VISIBILITY=OFF
 		-DModule_SCIFIO=ON
 
-		-DHDF5_DIR=${HDF5_INSTALL}/share/cmake
+		-DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
 		-DHDF5_CXX_COMPILER_EXECUTABLE=HDF5_CXX_COMPILER_EXECUTABLE-NOTFOUND
 		-DHDF5_CXX_INCLUDE_DIR=${HDF5_INSTALL}/include
 		-DHDF5_C_COMPILER_EXECUTABLE=HDF5_C_COMPILER_EXECUTABLE-NOTFOUND
 		-DHDF5_C_INCLUDE_DIR=${HDF5_INSTALL}/include
 
 		-DHDF5_DIFF_EXECUTABLE=${HDF5_INSTALL}/bin/h5diff
-		-DHDF5_DIR=${HDF5_INSTALL}/share/cmake
+		-DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
 		-DHDF5_Fortran_COMPILER_EXECUTABLE=HDF5_Fortran_COMPILER_EXECUTABLE-NOTFOUND
 		-DHDF5_IS_PARALLEL=OFF
 
@@ -70,7 +81,7 @@ ExternalProject_Add(${extProjectName}
     -DHDF5_hdf5_LIBRARY_${upper}=${HDF5_INSTALL}/lib/libhdf5${HDF5_SUFFIX}.dylib
     -DHDF5_hdf5_cpp_LIBRARY_${upper}=${HDF5_INSTALL}/lib/libhdf5_cpp${HDF5_SUFFIX}.dylib
   
-    DEPENDS hdf5
+  DEPENDS hdf5
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
   LOG_CONFIGURE 1

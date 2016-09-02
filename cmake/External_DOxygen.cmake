@@ -10,14 +10,19 @@ set(DOXYGEN_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
 set(DOXYGEN_SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source")
 set(DOXYGEN_STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp")
 set(DOXYGEN_TEMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Tmp")
-set(DOXYGEN_INSTALL_DIR "${DREAM3D_SDK_INSTALL}/Doxygen-${DOXYGEN_VERSION}")
-
+set(DOXYGEN_INSTALL_DIR "${DREAM3D_SDK}/Doxygen-${DOXYGEN_VERSION}")
 if(WIN32)
-	set(DOXYGEN_URL "http://ftp.stack.nl/pub/users/dimitri/doxygen-${DOXYGEN_VERSION}.windows.x64.bin.zip")
+  set(DOXYGEN_INSTALL_DIR "${DREAM3D_SDK}/doxygen-${DOXYGEN_VERSION}.windows.x64.bin")
+  set(DOXYGEN_FOLDER_NAME "doxygen-${DOXYGEN_VERSION}.windows.x64.bin")
+endif()
+
+set(DOXYGEN_url_server "http://dream3d.bluequartz.net/binaries/SDK/Sources/Doxygen")
+if(WIN32)
+	set(DOXYGEN_URL "${DOXYGEN_url_server}/doxygen-${DOXYGEN_VERSION}.windows.x64.bin.zip")
 elseif(APPLE)
-	set(DOXYGEN_URL "http://ftp.stack.nl/pub/users/dimitri/Doxygen-${DOXYGEN_VERSION}.dmg")
+	set(DOXYGEN_URL "${DOXYGEN_url_server}/Doxygen-${DOXYGEN_VERSION}.dmg")
 else()
-	set(DOXYGEN_URL "http://ftp.stack.nl/pub/users/dimitri/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz")
+	set(DOXYGEN_URL "${DOXYGEN_url_server}/doxygen-${DOXYGEN_VERSION}.linux.bin.tar.gz")
 endif()
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DOXYGEN_PREFIX})
@@ -27,8 +32,6 @@ get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
 #-- On OS X systems we are going to simply download Doxygen and copy the .app bundle to the /Applications DIRECTORY
 #-- which is where CMake expects to find it.
 if(APPLE)
-
-
   set(DOX_OSX_BASE_NAME Doxygen-${DOXYGEN_VERSION})
   set(DOX_OSX_DMG_ABS_PATH "${DREAM3D_SDK}/superbuild/${extProjectName}/Doxygen-${DOXYGEN_VERSION}.dmg")
   set(DOXYGEN_DMG ${DOX_OSX_DMG_ABS_PATH})
@@ -59,6 +62,31 @@ if(APPLE)
 elseif(WIN32)
 
 
+  set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
+
+  ExternalProject_Add(${extProjectName}
+    DOWNLOAD_NAME ${extProjectName}-${DOXYGEN_VERSION}.tar.gz
+    URL ${DOXYGEN_URL}
+    TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp"
+    STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
+    DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
+    SOURCE_DIR "${DOXYGEN_INSTALL_DIR}"
+    BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+    INSTALL_DIR "${DOXYGEN_INSTALL_DIR}"
+
+    CONFIGURE_COMMAND ""
+    PATCH_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
+
+    LOG_DOWNLOAD 1
+    LOG_UPDATE 1
+    LOG_CONFIGURE 1
+    LOG_BUILD 1
+    LOG_TEST 1
+    LOG_INSTALL 1
+  )
+
 else()
 
 	ExternalProject_Add( Doxygen
@@ -86,7 +114,10 @@ endif()
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(DOXYGEN_INSTALL_DIR \"${DOXYGEN_INSTALL_DIR}\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "# Doxygen Location\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(DOXYGEN_INSTALL_DIR \"\${DREAM3D_SDK_ROOT}/${DOXYGEN_FOLDER_NAME}\")\n")
 
 
 

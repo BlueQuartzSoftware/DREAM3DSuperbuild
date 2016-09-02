@@ -8,50 +8,84 @@ set(qt5_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
 get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
 
 set(QT_INSTALL_LOCATION "${DREAM3D_SDK}/${extProjectName}${qt5_version}")
-set(JSFILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/Qt_HeadlessInstall.js")
+
+if(APPLE)
+  set(qt5_Headless_FILE "Qt_HeadlessInstall_OSX.js")
+elseif(WIN32)
+  set(qt5_Headless_FILE "Qt_HeadlessInstall_Win64.js")
+else()
+
+endif()
+
+
+set(JSFILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt_HeadlessInstall.js")
 configure_file(
-  "${_self_dir}/Qt_HeadlessInstall.js"
+  "${_self_dir}/${qt5_Headless_FILE}"
   "${JSFILE}"
   @ONLY
 )
 
 if(APPLE)
-  set(QT_OSX_BASE_NAME qt-opensource-mac-x64-clang-${qt5_version})
-  if(NOT EXISTS "${DREAM3D_SDK}/superbuild/${extProjectName}/qt-opensource-mac-x64-clang-${qt5_version}-1.dmg")
+  set(Qt5_OSX_BASE_NAME qt-opensource-mac-x64-clang-${qt5_version})
+
+  set(Qt5_OSX_DMG_ABS_PATH "${DREAM3D_SDK}/superbuild/${extProjectName}/${Qt5_OSX_BASE_NAME}-1.dmg")
+  set(Qt5_DMG ${Qt5_OSX_DMG_ABS_PATH})
+
+  configure_file(
+    "${_self_dir}/Qt5_osx_install.sh.in"
+    "${CMAKE_BINARY_DIR}/Qt5_osx_install.sh"
+    @ONLY
+  )
+
+
+  if(NOT EXISTS "${Qt5_DMG}")
+    message(STATUS "===============================================================")
+    message(STATUS "    Downloading ${extProjectName}${qt5_version} Offline Installer")
+    message(STATUS "    Large Download!! This can take a bit... Please be patient")
+    file(DOWNLOAD ${qt5_url} "${Qt5_DMG}" SHOW_PROGRESS)
+  endif()
+
+
+  if(NOT EXISTS "${QT_INSTALL_LOCATION}/5.6/clang_64/bin/qmake")
+    message(STATUS "    Running Qt5 Offline Installer. A GUI Application will pop up on your machine.")
+    message(STATUS "    Please wait for the installer to finish.")
+    execute_process(COMMAND "${CMAKE_BINARY_DIR}/Qt5_osx_install.sh"
+                    OUTPUT_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt5-offline-out.log"
+                    ERROR_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt5-offline-err.log"
+                    ERROR_VARIABLE mount_error
+                    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    )
+
+  endif()
+  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/5.6/clang_64/bin/qmake)
+
+elseif(WIN32)
+  set(qt5_online_installer "qt-unified-windows-x86-2.0.3-online.exe")
+  set(qt5_url "https://download.qt.io/archive/online_installers/2.0/${qt5_online_installer}")
+
+  if(NOT EXISTS "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}")
     message(STATUS "===============================================================")
     message(STATUS "   Downloading ${extProjectName}${qt5_version}")
     message(STATUS "   Large Download!! This can take a bit... Please be patient")
-    file(DOWNLOAD ${qt5_url} "${DREAM3D_SDK}/superbuild/${extProjectName}/qt-opensource-mac-x64-clang-${qt5_version}-1.dmg" SHOW_PROGRESS)
+    file(DOWNLOAD ${qt5_url} "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}" SHOW_PROGRESS)
   endif()
+
+  set(QT5_ONLINE_INSTALLER "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}")
+  configure_file(
+    "${_self_dir}/Qt_HeadlessInstall.bat"
+    "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt_HeadlessInstall.bat"
+    @ONLY
+  )
 
   if(NOT EXISTS "${DREAM3D_SDK}/${extProjectName}${qt5_version}")
-
-    if(NOT EXISTS "/Volumes/${QT_OSX_BASE_NAME}/${QT_OSX_BASE_NAME}.app/Contents/MacOS/${QT_OSX_BASE_NAME}")
-      message(STATUS " Mounting the Qt Installer Disk Image... ")
-      execute_process(COMMAND hdiutil mount "${DREAM3D_SDK}/superbuild/${extProjectName}/qt-opensource-mac-x64-clang-${qt5_version}-1.dmg"
-                      OUTPUT_VARIABLE MOUNT_OUTPUT
-                      RESULT_VARIABLE did_run
-                      ERROR_VARIABLE mount_error
-                      WORKING_DIRECTORY ${qt5_BINARY_DIR} )
-    endif()
-
-    message(STATUS " Executing the Qt5 Installer... ")
-    execute_process(COMMAND "/Volumes/${QT_OSX_BASE_NAME}/${QT_OSX_BASE_NAME}.app/Contents/MacOS/${QT_OSX_BASE_NAME}" --script ${JSFILE}
-                    OUTPUT_VARIABLE INSTALLER_OUTPUT
-                    RESULT_VARIABLE did_run
+    message(STATUS "Executing the Qt5 Installer... ")
+    execute_process(COMMAND "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt_HeadlessInstall.bat"
+                    OUTPUT_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/qt-unified-out.log"
+                    ERROR_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/qt-unified-err.log"
                     ERROR_VARIABLE installer_error
                     WORKING_DIRECTORY ${qt5_BINARY_DIR} )
-
-    if(EXISTS "/Volumes/${QT_OSX_BASE_NAME}")
-      message(STATUS " UnMounting the Qt Installer Disk Image... ")
-      execute_process(COMMAND hdiutil unmount "/Volumes/${QT_OSX_BASE_NAME}"
-                      OUTPUT_VARIABLE MOUNT_OUTPUT
-                      RESULT_VARIABLE did_run
-                      ERROR_VARIABLE mount_error
-                      WORKING_DIRECTORY ${qt5_BINARY_DIR} )    
-    endif()
   endif()
-  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/5.6/clang_64/bin/qmake)
+  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/5.6/msvc2013_64/bin/qmake.exe)
 endif()
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers

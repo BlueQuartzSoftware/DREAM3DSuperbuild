@@ -2,9 +2,15 @@ set(extProjectName "Eigen")
 message(STATUS "External Project: ${extProjectName}" )
 
 set(Eigen_VERSION "3.2.9")
-set(Eigen_URL "https://bitbucket.org/eigen/eigen/get/${Eigen_VERSION}.tar.gz")
-set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
+#set(Eigen_URL "https://bitbucket.org/eigen/eigen/get/${Eigen_VERSION}.tar.gz")
+set(Eigen_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/Eigen/Eigen-${Eigen_VERSION}.tar.gz")
+set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}.tar.gz")
 
+if(WIN32)
+  set(Eigen_CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
+else()
+  set(Eigen_CXX_FLAGS "-stdlib=libc++ -std=c++11")
+endif()
 
 get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
 
@@ -31,7 +37,7 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
 
-    -DCMAKE_CXX_FLAGS=-stdlib=libc++ -std=c++11
+    -DCMAKE_CXX_FLAGS=${Eigen_CXX_FLAGS}
     -DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET}
     -DCMAKE_OSX_SYSROOT=${OSX_SDK}
     -DCMAKE_CXX_STANDARD=11 

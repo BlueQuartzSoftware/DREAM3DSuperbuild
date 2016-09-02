@@ -2,14 +2,27 @@ set(extProjectName "hdf5")
 message(STATUS "External Project: ${extProjectName}" )
 
 set(HDF5_VERSION "1.8.16")
-set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
+#set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
+set(HDF5_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/HDF5/hdf5-${HDF5_VERSION}.tar.gz")
 
-set(HDF5_INSTALL "${DREAM3D_SDK}/${extProjectName}-${HDF5_VERSION}-${CMAKE_BUILD_TYPE}")
+if(WIN32)
+  set(HDF5_INSTALL "${DREAM3D_SDK}/${extProjectName}-${HDF5_VERSION}")
+else()
+  set(HDF5_INSTALL "${DREAM3D_SDK}/${extProjectName}-${HDF5_VERSION}-${CMAKE_BUILD_TYPE}")
+endif()
+
 if( CMAKE_BUILD_TYPE MATCHES Debug )
   set(HDF5_SUFFIX "_debug")
 ENDif( CMAKE_BUILD_TYPE MATCHES Debug )
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
+
+
+if(WIN32)
+  set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
+else()
+  set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
+endif()
 
 ExternalProject_Add(${extProjectName}
   DOWNLOAD_NAME ${extProjectName}-${HDF5_VERSION}.tar.gz
@@ -25,15 +38,15 @@ ExternalProject_Add(${extProjectName}
     -DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-
-    -DCMAKE_CXX_FLAGS=-stdlib=libc++ -std=c++11
+    -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
     -DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET}
     -DCMAKE_OSX_SYSROOT=${OSX_SDK}
     -DCMAKE_CXX_STANDARD=11 
     -DCMAKE_CXX_STANDARD_REQUIRED=ON 
     -DHDF5_BUILD_WITH_INSTALL_NAME=ON 
     -DHDF5_BUILD_CPP_LIB=ON 
-    -DHDF5_BUILD_HL_LIB=ON 
+    -DHDF5_BUILD_HL_LIB=ON
+    -DBUILD_TESTING=OFF
 
   LOG_DOWNLOAD 1
   LOG_UPDATE 1

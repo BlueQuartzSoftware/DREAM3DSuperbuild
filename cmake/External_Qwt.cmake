@@ -2,12 +2,10 @@
 set(extProjectName "qwt")
 message(STATUS "External Project: ${extProjectName}" )
 set(qwt_VERSION "6.1.3")
-set(qwt_url "http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/${qwt_VERSION}/${extProjectName}-${qwt_VERSION}.zip")
+#set(qwt_url "http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/${qwt_VERSION}/${extProjectName}-${qwt_VERSION}.zip")
+set(qwt_url "http://dream3d.bluequartz.net/binaries/SDK/Sources/Qwt/qwt-${qwt_VERSION}.tar.bz2")
+
 set(qwt_INSTALL "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}")
-#set(qwt_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
-
-#http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/6.1.3/qwt-6.1.3.zip
-
 
 
 set(qwt_INSTALL_LOCATION "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}")
@@ -32,10 +30,11 @@ configure_file(
   @ONLY
 )
 
+
 if(WIN32)
-  set(qwt_BUILD_COMMAND "${CMAKE_MAKE_COMMAND}")
+  set(qwt_BUILD_COMMAND "nmake")
 else()
-  set(qwt_BUILD_COMMAND "${CMAKE_MAKE_COMMAND} -j${CoreCount}")
+  set(qwt_BUILD_COMMAND "make -j${CoreCount}")
 endif()
 
 ExternalProject_Add(${extProjectName}
@@ -47,12 +46,14 @@ ExternalProject_Add(${extProjectName}
   SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}-${qwt_VERSION}"
   #BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${qwt_INSTALL}"
-  BUILD_IN_SOURCE 1
+
   CONFIGURE_COMMAND ${QMAKE_EXECUTABLE} qwt.pro
   PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${qwtConfig_FILE} <SOURCE_DIR>/qwtconfig.pri
                 COMMAND ${CMAKE_COMMAND} -E copy ${qwtSrcPro_FILE} <SOURCE_DIR>/src/src.pro
-  #BUILD_COMMAND ${qwt_BUILD_COMMAND}
-  #INSTALL_COMMAND ${qwt_BUILD_COMMAND} install
+  BUILD_COMMAND ${qwt_BUILD_COMMAND}
+  INSTALL_COMMAND ${qwt_BUILD_COMMAND} install
+
+  BUILD_IN_SOURCE 1
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
   LOG_CONFIGURE 1

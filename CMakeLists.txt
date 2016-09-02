@@ -1,7 +1,16 @@
 
+if(${CMAKE_MAJOR_VERSION} STREQUAL "3")
+  # CMake 3.0 introduces VERSION variables for each Project.
+  cmake_policy(SET CMP0048 NEW)
+  # CMake 3.0 introduces some OS X RPath policies
+  cmake_policy(SET CMP0042 OLD)
+  # CMake 3.1 introduces if() policies on dereferencing variables in quotes
+  cmake_policy(SET CMP0054 NEW)
+endif()
+
 cmake_minimum_required(VERSION 3.5.0)
 
-project(DREAM3DSuperBuild VERSION 1.0.0.0 LANGUAGES NONE)
+project(DREAM3DSuperBuild VERSION 1.0.0.0 LANGUAGES C CXX)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 
@@ -37,6 +46,9 @@ if(APPLE)
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OSX_DREAM3D_SDK.cmake
                 ${DREAM3D_SDK}/DREAM3D_SDK.cmake COPYONLY )
+elseif(WIN32)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/WIN_DREAM3D_SDK.cmake
+                ${DREAM3D_SDK}/DREAM3D_SDK.cmake COPYONLY )
 endif()
 
 
@@ -50,8 +62,9 @@ include(External_DOxygen)
 include(External_HDF5)
 include(External_Eigen)
 include(External_ITK)
-include(External_ProtoBuf)
 include(External_Boost)
+
+# include(External_ProtoBuf)
 include(External_TBB)
 include(External_Qt5)
 include(External_Qwt)
