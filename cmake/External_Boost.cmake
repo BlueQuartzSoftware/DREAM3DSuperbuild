@@ -72,7 +72,7 @@ else()
   list(APPEND boost_with_args "--build-dir=x${am}" 
     #"toolset=${_toolset}" 
     "--prefix=${boost_INSTALL}" 
-    "--layout=versioned"  
+    "--layout=system"  
     "variant=release" 
     "link=shared" 
     "threading=multi"
@@ -88,6 +88,30 @@ else()
     BUILD_COMMAND ${b2_cmd} -j${CoreCount} ${boost_with_args}    
     INSTALL_COMMAND ${b2_cmd} -j${CoreCount} ${boost_with_args} install
   )
+
+
+  if(APPLE)
+    set(output_file "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/OSX_UpdateRPaths.sh")
+    set(boost_fix_rpaths_FILE "OSX_UpdateRPaths.sh.in")
+    get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
+    set(INSTALL_PREFIX "${boost_INSTALL}")
+    configure_file(
+      "${_self_dir}/${boost_fix_rpaths_FILE}"
+      "${output_file}"
+      @ONLY
+    )
+    # We do this because CMake can not figure out how to let us do an ExternalProject-Add-Step
+    # and actually have that command run AFTER the install command. So we write a shell script,
+    # configure it with the proper path, and then execute that script after the install. Stupid.
+    set(boost_cmds
+      CONFIGURE_COMMAND ${bootstrap_cmd}
+      BUILD_COMMAND ${b2_cmd} -j${CoreCount} ${boost_with_args}    
+      INSTALL_COMMAND ${b2_cmd} -j${CoreCount} ${boost_with_args} install COMMAND ${output_file}
+    )
+
+  endif()
+
+
 endif()
 
 ExternalProject_Add(${extProjectName}
@@ -111,6 +135,8 @@ ExternalProject_Add(${extProjectName}
   LOG_TEST 1
   LOG_INSTALL 1
 )
+
+
 
 ExternalProject_Get_Property(boost install_dir)
 set(BOOST_ROOT "${install_dir}" CACHE INTERNAL "")

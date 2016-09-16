@@ -30,11 +30,12 @@ configure_file(
   @ONLY
 )
 
-
+set(qwt_ParallelBuild "")
 if(WIN32)
   set(qwt_BUILD_COMMAND "nmake")
 else()
-  set(qwt_BUILD_COMMAND "make -j${CoreCount}")
+  set(qwt_BUILD_COMMAND "make")
+  set(qwt_ParallelBuild "-j${CoreCount}")
 endif()
 
 ExternalProject_Add(${extProjectName}
@@ -50,7 +51,7 @@ ExternalProject_Add(${extProjectName}
   CONFIGURE_COMMAND ${QMAKE_EXECUTABLE} qwt.pro
   PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${qwtConfig_FILE} <SOURCE_DIR>/qwtconfig.pri
                 COMMAND ${CMAKE_COMMAND} -E copy ${qwtSrcPro_FILE} <SOURCE_DIR>/src/src.pro
-  BUILD_COMMAND ${qwt_BUILD_COMMAND}
+  BUILD_COMMAND ${qwt_BUILD_COMMAND} ${qwt_ParallelBuild}
   INSTALL_COMMAND ${qwt_BUILD_COMMAND} install
 
   BUILD_IN_SOURCE 1

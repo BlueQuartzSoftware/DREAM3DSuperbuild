@@ -1,5 +1,7 @@
 CMakeLists.txt.user
 /Build/
+/Debug/
+/Release/
 /zRel/
 /CleanBuild/
 .cproject
