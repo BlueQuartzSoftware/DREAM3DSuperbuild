@@ -61,7 +61,10 @@ include(External_DREAM3DData)
 include(External_DOxygen)
 include(External_HDF5)
 include(External_Eigen)
-include(External_ITK)
+if(NOT WIN32)
+  include(External_ITK)
+endif()
+
 include(External_Boost)
 
 # include(External_ProtoBuf)

@@ -67,7 +67,7 @@ ExternalProject_Add(${extProjectName}
 #-- configure DREAM3D for building
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "# Qt ${qt5_version} Library\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "# Qwt ${qwt_VERSION}Library\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(QWT_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${qwt_VERSION}\" CACHE PATH \"\")\n")
 
 

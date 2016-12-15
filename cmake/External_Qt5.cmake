@@ -1,7 +1,7 @@
 set(extProjectName "Qt")
 message(STATUS "External Project: ${extProjectName}" )
-set(qt5_version "5.6.1")
-set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.6/${qt5_version}-1/qt-opensource-mac-x64-clang-${qt5_version}-1.dmg")
+set(qt5_version "5.6.2")
+set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.6/${qt5_version}-2/qt-opensource-mac-x64-clang-${qt5_version}-2.dmg")
 set(qt5_INSTALL "${DREAM3D_SDK}/${extProjectName}${qt5_version}")
 set(qt5_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
 
@@ -15,6 +15,14 @@ elseif(WIN32)
   set(qt5_Headless_FILE "Qt_HeadlessInstall_Win64.js")
 else()
 
+endif()
+
+set(QT_MSVC_VERSION_NAME "")
+if(MSVC13)
+   set(QT_MSVC_VERSION_NAME "msvc2013_64")
+endif()
+if(MSVC14)
+  set(QT_MSVC_VERSION_NAME "msvc2015_64")
 endif()
 
 
@@ -85,7 +93,7 @@ elseif(WIN32)
                     ERROR_VARIABLE installer_error
                     WORKING_DIRECTORY ${qt5_BINARY_DIR} )
   endif()
-  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/5.6/msvc2013_64/bin/qmake.exe)
+  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/5.6/${QT_MSVC_VERSION_NAME}/bin/qmake.exe)
 endif()
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
@@ -93,7 +101,13 @@ endif()
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# Qt ${qt5_version} Library\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(Qt5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${qt5_version}/5.6/clang_64/lib/cmake/Qt5\" CACHE PATH \"\")\n")
+if(APPLE)
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(Qt5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${qt5_version}/5.6/clang_64/lib/cmake/Qt5\" CACHE PATH \"\")\n")
+elseif(WIN32)
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(Qt5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${qt5_version}/5.6/${QT_MSVC_VERSION_NAME}/lib/cmake/Qt5\" CACHE PATH \"\")\n")
+else()
+  FILE(APPEND ${DREAM3D_SDK_FILE} "message(FATAL_ERROR \"Compiler Toolset Unknown\")\n")
+endif()
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${Qt5_DIR})\n")
 
 
