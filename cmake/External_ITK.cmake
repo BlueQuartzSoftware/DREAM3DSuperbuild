@@ -59,6 +59,7 @@ ExternalProject_Add(${extProjectName}
 		-DITKGroup_Registration=ON
 		-DITKGroup_Segmentation=ON
 		-DModule_SCIFIO=ON
+    -DModule_ITKIOMRC=ON
 		-DCMAKE_SKIP_INSTALL_RPATH=OFF
 		-DCMAKE_SKIP_RPATH=OFF
 		-DUSE_COMPILER_HIDDEN_VISIBILITY=OFF
