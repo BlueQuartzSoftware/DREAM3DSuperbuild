@@ -14,6 +14,8 @@ if(APPLE)
 elseif(WIN32)
   set(qt5_Headless_FILE "Qt_HeadlessInstall_Win64.js")
 else()
+  set(qt5_Headless_FILE "Qt_HeadlessInstall_OSX.js")
+else()
 
 endif()
 
@@ -94,6 +96,9 @@ elseif(WIN32)
                     WORKING_DIRECTORY ${qt5_BINARY_DIR} )
   endif()
   set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/5.6/${QT_MSVC_VERSION_NAME}/bin/qmake.exe)
+else()
+  
+  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/5.6/gcc_64/bin/qmake)
 endif()
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
@@ -106,7 +111,7 @@ if(APPLE)
 elseif(WIN32)
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(Qt5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${qt5_version}/5.6/${QT_MSVC_VERSION_NAME}/lib/cmake/Qt5\" CACHE PATH \"\")\n")
 else()
-  FILE(APPEND ${DREAM3D_SDK_FILE} "message(FATAL_ERROR \"Compiler Toolset Unknown\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(Qt5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${qt5_version}/5.6/gcc_64/lib/cmake/Qt5\" CACHE PATH \"\")\n")
 endif()
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${Qt5_DIR})\n")
 

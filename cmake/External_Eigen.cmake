@@ -8,8 +8,14 @@ set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectN
 
 if(WIN32)
   set(Eigen_CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
-else()
+elseif(APPLE)
   set(Eigen_CXX_FLAGS "-stdlib=libc++ -std=c++11")
+else()
+  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(Eigen_CXX_FLAGS "-stdlib=libc++ -std=c++11")
+  else()
+    set(Eigen_CXX_FLAGS "-std=c++11")
+  endif()
 endif()
 
 get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)

@@ -49,6 +49,9 @@ if(APPLE)
 elseif(WIN32)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/WIN_DREAM3D_SDK.cmake
                 ${DREAM3D_SDK}/DREAM3D_SDK.cmake COPYONLY )
+else()
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Linux_DREAM3D_SDK.cmake
+                ${DREAM3D_SDK}/DREAM3D_SDK.cmake COPYONLY )
 endif()
 
 
@@ -66,12 +69,11 @@ if(NOT WIN32)
 endif()
 
 include(External_Boost)
-
-# include(External_ProtoBuf)
 include(External_TBB)
 include(External_Qt5)
 include(External_Qwt)
 
+# include(External_ProtoBuf)
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/cmake/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)
 file(APPEND ${DREAM3D_SDK_FILE} ${DREAM3D_PLUGIN_CODE})

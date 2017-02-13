@@ -1,7 +1,7 @@
 set(extProjectName "ITK")
 message(STATUS "External Project: ${extProjectName}" )
 
-set(ITK_VERSION "4.9.1")
+set(ITK_VERSION "4.11.0")
 #set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
 set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
 
@@ -10,8 +10,15 @@ set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectN
 if(WIN32)
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake")
-else()
+elseif(APPLE)
   set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
+  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake")
+else()
+  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
+  else()
+    set(CXX_FLAGS "-std=c++11")
+  endif()
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake")
 endif()
 
