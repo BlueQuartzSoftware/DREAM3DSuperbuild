@@ -3,7 +3,6 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
   message(STATUS "* DREAM.3D First Configuration Run                    *")
   message(STATUS "* DREAM3D_SDK Loading from ${CMAKE_CURRENT_LIST_DIR}  *")
   message(STATUS "*******************************************************")
-  set(SIMPLib_USE_ITK "ON" CACHE STRING "" FORCE)
 endif()
 
 #--------------------------------------------------------------------------------------------------

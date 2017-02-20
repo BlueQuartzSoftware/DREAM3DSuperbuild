@@ -5,12 +5,72 @@ set(ITK_VERSION "4.11.0")
 #set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
 set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
 
-set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
 
+
+#------------------------------------------------------------------------------
+#
+#------------------------------------------------------------------------------
+if(0)
+
+  if(MSVC90)
+    message(FATAL_ERROR "Visual Studio Version 9 is NOT supported.")
+  endif(MSVC90)
+  if(MSVC10)
+    message(FATAL_ERROR "Visual Studio Version 10 is NOT supported.")
+  endif(MSVC10)
+  if(MSVC11)
+    message(FATAL_ERROR "Visual Studio Version 11 is NOT supported.")
+  endif(MSVC11)
+  if(MSVC12)
+    set(ITK_VS_VERSION "12.0")
+    set(ITK_CMAKE_GENERATOR "Visual Studio 12 2013 Win64")
+  endif(MSVC12)
+  if(MSVC14)
+    set(ITK_CMAKE_GENERATOR "Visual Studio 14 2015 Win64")
+    set(ITK_VS_VERSION "14.0")
+  endif()
+
+  get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
+
+  configure_file(
+    "${_self_dir}/ITK/Build_ITK.bat.in"
+    "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/Build_ITK.bat"
+    @ONLY
+    )
+  configure_file(
+    "${_self_dir}/ITK/Build_ITK.cmake.in"
+    "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/Build_ITK.cmake"
+    @ONLY
+    )
+
+
+  # execute_process(COMMAND "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/Build_ITK.bat"
+  #                 OUTPUT_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/Build_ITK.log"
+  #                 ERROR_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/Build_ITK-err.log"
+  #                 ERROR_VARIABLE installer_error
+  #                 WORKING_DIRECTORY "${DREAM3D_SDK}/superbuild/${extProjectName}/Build" )
+
+  #-------------------------------------------------------------------------------
+  #- This copies all the Prebuilt Pipeline files into the Build directory so the help
+  #- works from the Build Tree
+  add_custom_target(BUILD_Itk ALL
+              COMMAND "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/Build_ITK.bat"
+              COMMENT "Building ITK ${ITK_VERSION}.")
+  set_target_properties(BUILD_Itk PROPERTIES DEPENDS hdf5)
+
+
+else()
+
+
+
+
+set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
+set(ITK_INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
 if(WIN32)
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake")
 elseif(APPLE)
+  set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}/${extProjectName}-${ITK_VERSION}")
   set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake")
 else()
@@ -40,9 +100,11 @@ ExternalProject_Add(${extProjectName}
   STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
   DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
   SOURCE_DIR "${SOURCE_DIR}"
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}"
-
+  #BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+  BINARY_DIR "${DREAM3D_SDK}/ITK-${ITK_VERSION}"
+  INSTALL_DIR "${ITK_INSTALL_DIR}"
+  INSTALL_COMMAND ""
+  
   CMAKE_ARGS
     -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
     -DCMAKE_BUILD_TYPE:=${CMAKE_BUILD_TYPE}
@@ -96,7 +158,7 @@ ExternalProject_Add(${extProjectName}
   LOG_INSTALL 1
 )
 
-
+endif()
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building

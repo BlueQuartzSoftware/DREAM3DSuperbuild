@@ -41,6 +41,15 @@ ProcessorCount(CoreCount)
 
 
 if(APPLE)
+
+   EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
+   STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
+
+   IF (DARWIN_VERSION EQUAL 16)
+     
+   ENDIF ()
+
+
   set(OSX_DEPLOYMENT_TARGET "10.10")
   set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
 
@@ -62,12 +71,9 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "set(DREAM3D_SDK_ROOT \"${DREAM3D_SDK}\")\n")
 
 include(External_DREAM3DData)
 include(External_DOxygen)
-include(External_HDF5)
 include(External_Eigen)
-if(NOT WIN32)
-  include(External_ITK)
-endif()
-
+include(External_HDF5)
+include(External_ITK)
 include(External_Boost)
 include(External_TBB)
 include(External_Qt5)
