@@ -16,8 +16,8 @@ endif()
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 
 #------------------------------------------------------------------------------
-# Windows and OS X have TBB Compiled and installed
-if(NOT WIN32 AND NOT APPLE)
+# Linux has TBB Compiled and installed
+if(WIN32 OR APPLE)
   ExternalProject_Add(${extProjectName}
     # DOWNLOAD_NAME ${extProjectName}-${tbb_VERSION}.tar.gz
     URL ${tbb_URL}
