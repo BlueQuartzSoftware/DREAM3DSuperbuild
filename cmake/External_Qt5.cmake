@@ -38,7 +38,7 @@ configure_file(
 if(APPLE)
   set(Qt5_OSX_BASE_NAME qt-opensource-mac-x64-clang-${qt5_version})
 
-  set(Qt5_OSX_DMG_ABS_PATH "${DREAM3D_SDK}/superbuild/${extProjectName}/${Qt5_OSX_BASE_NAME}-1.dmg")
+  set(Qt5_OSX_DMG_ABS_PATH "${DREAM3D_SDK}/superbuild/${extProjectName}/${Qt5_OSX_BASE_NAME}.dmg")
   set(Qt5_DMG ${Qt5_OSX_DMG_ABS_PATH})
 
   configure_file(
