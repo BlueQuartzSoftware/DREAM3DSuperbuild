@@ -1,7 +1,7 @@
 set(extProjectName "Qt")
 message(STATUS "External Project: ${extProjectName}" )
 set(qt5_version "5.6.2")
-set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.6/${qt5_version}-2/qt-opensource-mac-x64-clang-${qt5_version}-2.dmg")
+set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.6/${qt5_version}/qt-opensource-mac-x64-clang-${qt5_version}.dmg")
 set(qt5_INSTALL "${DREAM3D_SDK}/${extProjectName}${qt5_version}")
 set(qt5_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
 
