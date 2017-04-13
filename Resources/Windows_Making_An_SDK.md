@@ -1,13 +1,99 @@
 How To Use DREAM3DSuperbuild To Build A DREAM3D SDK (Windows 8.1/10)
 ===============
 
+## Requirements ##
+
++ Ensure you have the proper Version of Visual Studio installed.  Versions 2013 and 2015 are supported in this release and should be usable.  Both the **Pro** and **Community** versions will work. The **Express** version of 2013 is known to work but not extensively tested.
++ Git version 2.x is also needed to clone the repositories and download certain sources. [http://www.git-scm.com](http://www.git-scm.com).  You can download the prebuilt binary for Windows and install it onto the system.  During the installation ensure that the "Windows command prompt" can use Git.
+
 ## Procedure ##
 
-+ Ensure you have the proper Version of Visual Studio installed. Versions 2013 and 2015 are supported in this release and should be usable. Both the **Pro** and **Community** versions will work. The **Express** version of 2013 is known to work but not extensively tested.
+#### Basic Setup ####
+
+**1: Create a folder called DREAM3D_SDK on your C:\ drive**
+![](Images/Windows/create_sdk_folder.png)
+
+**2: Download and install CMake from https://cmake.org/download:**
+
+Scroll down the page until you see the **Latest Release** section.  The latest release may be a higher version than 3.8.0.
+![](Images/Windows/cmake_download_page.png)
+Press the download link to download the zip file of the latest release of CMake.  It does not matter if the download is for 32-bit (win32-x86) or 64-bit (win64-x64).  Again, the latest release may be a higher version than 3.8.0, but that is ok.
+
+Click on the zip file that you just downloaded to extract it into a folder.
+
+Move the newly extracted folder into the **DREAM3D_SDK** folder that we created earlier.
+![](Images/Windows/cmake_in_sdk_folder.png)
+
+#### Clone Repository ####
+
+Create a folder called **workspace** in your home directory, and then use git to clone the DREAM.3D Superbuild repository at https://github.com/bluequartzsoftware/DREAM3DSuperbuild to the **workspace** folder that you just created.
+
+    git clone https://github.com/bluequartzsoftware/DREAM3DSuperbuild.git
+
+![](Images/Windows/dream3d_superbuild_placement.png)
+
+#### Instructions ####
+
+1. Open CMake and set the **Where is the source code** path to *C:\Users\\[username]\Workspace\DREAM3DSuperbuild*.
+![](Images/Windows/source_code_path.png)
+
+2. Set the **Where to build the binaries** path to *C:\Users\\[username]\Workspace\DREAM3DSuperbuild\Build*.
+![](Images/Windows/build_binaries_debug.png)
+
+3. We are going to create a CMake variable.  Press the **Add Entry** button.
+![](Images/Windows/add_entry.png)
+
+4. Set the **Name** to *DREAM3D_SDK*.  Set the **Type** to *PATH* and set the **Value** to the location of the DREAM3D_SDK folder that we created earlier (*C:\DREAM3D_SDK*)
+![](Images/Windows/create_cmake_variable.png)
+
+5. You should now have a single variable, DREAM3D_SDK.
+![](Images/Windows/cmake_before_configuration.png)
+
+6. Press the **Configure** button in CMake.  If the build directory specified does not already exist, CMake will ask if you want to create the directory.  Click "Yes".
+
+7. CMake will ask you which generator should be used for this project.
+  + If you are using Visual Studio 2015, select Visual Studio 14 2015 Win64.
+  + If you are using Visual Studio 2013, select Visual Studio 12 2013 Win64.
+
+8. Click "Finish".  At this point, Qt 5 will be automatically downloaded and installed.  Sometimes during the installation of Qt the Qt installer application will crash.  Simply try configuring again to relaunch the Qt installer.  Since the Qt download is over 1 GB in size, this may take some time so please be patient.
+![](Images/Windows/downloading_qt.png)
+Sometimes there is a pause between the download completing and the installer popping up, so just wait a minute or so for the installer to appear.
+![](Images/Windows/qt_installer.png)
+
+9. Press the **Configure** button in CMake again.
+![](Images/Windows/debug_configured.png)
+
+10. Press the **Generate** button in CMake to generate the build files.
+![](Images/Windows/debug_generated.png)
+
+    *Note*: Although you still need to press **Configure** in step 9, Qt will not download or install again because it was already downloaded and installed the first time through.
+
+11. Click "Open Project" to launch Visual Studio with the DREAM3DSuperBuild Project. Check that ALL_BUILD and Debug are selected.
+
+12. Click Build -> Build Solution to begin building the SDK.
+
+13. Change Debug selection to Release and repeat Step 12.
+
+## Additional Notes ##
+The procedure above builds the following libraries:
+
++ Boost version 1.60.0
++ Doxygen 1.8.13
++ Eigen verison 3.2.9
++ HDF5 Version 1.8.16
++ ITK version 4.9.1
++ Protocol Buffers 2.6.1
++ Qt version 5.6.2
++ Qwt version 6.1.3
++ TBB version tbb44_20160524oss
+
+------------------------------------------------
+================================================
+
 + Download the "ninja" build system from [https://github.com/ninja-build/ninja/releases](https://github.com/ninja-build/ninja/releases) and install on your system
 + Download and install CMake from [http://www.cmake.org](http://www.cmake.org). A minimum version of CMake 3.5.1 is required.
 + The [Qt 5.6.2 Online installer](http://download.qt.io/official_releases/qt/5.6/5.6.2/) is downloaded to the developers computer which is a smaller download but during the actual installation of Qt 5.6.2 the necessary files will be retrieved from Qt's official web site. Again be patient during this process.
-+ Git version 2.x is also needed to clone the repositories and download certain sources. [http://www.git-scm.com](http://www.git-scm.com). You can download the prebuilt binary for Windows and install it onto the system. During the installation ensure that the "Windows command prompt" can use Git.
+
 
 1: Open a Visual Studio command prompt for x64 development
 2: Ensure ninja and CMake can be run from the command line. This many involve exporting a few environment variables from the command line.
@@ -23,16 +109,3 @@ During the configuration process the Qt 5.6.x installer will be downloaded and e
 After that has completed you will need to re-run the configuration and change the CMAKE_BUILD_TYPE to Release and compile and install again.
 
 After this is all complete, ITK will be missing from the SDK. For Windows there is a specific batch file that will build it appropriately.
-
-## Additional Notes ##
-The procedure above builds the following libraries:
-
-+ Boost version 1.60.0
-+ Doxygen (1.8.11) (Download and install only)
-+ Eigen verison 3.2.9
-+ HDF5 Version 1.8.16
-+ ITK version 4.9.1
-+ Protocol Buffers 2.6.1
-+ Qt version 5.6.2
-+ Qwt version 6.1.3
-+ TBB version tbb44_20160524oss
