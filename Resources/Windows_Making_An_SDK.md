@@ -26,7 +26,7 @@ Move the newly extracted folder into the **DREAM3D_SDK** folder that we created 
 
 #### Clone Repository ####
 
-Create a folder called **workspace** in your home directory, and then use git to clone the DREAM.3D Superbuild repository at https://github.com/bluequartzsoftware/DREAM3DSuperbuild to the **workspace** folder that you just created.
+Create a folder called **workspace** in your home directory (C:\Users\\[username]), and then use git to clone the DREAM.3D Superbuild repository at https://github.com/bluequartzsoftware/DREAM3DSuperbuild to the **workspace** folder that you just created.  For quick access to the git terminal at a given directory, right-click on the directory and select "Git Bash Here" once git has been installed.  Then, type the following command to create a copy of the source code in the current directory:
 
     git clone https://github.com/bluequartzsoftware/DREAM3DSuperbuild.git
 
@@ -38,12 +38,12 @@ Create a folder called **workspace** in your home directory, and then use git to
 ![](Images/Windows/source_code_path.png)
 
 2. Set the **Where to build the binaries** path to *C:\Users\\[username]\Workspace\DREAM3DSuperbuild\Build*.
-![](Images/Windows/build_binaries_debug.png)
+![](Images/Windows/build_binaries.png)
 
 3. We are going to create a CMake variable.  Press the **Add Entry** button.
 ![](Images/Windows/add_entry.png)
 
-4. Set the **Name** to *DREAM3D_SDK*.  Set the **Type** to *PATH* and set the **Value** to the location of the DREAM3D_SDK folder that we created earlier (*C:\DREAM3D_SDK*)
+4. Set the **Name** to *DREAM3D_SDK*.  Set the **Type** to *PATH* and set the **Value** to the location of the DREAM3D_SDK folder that we created earlier (*C:\DREAM3D_SDK*).
 ![](Images/Windows/create_cmake_variable.png)
 
 5. You should now have a single variable, DREAM3D_SDK.
@@ -55,7 +55,10 @@ Create a folder called **workspace** in your home directory, and then use git to
   + If you are using Visual Studio 2015, select Visual Studio 14 2015 Win64.
   + If you are using Visual Studio 2013, select Visual Studio 12 2013 Win64.
 
-8. Click "Finish".  At this point, Qt 5 will be automatically downloaded and installed.  Sometimes during the installation of Qt the Qt installer application will crash.  Simply try configuring again to relaunch the Qt installer.  Since the Qt download is over 1 GB in size, this may take some time so please be patient.
+![](Images/Windows/cmake_select_generator.png)
+  Click **Finish**.  If the selected Visual Studio and its C++ compiler are not installed, CMake will throw an error and will not allow you to proceed until you have done so.
+
+8. At this point, Qt 5 will be automatically downloaded and installed.  Sometimes during the installation of Qt the Qt installer application will crash.  Simply try configuring again to relaunch the Qt installer.  Since the Qt download is over 1 GB in size, this may take some time so please be patient.
 ![](Images/Windows/downloading_qt.png)
 Sometimes there is a pause between the download completing and the installer popping up, so just wait a minute or so for the installer to appear.
 ![](Images/Windows/qt_installer.png)
@@ -64,7 +67,7 @@ Sometimes there is a pause between the download completing and the installer pop
 ![](Images/Windows/debug_configured.png)
 
 10. Press the **Generate** button in CMake to generate the build files.
-![](Images/Windows/debug_generated.png)
+![](Images/Windows/cmake_generated.png)
 
     *Note*: Although you still need to press **Configure** in step 9, Qt will not download or install again because it was already downloaded and installed the first time through.
 
