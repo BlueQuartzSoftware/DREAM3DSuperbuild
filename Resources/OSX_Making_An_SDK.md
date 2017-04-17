@@ -35,6 +35,9 @@ Scroll down until you see the **Sources and Binaries** section.  Press the http 
 
 Open the .dmg file and copy the app into **/Applications**. You may need admin privileges on your computer to complete this step.
 
+**5: Download and install Xcode from the App Store located at /Applications/App Store.app**
+After Xcode has been downloaded and installed, open it so that *Xcode Command Line Tools* will be installed.  **You CANNOT continue with setup until *Xcode Command Line Tools* has been installed!**
+
 #### Clone Repository ####
 
 Create a folder called **Workspace** in your home directory, and then use git to clone the DREAM.3D Superbuild repository at https://github.com/bluequartzsoftware/DREAM3DSuperbuild to the **Workspace** folder that you just created.
