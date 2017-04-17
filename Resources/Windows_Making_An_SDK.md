@@ -80,14 +80,14 @@ Sometimes there is a pause between the download completing and the installer pop
 The procedure above builds the following libraries:
 
 + Boost version 1.60.0
-+ Doxygen 1.8.13
++ Doxygen 1.8.11
 + Eigen verison 3.2.9
 + HDF5 Version 1.8.16
-+ ITK version 4.9.1
++ ITK version 4.11.0
 + Protocol Buffers 2.6.1
 + Qt version 5.6.2
 + Qwt version 6.1.3
-+ TBB version tbb44_20160524oss
++ TBB version tbb44_20160526oss
 
 ------------------------------------------------
 ================================================
