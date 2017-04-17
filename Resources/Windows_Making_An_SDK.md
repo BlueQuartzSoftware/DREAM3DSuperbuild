@@ -3,7 +3,7 @@ How To Use DREAM3DSuperbuild To Build A DREAM3D SDK (Windows 8.1/10)
 
 ## Requirements ##
 
-+ Ensure you have the proper Version of Visual Studio installed.  Versions 2013 and 2015 are supported in this release and should be usable.  Both the **Pro** and **Community** versions will work. The **Express** version of 2013 is known to work but not extensively tested.
++ This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Versions 2013 and 2015 are supported in this release and should be usable.  Both the **Pro** and **Community** versions will work. The **Express** version of 2013 is known to work but not extensively tested.
 + Git version 2.x is also needed to clone the repositories and download certain sources. [http://www.git-scm.com](http://www.git-scm.com).  You can download the prebuilt binary for Windows and install it onto the system.  During the installation ensure that the "Windows command prompt" can use Git.
 
 ## Procedure ##
