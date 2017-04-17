@@ -54,7 +54,6 @@ Create a folder called **workspace** in your home directory (C:\Users\\[username
 7. CMake will ask you which generator should be used for this project.
   + If you are using Visual Studio 2015, select Visual Studio 14 2015 Win64.
   + If you are using Visual Studio 2013, select Visual Studio 12 2013 Win64.
-
 ![](Images/Windows/cmake_select_generator.png)
   Click **Finish**.  If the selected Visual Studio and its C++ compiler are not installed, CMake will throw an error and will not allow you to proceed until you have done so.
 
