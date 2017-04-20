@@ -66,11 +66,15 @@ else()
 
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
 set(ITK_INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
+set(BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build-${CMAKE_BUILD_TYPE}")
 if(WIN32)
+  set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}")
+  set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}")
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake")
 elseif(APPLE)
-  set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}/${extProjectName}-${ITK_VERSION}")
+  set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
+  set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake")
 else()
@@ -101,8 +105,8 @@ ExternalProject_Add(${extProjectName}
   DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
   SOURCE_DIR "${SOURCE_DIR}"
   #BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  BINARY_DIR "${DREAM3D_SDK}/ITK-${ITK_VERSION}"
-  INSTALL_DIR "${ITK_INSTALL_DIR}"
+  BINARY_DIR "${BINARY_DIR}"
+  #INSTALL_DIR "${ITK_INSTALL_DIR}"
   INSTALL_COMMAND ""
   
   CMAKE_ARGS
