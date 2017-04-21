@@ -32,6 +32,8 @@ Create a folder called **workspace** in your home directory (C:\Users\\[username
 
 ![](Images/Windows/dream3d_superbuild_placement.png)
 
+*Note*: If you use git through command prompt, the coloring in your terminal will be different, but the command to clone the repository will be the same.
+
 #### Instructions ####
 
 1. Open CMake and set the **Where is the source code** path to *C:\Users\\[username]\Workspace\DREAM3DSuperbuild*.
@@ -71,8 +73,9 @@ Sometimes there is a pause between the download completing and the installer pop
     *Note*: Although you still need to press **Configure** in step 9, Qt will not download or install again because it was already downloaded and installed the first time through.
 
 11. Click "Open Project" to launch Visual Studio with the DREAM3DSuperBuild Project. Check that ALL_BUILD and Debug are selected.
+![](Images/Windows/visual_studio_project.png)
 
-12. Click Build -> Build Solution to begin building the SDK.
+12. Click Build -> Build Solution to begin building the SDK.  This will take some time.  Please be patient as your SDK builds.
 
 13. Change Debug selection to Release and repeat Step 12.
 
