@@ -46,16 +46,18 @@ if(WIN32 OR APPLE)
   FILE(APPEND ${DREAM3D_SDK_FILE} "# Intel Threading Building Blocks Library\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(SIMPL_USE_MULTITHREADED_ALGOS ON CACHE BOOL \"\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_INSTALL_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${tbb_VERSION}oss\" CACHE PATH \"\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ROOT \"\${DREAM3D_SDK_ROOT}/${extProjectName}${tbb_VERSION}oss\" CACHE PATH \"\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ARCH_TYPE \"intel64\" CACHE STRING \"\")\n")
 
 else()
 #------------------------------------------------------------------------------
-# Linux Ubuntu 14.04 has an acceptable TBB installation
+# Linux has an acceptable TBB installation
   FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "# Intel Threading Building Blocks Library\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(SIMPL_USE_MULTITHREADED_ALGOS ON CACHE BOOL \"\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_INSTALL_DIR \"/usr\" CACHE PATH \"\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ROOT \"/usr\" CACHE PATH \"\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ARCH_TYPE \"intel64\" CACHE STRING \"\")\n")
 
 endif()
