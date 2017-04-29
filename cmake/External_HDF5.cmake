@@ -70,6 +70,7 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "#----------------------------------------------
 FILE(APPEND ${DREAM3D_SDK_FILE} "# HDF5 Library Location\n")
 if(APPLE)
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${CMAKE_BUILD_TYPE}\" CACHE PATH \"\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_ROOT \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${CMAKE_BUILD_TYPE}\" CACHE PATH \"\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${CMAKE_BUILD_TYPE}/share/cmake\" CACHE PATH \"\")\n")
 elseif(WIN32)
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}\" CACHE PATH \"\")\n")
