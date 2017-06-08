@@ -75,6 +75,7 @@ else()
     #"toolset=${_toolset}" 
     "--prefix=${boost_INSTALL}" 
     "--layout=system"  
+    "--without-python"
     "variant=release" 
     "link=shared" 
     "threading=multi"
