@@ -34,7 +34,7 @@ set(qwt_ParallelBuild "")
 if(WIN32)
   set(qwt_BUILD_COMMAND "nmake")
 else()
-  set(qwt_BUILD_COMMAND "make")
+  set(qwt_BUILD_COMMAND "/usr/bin/make")
   set(qwt_ParallelBuild "-j${CoreCount}")
 endif()
 
