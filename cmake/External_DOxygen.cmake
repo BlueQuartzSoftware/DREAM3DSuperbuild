@@ -88,6 +88,14 @@ elseif(WIN32)
   )
 
 else()
+    set(DOXYGEN_DOWNLOAD_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}")
+    set(DOXYGEN_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
+    set(DOXYGEN_SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source")
+    set(DOXYGEN_STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp")
+    set(DOXYGEN_TEMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Tmp")
+    set(DOXYGEN_INSTALL_DIR "${DREAM3D_SDK}/Doxygen-${DOXYGEN_VERSION}")
+    # Downloading a prebuilt binary so we need to extract it to the actual
+    # installation directory
 
 	ExternalProject_Add( Doxygen
 		#--Download step--------------
@@ -97,12 +105,12 @@ else()
 		# URL_MD5
 		#--Update/Patch step----------
 		UPDATE_COMMAND ""
-	  PATCH_COMMAND ""
+                PATCH_COMMAND ""
 		#--Configure step-------------
-		SOURCE_DIR "${DOXYGEN_SOURCE_DIR}"
+		SOURCE_DIR "${DOXYGEN_INSTALL_DIR}"
 		CONFIGURE_COMMAND ""
 		#--Build step-----------------
-		BINARY_DIR "${DOXYGEN_BINARY_DIR}"
+		BINARY_DIR "${DOXYGEN_INSTALL_DIR}"
 		BUILD_COMMAND ""
 		#--Install step-----------------
 		INSTALL_DIR "${DOXYGEN_INSTALL_DIR}"

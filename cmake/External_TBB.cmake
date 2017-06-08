@@ -17,7 +17,7 @@ set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 
 #------------------------------------------------------------------------------
 # Linux has TBB Compiled and installed
-if(WIN32 OR APPLE)
+if(WIN32 OR APPLE OR "${BUILD_TBB}" STREQUAL "ON" )
   ExternalProject_Add(${extProjectName}
     # DOWNLOAD_NAME ${extProjectName}-${tbb_VERSION}.tar.gz
     URL ${tbb_URL}
