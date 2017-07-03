@@ -15,8 +15,6 @@ elseif(WIN32)
   set(qt5_Headless_FILE "Qt_HeadlessInstall_Win64.js")
 else()
   set(qt5_Headless_FILE "Qt_HeadlessInstall_OSX.js")
-else()
-
 endif()
 
 set(QT_MSVC_VERSION_NAME "")
