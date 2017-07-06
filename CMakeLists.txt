@@ -134,8 +134,7 @@ function(CloneRepo)
 
 endfunction()
 
-set(WORKSPACE_DIR ${DREAM3DSuperBuild_SOURCE_DIR}/../)
-set(WORKSPACE_DIR "/tmp/Workspace")
+set(WORKSPACE_DIR ${DREAM3DSuperBuild_SOURCE_DIR}/..)
 
 set(projectName CMP)
 CloneRepo(PROJECT_NAME ${projectName}

@@ -28,9 +28,8 @@ Controller.prototype.TargetDirectoryPageCallback = function()
 Controller.prototype.ComponentSelectionPageCallback = function() {
     var widget = gui.currentPageWidget();
     widget.deselectAll();
-    widget.selectComponent("qt.56.win64_@QT_MSVC_VERSION_NAME@");
-    widget.selectComponent("qt.56.qtwebengine");
-    widget.selectComponent("qt.56.qtquickcontrols");
+    widget.selectComponent("qt.@qt5_installer_version@.win64_@QT_MSVC_VERSION_NAME@");
+    widget.selectComponent("qt.@qt5_installer_version@.qtwebengine");
     widget.selectComponent("qt.tools.qtcreator");
     gui.clickButton(buttons.NextButton);
 }

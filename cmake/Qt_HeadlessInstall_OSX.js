@@ -30,8 +30,8 @@ Controller.prototype.ComponentSelectionPageCallback = function() {
     
     // This is for Qt 5.9.1 installation
     widget.deselectAll();
-    widget.selectComponent("qt.591.clang_64");
-    widget.selectComponent("qt.591.qtwebengine");
+    widget.selectComponent("qt.@qt5_installer_version@.clang_64");
+    widget.selectComponent("qt.@qt5_installer_version@.qtwebengine");
 
     gui.clickButton(buttons.NextButton);
 }
