@@ -1,7 +1,7 @@
 set(extProjectName "ITK")
 message(STATUS "External Project: ${extProjectName}" )
 
-set(ITK_VERSION "4.11.0")
+set(ITK_VERSION "4.12.0")
 #set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
 set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
 
@@ -28,6 +28,10 @@ if(0)
   if(MSVC14)
     set(ITK_CMAKE_GENERATOR "Visual Studio 14 2015 Win64")
     set(ITK_VS_VERSION "14.0")
+  endif()
+  if(MSVC15)
+    set(ITK_CMAKE_GENERATOR "Visual Studio 15 2017 Win64")
+    set(ITK_VS_VERSION "15.0")
   endif()
 
   get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
@@ -60,9 +64,6 @@ if(0)
 
 
 else()
-
-
-
 
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
 set(ITK_INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")

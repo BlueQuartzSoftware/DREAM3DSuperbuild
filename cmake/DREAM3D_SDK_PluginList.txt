@@ -11,12 +11,16 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
   # If you want to use any of these plugins you need to first UNCOMMENT the lines and then run
   # CMake on a clean DREAM3D build diretory.
   set(DREAM3D_Release_Plugins
-#      Anisotropy
-#      DDDAnalysisToolbox
-#      HEDMAnalysis
-#      ImageProcessing
-#      TransformationPhase
-#      UCSBUtilities
+    Anisotropy 
+    DDDAnalysisToolbox 
+    FiberToolbox 
+    HEDMAnalysis 
+    ImageProcessing 
+    ITKImageProcessing
+    MASSIFUtilities 
+    TransformationPhase 
+    UCSBUtilities 
+    DREAM3DReview
     )
 
   # This CMake variable is a typically used to list out extra plugins that are internal to a company

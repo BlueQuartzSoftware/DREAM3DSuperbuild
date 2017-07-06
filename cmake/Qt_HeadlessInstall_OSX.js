@@ -27,21 +27,11 @@ Controller.prototype.TargetDirectoryPageCallback = function()
 
 Controller.prototype.ComponentSelectionPageCallback = function() {
     var widget = gui.currentPageWidget();
-
-    // widget.deselectAll();
-    // widget.selectComponent("qt.56.gcc_64");
-    // widget.selectComponent("qt.56.qtquickcontrols");
-
-    // widget.deselectComponent("qt.tools.qtcreator");
-    // widget.deselectComponent("qt.55.qt3d");
-    // widget.deselectComponent("qt.55.qtcanvas3d");
-    // widget.deselectComponent("qt.55.qtlocation");
-    // widget.deselectComponent("qt.55.qtquick1");
-    // widget.deselectComponent("qt.55.qtscript");
-    // widget.deselectComponent("qt.55.qtwebengine");
-    // widget.deselectComponent("qt.extras");
-    // widget.deselectComponent("qt.tools.doc");
-    // widget.deselectComponent("qt.tools.examples");
+    
+    // This is for Qt 5.9.1 installation
+    widget.deselectAll();
+    widget.selectComponent("qt.591.clang_64");
+    widget.selectComponent("qt.591.qtwebengine");
 
     gui.clickButton(buttons.NextButton);
 }

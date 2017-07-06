@@ -59,6 +59,16 @@ if(APPLE)
   	message(STATUS "OUTPUT_VARIABLE: ${MOUNT_OUTPUT}")
   endif()
 
+ExternalProject_Add(${extProjectName}
+    DOWNLOAD_COMMAND ""
+    UPDATE_COMMAND ""
+    PATCH_COMMAND ""
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
+    TEST_COMMAND ""
+    )
+
 elseif(WIN32)
 
 
