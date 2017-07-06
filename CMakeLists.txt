@@ -47,20 +47,25 @@ ProcessorCount(CoreCount)
 
 
 if(APPLE)
+  EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
+  STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
+  #message(STATUS "DARWIN_VERSION: ${DARWIN_VERSION}")
+  IF (DARWIN_VERSION EQUAL 14)
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
+  ENDIF ()
 
-   EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
-   STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
+  IF (DARWIN_VERSION EQUAL 15)
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
+  ENDIF ()
 
-   IF (DARWIN_VERSION EQUAL 16)
-     
-   ENDIF ()
-
+  IF (DARWIN_VERSION EQUAL 16)
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk")
+  ENDIF ()
 
   set(OSX_DEPLOYMENT_TARGET "10.10")
-  set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/OSX_DREAM3D_SDK.cmake
-                ${DREAM3D_SDK}/DREAM3D_SDK.cmake COPYONLY )
+              ${DREAM3D_SDK}/DREAM3D_SDK.cmake COPYONLY )
 elseif(WIN32)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/WIN_DREAM3D_SDK.cmake
                 ${DREAM3D_SDK}/DREAM3D_SDK.cmake COPYONLY )
