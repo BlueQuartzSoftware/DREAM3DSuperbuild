@@ -1,17 +1,15 @@
 set(extProjectName "Qt")
 message(STATUS "External Project: ${extProjectName}" )
 
-if(0)
-  set(qt5_version_full "5.6.2")
-  set(qt5_version_short "5.6")
-  set(qt5_installer_version "56")
-  set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_short}/${qt5_version_full}/qt-opensource-mac-x64-clang-${qt5_version_full}.dmg")
-else()
-  set(qt5_version_full "5.9.1")
-  set(qt5_version_short "5.9.1")
-  set(qt5_installer_version "591")
-  set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_short}/${qt5_version_full}/qt-opensource-mac-x64-${qt5_version_full}.dmg")
-endif()
+# set(qt5_version_full "5.6.2")
+# set(qt5_version_short "5.6")
+# set(qt5_installer_version "56")
+
+# Qt 5.9.x is going to be used.
+set(qt5_version_full "5.9.1")
+set(qt5_version_short "5.9.1")
+set(qt5_installer_version "591")
+
 
 set(qt5_INSTALL "${DREAM3D_SDK}/${extProjectName}${qt5_version_full}")
 set(qt5_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
@@ -47,6 +45,10 @@ configure_file(
 )
 
 if(APPLE)
+  #set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_short}/${qt5_version_full}/qt-opensource-mac-x64-clang-${qt5_version_full}.dmg")
+
+  set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.9/5.9.1/qt-opensource-mac-x64-5.9.1.dmg")
+
   set(Qt5_OSX_BASE_NAME qt-opensource-mac-x64-${qt5_version_full})
 
   set(Qt5_OSX_DMG_ABS_PATH "${DREAM3D_SDK}/superbuild/${extProjectName}/${Qt5_OSX_BASE_NAME}.dmg")
@@ -62,6 +64,7 @@ if(APPLE)
   if(NOT EXISTS "${Qt5_DMG}")
     message(STATUS "===============================================================")
     message(STATUS "    Downloading ${extProjectName}${qt5_version_full} Offline Installer")
+    message(STATUS "    ${qt5_url}")
     message(STATUS "    Large Download!! This can take a bit... Please be patient")
     file(DOWNLOAD ${qt5_url} "${Qt5_DMG}" SHOW_PROGRESS)
   endif()
@@ -69,6 +72,7 @@ if(APPLE)
 
   if(NOT EXISTS "${QT_INSTALL_LOCATION}/${qt5_version_short}/clang_64/bin/qmake")
     message(STATUS "    Running Qt5 Installer. A GUI Application will pop up on your machine.")
+    message(STATUS "    This may take some time for the installer to start.")
     message(STATUS "    Please wait for the installer to finish.")
     execute_process(COMMAND "${CMAKE_BINARY_DIR}/Qt5_osx_install.sh"
                     OUTPUT_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt5-offline-out.log"
