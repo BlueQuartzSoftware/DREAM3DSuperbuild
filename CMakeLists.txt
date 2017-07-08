@@ -49,13 +49,13 @@ endif()
 set(DREAM3D_SDK_FILE ${DREAM3D_SDK}/DREAM3D_SDK.cmake)
 set(download_dir ${DREAM3D_SDK})
 
-get_filename_component(WORKSPACE_DIR ${DREAM3DSuperBuild_SOURCE_DIR} DIRECTORY)
 
 message(STATUS "DREAM3D_SDK Folder: ${DREAM3D_SDK}")
 message(STATUS "DREAM3D_SDK_FILE:   ${DREAM3D_SDK_FILE}")
-if(${WORKSPACE_DIR} STREQUAL "")
-  message(STATUS "Workspace Folder:   ${WORKSPACE_DIR}")
+if("${WORKSPACE_DIR}" STREQUAL "")
+  get_filename_component(WORKSPACE_DIR ${DREAM3DSuperBuild_SOURCE_DIR} DIRECTORY)  
 endif()
+message(STATUS "Workspace Folder:   ${WORKSPACE_DIR}")
 
 set(BUILD_SHARED_LIBS ON)
 
