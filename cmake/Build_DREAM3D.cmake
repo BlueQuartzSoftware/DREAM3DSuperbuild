@@ -24,7 +24,7 @@ endif()
 ExternalProject_Add(${extProjectName}
   DEPENDS   CMP SIMPL SIMPLView ITKImageProcessing ${d3dPlugins} DOxygen DREAM3D_Data Eigen hdf5 ITK Qt5 qwt tbb
   TMP_DIR      ${SOURCE_DIR}/_superbuild/${extProjectName}/tmp
-  STAMP_DIR    ${SOURCE_DIR}/_superbuild/${extProjectName}/stamp
+  STAMP_DIR    ${SOURCE_DIR}/_superbuild/${extProjectName}/stamp-${BUILD_TYPE}
   DOWNLOAD_DIR ${SOURCE_DIR}/_superbuild/${extProjectName}/download
   SOURCE_DIR   ${SOURCE_DIR}/${extProjectName}
   BINARY_DIR   ${SOURCE_DIR}/${extProjectName}-Build/${BUILD_TYPE}
@@ -40,11 +40,11 @@ ExternalProject_Add(${extProjectName}
   CMAKE_ARGS
     -DDREAM3D_SDK:PATH=${DREAM3D_SDK}
     -DCMAKE_BUILD_TYPE:STRING=${BUILD_TYPE}
-    -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-    -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
-    -DCMAKE_CXX_STANDARD=11 
-    -DCMAKE_CXX_STANDARD_REQUIRED=ON
-    -Wno-dev
+    -DCMAKE_INSTALL_PREFIX:PATH=${SOURCE_DIR}/_superbuild/${extProjectName}
+    # -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
+    # -DCMAKE_CXX_STANDARD=11 
+    # -DCMAKE_CXX_STANDARD_REQUIRED=ON
+    # -Wno-dev
 
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
