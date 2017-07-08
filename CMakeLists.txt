@@ -8,7 +8,22 @@ if(${CMAKE_MAJOR_VERSION} STREQUAL "3")
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.8.0)
+
+if(MSVC90)
+  message(FATAL_ERROR "Visual Studio Version 9 2009 is NOT supported.")
+endif(MSVC90)
+if(MSVC10)
+  message(FATAL_ERROR "Visual Studio Version 10 2010 is NOT supported.")
+endif(MSVC10)
+if(MSVC11)
+  message(FATAL_ERROR "Visual Studio Version 11 2012 is NOT supported.")
+endif(MSVC11)
+if(MSVC12)
+  message(FATAL_ERROR "Visual Studio Version 12 2013 is NOT supported.")
+endif(MSVC12)
+
+
 
 project(DREAM3DSuperBuild VERSION 1.0.0.0 LANGUAGES C CXX)
 
@@ -24,7 +39,6 @@ endif()
 # projects.
 include(BuildType)
 include(BuildLocation)
-
 include(ExternalProject)
 include(download_dir)
 
@@ -35,11 +49,18 @@ endif()
 set(DREAM3D_SDK_FILE ${DREAM3D_SDK}/DREAM3D_SDK.cmake)
 set(download_dir ${DREAM3D_SDK})
 
-message(STATUS "DREAM3D_SDK: ${DREAM3D_SDK}")
-message(STATUS "DREAM3D_SDK_FILE: ${DREAM3D_SDK_FILE}")
+get_filename_component(WORKSPACE_DIR ${DREAM3DSuperBuild_SOURCE_DIR} DIRECTORY)
 
+message(STATUS "DREAM3D_SDK Folder: ${DREAM3D_SDK}")
+message(STATUS "DREAM3D_SDK_FILE:   ${DREAM3D_SDK_FILE}")
+if(${WORKSPACE_DIR} STREQUAL "")
+  message(STATUS "Workspace Folder:   ${WORKSPACE_DIR}")
+endif()
 
 set(BUILD_SHARED_LIBS ON)
+
+OPTION(INSTALL_QT5 "Download and Install Qt5" ON)
+
 
 # Use multiple CPU cores to build
 include(ProcessorCount)
@@ -85,11 +106,18 @@ include(External_DOxygen)
 include(External_Eigen)
 include(External_HDF5)
 include(External_ITK)
+include(External_TBB)
+
 if("${BUILD_BOOST}" STREQUAL "ON")
   include(External_Boost)
 endif()
-include(External_TBB)
-include(External_Qt5)
+
+if("${INSTALL_QT5}" STREQUAL "ON")
+  include(External_Qt5)
+else()
+  message(WARNING "The DREAM3D_SDK.cmake file will be incomplete as intended. The paths to your Qt installation will be missing and DREAM.3D will probably not build.")
+endif()
+
 include(External_Qwt)
 
 #------------------------------------------------------------------------------
@@ -139,7 +167,6 @@ function(CloneRepo)
 
 endfunction()
 
-set(WORKSPACE_DIR ${DREAM3DSuperBuild_SOURCE_DIR}/..)
 
 set(projectName CMP)
 CloneRepo(PROJECT_NAME ${projectName}

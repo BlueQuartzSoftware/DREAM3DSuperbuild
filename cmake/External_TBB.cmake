@@ -53,8 +53,9 @@ if(WIN32 OR APPLE OR "${BUILD_TBB}" STREQUAL "ON" )
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ARCH_TYPE \"intel64\" CACHE STRING \"\")\n")
 
 else()
-#------------------------------------------------------------------------------
-# Linux has an acceptable TBB installation
+  message(STATUS "LINUX: Please use your package manager to install Threading Building Blocks (TBB)")
+  #------------------------------------------------------------------------------
+  # Linux has an acceptable TBB installation
   FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "# Intel Threading Building Blocks Library\n")
