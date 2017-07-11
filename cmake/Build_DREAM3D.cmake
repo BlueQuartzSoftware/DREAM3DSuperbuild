@@ -36,7 +36,8 @@ ExternalProject_Add(${extProjectName}
     -DDREAM3D_SDK:PATH=${DREAM3D_SDK}
     -DCMAKE_BUILD_TYPE:STRING=${BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=${SOURCE_DIR}/_superbuild/${extProjectName}
-
+    -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
+    
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
   LOG_CONFIGURE 1

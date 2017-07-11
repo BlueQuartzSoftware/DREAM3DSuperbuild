@@ -136,6 +136,8 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# Doxygen Location\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(DOXYGEN_INSTALL_DIR \"\${DREAM3D_SDK_ROOT}/${DOXYGEN_FOLDER_NAME}\")\n")
+if(WIN32)
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(DOXYGEN_EXECUTABLE \"\${DREAM3D_SDK_ROOT}/${DOXYGEN_FOLDER_NAME}/doxygen.exe\")\n")
 
-
+endif()
 
