@@ -125,7 +125,7 @@ include(External_Qwt)
 #------------------------------------------------------------------------------
 function(CloneRepo)
   set(options )
-  set(oneValueArgs PROJECT_NAME GIT_REPOSITORY TMP_DIR STAMP_DIR DOWNLOAD_DIR SOURCE_DIR BINARY_DIR INSTALL_DIR)
+  set(oneValueArgs DEPENDS PROJECT_NAME GIT_REPOSITORY TMP_DIR STAMP_DIR DOWNLOAD_DIR SOURCE_DIR BINARY_DIR INSTALL_DIR)
   set(multiValueArgs )
   cmake_parse_arguments(Z "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
@@ -137,7 +137,7 @@ function(CloneRepo)
   set_property(DIRECTORY PROPERTY EP_BASE ${SOURCE_DIR}/${projectName})
 
   ExternalProject_Add(${projectName}
-
+    DEPENDS ${Z_DEPENDS}
     TMP_DIR      ${Z_TMP_DIR}
     STAMP_DIR    ${Z_STAMP_DIR}
     DOWNLOAD_DIR ${Z_DOWNLOAD_DIR}
@@ -167,62 +167,72 @@ function(CloneRepo)
 
 endfunction()
 
-
-set(projectName CMP)
+set(projectName DREAM3D)
 CloneRepo(PROJECT_NAME ${projectName}
           GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
           TMP_DIR      ${WORKSPACE_DIR}/_superbuild/${projectName}/tmp
           STAMP_DIR    ${WORKSPACE_DIR}/_superbuild/${projectName}/stamp
           DOWNLOAD_DIR ${WORKSPACE_DIR}/_superbuild/${projectName}/download
           SOURCE_DIR   ${WORKSPACE_DIR}/${projectName}
+          BINARY_DIR   ${WORKSPACE_DIR}/_superbuild/${projectName}/Binary
+          INSTALL_DIR  ${WORKSPACE_DIR}/_superbuild/${projectName}/Install)
+
+set(projectName CMP)
+CloneRepo(PROJECT_NAME ${projectName}
+          DEPENDS DREAM3D
+          GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
+          TMP_DIR      ${WORKSPACE_DIR}/_superbuild/${projectName}/tmp
+          STAMP_DIR    ${WORKSPACE_DIR}/_superbuild/${projectName}/stamp
+          DOWNLOAD_DIR ${WORKSPACE_DIR}/_superbuild/${projectName}/download
+          SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
           BINARY_DIR   ${WORKSPACE_DIR}/_superbuild/${projectName}/Binary
           INSTALL_DIR  ${WORKSPACE_DIR}/_superbuild/${projectName}/Install)
 
 set(projectName SIMPL)
 CloneRepo(PROJECT_NAME ${projectName}
+          DEPENDS DREAM3D
           GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
           TMP_DIR      ${WORKSPACE_DIR}/_superbuild/${projectName}/tmp
           STAMP_DIR    ${WORKSPACE_DIR}/_superbuild/${projectName}/stamp
           DOWNLOAD_DIR ${WORKSPACE_DIR}/_superbuild/${projectName}/download
-          SOURCE_DIR   ${WORKSPACE_DIR}/${projectName}
+          SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
           BINARY_DIR   ${WORKSPACE_DIR}/_superbuild/${projectName}/Binary
           INSTALL_DIR  ${WORKSPACE_DIR}/_superbuild/${projectName}/Install)
 
 set(projectName SIMPLView)
 CloneRepo(PROJECT_NAME ${projectName}
+          DEPENDS DREAM3D
           GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
           TMP_DIR      ${WORKSPACE_DIR}/_superbuild/${projectName}/tmp
           STAMP_DIR    ${WORKSPACE_DIR}/_superbuild/${projectName}/stamp
           DOWNLOAD_DIR ${WORKSPACE_DIR}/_superbuild/${projectName}/download
-          SOURCE_DIR   ${WORKSPACE_DIR}/${projectName}
+          SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
           BINARY_DIR   ${WORKSPACE_DIR}/_superbuild/${projectName}/Binary
           INSTALL_DIR  ${WORKSPACE_DIR}/_superbuild/${projectName}/Install)
 
 set(projectName ITKImageProcessing) 
 CloneRepo(PROJECT_NAME ${projectName}
+          DEPENDS DREAM3D
           GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
           TMP_DIR      ${WORKSPACE_DIR}/_superbuild/${projectName}/tmp
           STAMP_DIR    ${WORKSPACE_DIR}/_superbuild/${projectName}/stamp
           DOWNLOAD_DIR ${WORKSPACE_DIR}/_superbuild/${projectName}/download
-          SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D_Plugins/${projectName}
+          SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/Plugins/${projectName}
           BINARY_DIR   ${WORKSPACE_DIR}/_superbuild/${projectName}/Binary
           INSTALL_DIR  ${WORKSPACE_DIR}/_superbuild/${projectName}/Install)
 
 set(d3dPlugins Anisotropy DDDAnalysisToolbox FiberToolbox HEDMAnalysis ImageProcessing MASSIFUtilities TransformationPhase UCSBUtilities DREAM3DReview)
 foreach(plugin ${d3dPlugins})
   CloneRepo(PROJECT_NAME ${plugin}
+          DEPENDS DREAM3D
           GIT_REPOSITORY http://www.github.com/dream3d/${plugin}
           TMP_DIR      ${WORKSPACE_DIR}/_superbuild/${plugin}/tmp
           STAMP_DIR    ${WORKSPACE_DIR}/_superbuild/${plugin}/stamp
           DOWNLOAD_DIR ${WORKSPACE_DIR}/_superbuild/${plugin}/download
-          SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D_Plugins/${plugin}
+          SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/Plugins/${plugin}
           BINARY_DIR   ${WORKSPACE_DIR}/_superbuild/${plugin}/Binary
-          INSTALL_DIR  ${WORKSPACE_DIR}/_superbuild/${projectName}/Install)
+          INSTALL_DIR  ${WORKSPACE_DIR}/_superbuild/${plugin}/Install)
 endforeach()
-
-
-include(Build_DREAM3D)
-
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/cmake/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)
 file(APPEND ${DREAM3D_SDK_FILE} ${DREAM3D_PLUGIN_CODE})

@@ -5,6 +5,13 @@ message(STATUS "Configuring DREAM.3D" )
 set(DREAM3D_VERSION "")
 set(SOURCE_DIR "${WORKSPACE_DIR}")
 
+OPTION(BUILD_DREAM3D "If this is ON, then a full build of DREAM.3D will take place otherwise the DREAM.3D repos will only be Cloned." OFF)
+
+set( SUPERBUILD_COMMANDS "UPDATE_COMMAND \"\" PATCH_COMMAND \"\" CONFIGURE_COMMAND \"\" BUILD_COMMAND \"\" INSTALL_COMMAND \"\" TEST_COMMAND \"\" ")
+if( "${BUILD_DREAM3D}" STREQUAL "ON" )
+	set(SUPERBUILD_COMMANDS "")
+endif()
+
 set_property(DIRECTORY PROPERTY EP_BASE ${SOURCE_DIR}/DREAM3D)
 
 if(WIN32)
@@ -27,6 +34,8 @@ ExternalProject_Add(${extProjectName}
   SOURCE_DIR   ${SOURCE_DIR}/${extProjectName}
   BINARY_DIR   ${SOURCE_DIR}/${extProjectName}-Build/${BUILD_TYPE}
   INSTALL_DIR  ${SOURCE_DIR}/Install/${extProjectName}
+
+  ${SUPERBUILD_COMMANDS}
 
   GIT_PROGRESS 1
   GIT_REPOSITORY "http://www.github.com/bluequartzsoftware/DREAM3D"
