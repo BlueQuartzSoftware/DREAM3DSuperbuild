@@ -1,15 +1,18 @@
 set(extProjectName "tbb")
 message(STATUS "External Project: ${extProjectName}" )
 
-set(tbb_VERSION "44_20160526")
+set(tbb_VERSION "2017_20170604")
 
 set(tbb_INSTALL "${DREAM3D_SDK}/tbb${tbb_VERSION}oss")
 set(tbb_url_server "http://dream3d.bluequartz.net/binaries/SDK/Sources/TBB")
 if(APPLE)
-	set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_osx.tgz")
+# https://github.com/01org/tbb/releases/download/2017_U7/tbb2017_20170604oss_mac.tgz
+	set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_mac.tgz")
 elseif(WIN32)
+# https://github.com/01org/tbb/releases/download/2017_U7/tbb2017_20170604oss_win.zip
 	set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_win.zip")
 else()
+# https://github.com/01org/tbb/releases/download/2017_U7/tbb2017_20170604oss_lin.tgz
 	set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_lin.tgz")
 endif()
 
@@ -50,8 +53,9 @@ if(WIN32 OR APPLE OR "${BUILD_TBB}" STREQUAL "ON" )
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ARCH_TYPE \"intel64\" CACHE STRING \"\")\n")
 
 else()
-#------------------------------------------------------------------------------
-# Linux has an acceptable TBB installation
+  message(STATUS "LINUX: Please use your package manager to install Threading Building Blocks (TBB)")
+  #------------------------------------------------------------------------------
+  # Linux has an acceptable TBB installation
   FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "# Intel Threading Building Blocks Library\n")

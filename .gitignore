@@ -23,3 +23,6 @@ Support/Scripts/GMT/gmt.history
 .settings
 .foo
 /ninja/
+/MSVC/
+/VS2015/
+/VS2017/

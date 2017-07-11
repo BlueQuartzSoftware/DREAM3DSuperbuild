@@ -9,7 +9,7 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
   set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "" FORCE)
   # Set our Deployment Target to match Qt
   set(CMAKE_OSX_DEPLOYMENT_TARGET "10.10" CACHE STRING "" FORCE)
-  set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk" CACHE STRING "" FORCE)
+  set(CMAKE_OSX_SYSROOT "@OSX_SDK@" CACHE STRING "" FORCE)
 endif()
 
 #set(BrandedSIMPLView_DIR /Users/${USER}/Workspace/BrandedDREAM3D)
