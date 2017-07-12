@@ -11,7 +11,8 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
   # If you want to use any of these plugins you need to first UNCOMMENT the lines and then run
   # CMake on a clean DREAM3D build diretory.
   set(DREAM3D_Release_Plugins
-    Anisotropy 
+    Anisotropy
+    CellularAutomata
     DDDAnalysisToolbox 
     FiberToolbox 
     HEDMAnalysis 
