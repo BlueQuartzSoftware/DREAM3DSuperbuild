@@ -1,6 +1,4 @@
-# DREAM.3D Superbuild #
-
-![](docs/Images/DREAM3D_Splash.png)
+# ![](docs/Images/DREAM3DLogo.png) DREAM.3D Superbuild #
 
 This project allows a developer to download and compile the necessary libraries that DREAM.3D and SIMPL depend on.
 
