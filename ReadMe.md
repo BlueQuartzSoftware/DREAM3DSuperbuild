@@ -1,6 +1,6 @@
 # DREAM.3D Superbuild #
 
-![](DREAM3DLogo.png)
+![](docs/DREAM3DLogo.png)
 
 This project allows a developer to download and compile the necessary libraries that DREAM.3D and SIMPL depend on. Full instructions for each of the major operating systems can be found [at the Wiki website](https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/wiki)
 
