@@ -2,8 +2,6 @@
 
 This project allows a developer to download and compile the necessary libraries that DREAM.3D and SIMPL depend on.
 
-This project is in support of the [DREAM.3D data analysis project.](http://dream3d.bluequartz.net)
-
 ### Windows ###
 
 For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on Windows, please visit [Making an SDK (Windows)](docs/Making-an-SDK-(Windows).md).
@@ -17,6 +15,8 @@ For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on M
 For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on Mac OS X, please visit [Making an SDK (Linux)](docs/Making-an-SDK-(Linux).md).
 
 ## Resources ##
+
+General information is available at the [DREAM.3D home page](http://dream3d.bluequartz.net)
 
 Information on configuring and building DREAM.3D is found at:
 	
