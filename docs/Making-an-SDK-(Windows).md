@@ -21,7 +21,7 @@ A compatible compiler needs to be installed on your system to be able to build D
 
 This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Versions 2013 and 2015 are supported in this release and should be usable.  Both the **Pro** and **Community** versions will work. The **Express** version of 2013 is known to work but not extensively tested.
 
-For more information, please visit [Installing a Compiler Suite](https://github.com/BlueQuartzSoftware/DREAM3D/wiki/Installing-a-Compiler-Suite).
+For more information, please visit [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html).
 
 ### Install Git ###
 
@@ -122,6 +122,6 @@ The procedure above builds the following libraries:
 + TBB version tbb44_20160526oss
 
 ---
-**Next Page**: [Downloading the DREAM.3D Source Code](https://github.com/BlueQuartzSoftware/DREAM3D/wiki/Downloading-the-DREAM.3D-Source-Code).
+**Next Page**: [Downloading the DREAM.3D Source Code](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/source_download.html)
 
-**Previous Page**: [Installing a Compiler Suite](https://github.com/BlueQuartzSoftware/DREAM3D/wiki/Installing-a-Compiler-Suite).
+**Previous Page**: [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html)

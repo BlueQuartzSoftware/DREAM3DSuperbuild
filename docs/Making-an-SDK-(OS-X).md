@@ -19,7 +19,7 @@ If you have already fulfilled all of these prerequisites, skip to the [Procedure
 
 A compatible compiler needs to be installed on your system to be able to build DREAM.3D.
 
-For more information, please visit [Installing a Compiler Suite](https://github.com/BlueQuartzSoftware/DREAM3D/wiki/Installing-a-Compiler-Suite).
+For more information, please visit [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html).
 
 ## Procedure ##
 
@@ -135,6 +135,6 @@ The procedure above builds the following libraries:
 + TBB version tbb44_20160524oss
 
 ---
-**Next Page**: [Downloading the DREAM.3D Source Code](https://github.com/BlueQuartzSoftware/DREAM3D/wiki/Downloading-the-DREAM.3D-Source-Code).
+**Next Page**: [Downloading the DREAM.3D Source Code](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/source_download.html)
 
-**Previous Page**: [Installing a Compiler Suite](https://github.com/BlueQuartzSoftware/DREAM3D/wiki/Installing-a-Compiler-Suite).
+**Previous Page**: [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html)
