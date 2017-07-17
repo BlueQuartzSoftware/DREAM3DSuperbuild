@@ -76,7 +76,7 @@ if(APPLE)
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 15)
-    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 16)
