@@ -122,6 +122,6 @@ The procedure above builds the following libraries:
 + TBB version tbb44_20160526oss
 
 ---
-**Next Page**: [Downloading the DREAM.3D Source Code](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/source_download.html)
+**Next Page**: [Configuring and Building DREAM.3D on Windows](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/windows_configure_and_build_dream3d.html).
 
 **Previous Page**: [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html)
