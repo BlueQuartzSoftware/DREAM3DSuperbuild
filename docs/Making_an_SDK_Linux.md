@@ -29,15 +29,14 @@ You should be able to use "apt-get" or "yum" or your preferred package manager t
 ## Additional Notes ##
 The procedure above builds the following libraries:
 
-+ Boost version 1.60.0
-+ Doxygen (1.8.11) (Download and install only)
-+ Eigen verison 3.2.9
-+ HDF5 Version 1.8.16
-+ ITK version 4.9.1
-+ Protocol Buffers 2.6.1
-+ Qt version 5.6.2
-+ Qwt version 6.1.3
-+ TBB version tbb44_20160524oss
++ Doxygen 1.8.11 or higher
++ Eigen 3.2.9 or higher
++ HDF5 1.8.16 or higher
++ ITK 4.9.1 or higher
++ Protocol Buffers 2.6.1 or higher
++ Qt 5.6.2 or higher
++ Qwt 6.1.3 or higher
++ TBB tbb44_20160524oss or higher
 
 ---
 **Next Page**: [Configuring and Building DREAM.3D on Linux](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/linux_configure_and_build_dream3d.html).
