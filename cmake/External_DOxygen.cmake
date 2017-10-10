@@ -2,7 +2,7 @@
 set(extProjectName "DOxygen")
 message(STATUS "External Project: ${extProjectName}" )
 
-set(DOXYGEN_VERSION "1.8.11")
+set(DOXYGEN_VERSION "1.8.13")
 set(DOXYGEN_PREFIX "${DREAM3D_SDK}/superbuild/${extProjectName}")
 
 set(DOXYGEN_DOWNLOAD_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}")
