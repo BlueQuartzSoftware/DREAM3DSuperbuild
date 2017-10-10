@@ -32,32 +32,41 @@ ExternalProject_Add(${extProjectName}
   LOG_INSTALL 1
 )
 
-ExternalProject_Add(${extProjectName}_SMALLIN100
-    DEPENDS ${extProjectName}
-    URL ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100.tar.gz
-    URL_MD5 815f774a82142bfc3633d14a5759ef58
-    SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100
-    #DOWNLOAD_COMMAND ""
-    UPDATE_COMMAND ""
-    PATCH_COMMAND ""
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ""
-    TEST_COMMAND ""
-)
-ExternalProject_Add(${extProjectName}_IMAGE
-    DEPENDS ${extProjectName}
-    URL ${DREAM3D_SDK}/${extProjectName}/Data/Image.tar.gz
-    URL_MD5 171a9d4396058775f9c9495916584928
-    SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}/Data/Image
-    #DOWNLOAD_COMMAND ""
-    UPDATE_COMMAND ""
-    PATCH_COMMAND ""
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ""
-    TEST_COMMAND ""
-)
+if(EXISTS ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100.tar.gz)
+
+    ExternalProject_Add(${extProjectName}_SMALLIN100
+        DEPENDS ${extProjectName}
+        URL ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100.tar.gz
+        URL_MD5 815f774a82142bfc3633d14a5759ef58
+        SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100
+        #DOWNLOAD_COMMAND ""
+        UPDATE_COMMAND ""
+        PATCH_COMMAND ""
+        CONFIGURE_COMMAND ""
+        BUILD_COMMAND ""
+        INSTALL_COMMAND ""
+        TEST_COMMAND ""
+    )
+
+endif()
+
+if(EXISTS ${DREAM3D_SDK}/${extProjectName}/Data/Image.tar.gz)
+
+  ExternalProject_Add(${extProjectName}_IMAGE
+      DEPENDS ${extProjectName}
+      URL ${DREAM3D_SDK}/${extProjectName}/Data/Image.tar.gz
+      URL_MD5 171a9d4396058775f9c9495916584928
+      SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}/Data/Image
+      #DOWNLOAD_COMMAND ""
+      UPDATE_COMMAND ""
+      PATCH_COMMAND ""
+      CONFIGURE_COMMAND ""
+      BUILD_COMMAND ""
+      INSTALL_COMMAND ""
+      TEST_COMMAND ""
+  )
+endif()
+
 
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
