@@ -6,9 +6,9 @@ message(STATUS "External Project: ${extProjectName}" )
 # set(qt5_installer_version "56")
 
 # Qt 5.9.x is going to be used.
-set(qt5_version_full "5.9.1")
-set(qt5_version_short "5.9.1")
-set(qt5_installer_version "591")
+set(qt5_version_full "5.9.2")
+set(qt5_version_short "5.9.2")
+set(qt5_installer_version "592")
 
 
 set(qt5_INSTALL "${DREAM3D_SDK}/${extProjectName}${qt5_version_full}")
@@ -47,7 +47,7 @@ configure_file(
 if(APPLE)
   #set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_short}/${qt5_version_full}/qt-opensource-mac-x64-clang-${qt5_version_full}.dmg")
 
-  set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.9/5.9.1/qt-opensource-mac-x64-5.9.1.dmg")
+  set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.9/5.9.2/qt-opensource-mac-x64-5.9.2.dmg")
 
   set(Qt5_OSX_BASE_NAME qt-opensource-mac-x64-${qt5_version_full})
 
