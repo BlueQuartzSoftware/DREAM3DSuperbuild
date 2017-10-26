@@ -11,6 +11,7 @@ set(ITK_INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/${extProjectNam
 set(BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build-${CMAKE_BUILD_TYPE}")
 
 if(WIN32)
+  set(SOURCE_DIR "${DREAM3D_SDK}/${extProjectName}-src")
   set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}")
   set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}")
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
