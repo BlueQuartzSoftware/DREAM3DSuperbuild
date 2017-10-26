@@ -22,7 +22,7 @@ if(WIN32)
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
   set(C_FLAGS "/DWIN32 /D_WINDOWS /W3 /MP")
 
-  set(C_CXX_FLAGS "-DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_C_FLAGS=${C_FLAGS}")
+  set(C_CXX_FLAGS -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_C_FLAGS=${C_FLAGS})
 elseif(APPLE)
   #set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
 else()
