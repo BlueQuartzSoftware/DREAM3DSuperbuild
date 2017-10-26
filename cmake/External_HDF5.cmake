@@ -20,13 +20,16 @@ set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 
 if(WIN32)
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
+  set(C_FLAGS "/DWIN32 /D_WINDOWS /W3 /MP")
+
+  set(C_CXX_FLAGS "-DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_C_FLAGS=${C_FLAGS}")
 elseif(APPLE)
-  set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
+  #set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
 else()
   if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
+    #set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
   else()
-    set(CXX_FLAGS "-std=c++11")
+    #set(CXX_FLAGS "-std=c++11")
   endif()
 endif()
 
@@ -44,7 +47,7 @@ ExternalProject_Add(${extProjectName}
     -DBUILD_SHARED_LIBS:BOOL=${BUILD_SHARED_LIBS}
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-    -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
+    ${C_CXX_FLAGS}
     -DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET}
     -DCMAKE_OSX_SYSROOT=${OSX_SDK}
     -DCMAKE_CXX_STANDARD=11 
