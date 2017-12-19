@@ -6,9 +6,9 @@ message(STATUS "External Project: ${extProjectName}" )
 # set(qt5_installer_version "56")
 
 # Qt 5.9.x is going to be used.
-set(qt5_version_full "5.9.2")
-set(qt5_version_short "5.9.2")
-set(qt5_installer_version "592")
+set(qt5_version_full "5.9.3")
+set(qt5_version_short "5.9.3")
+set(qt5_installer_version "593")
 
 
 set(qt5_INSTALL "${DREAM3D_SDK}/${extProjectName}${qt5_version_full}")
@@ -47,7 +47,7 @@ configure_file(
 if(APPLE)
   #set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_short}/${qt5_version_full}/qt-opensource-mac-x64-clang-${qt5_version_full}.dmg")
 
-  set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.9/5.9.2/qt-opensource-mac-x64-5.9.2.dmg")
+  set(qt5_url "http://qt.mirror.constant.com/archive/qt/5.9/5.9.3/qt-opensource-mac-x64-5.9.3.dmg")
 
   set(Qt5_OSX_BASE_NAME qt-opensource-mac-x64-${qt5_version_full})
 
@@ -118,14 +118,22 @@ endif()
 
 
 ExternalProject_Add(Qt5
-    DOWNLOAD_COMMAND ""
-    UPDATE_COMMAND ""
-    PATCH_COMMAND ""
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ""
-    TEST_COMMAND ""
-    )
+
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+  DOWNLOAD_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Download"
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build"
+  INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Install"
+
+  DOWNLOAD_COMMAND ""
+  UPDATE_COMMAND ""
+  PATCH_COMMAND ""
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND ""
+  INSTALL_COMMAND ""
+  TEST_COMMAND ""
+  )
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building

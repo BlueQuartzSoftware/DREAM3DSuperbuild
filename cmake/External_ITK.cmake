@@ -55,7 +55,7 @@ ExternalProject_Add(${extProjectName}
   SOURCE_DIR "${SOURCE_DIR}"
   #BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
   BINARY_DIR "${BINARY_DIR}"
-  #INSTALL_DIR "${ITK_INSTALL_DIR}"
+  INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Install"
   INSTALL_COMMAND ""
   
   CMAKE_ARGS
