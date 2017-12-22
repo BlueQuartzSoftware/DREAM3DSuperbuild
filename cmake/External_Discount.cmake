@@ -3,9 +3,11 @@ set(discount_VERSION "2.2.3")
 
 message(STATUS "External Project: ${extProjectName}" )
 
-
-#set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
-
+if(WIN32)
+  set(discount_INSTALL "${DREAM3D_SDK}/${extProjectName}-${discount_VERSION}")
+else()
+  set(discount_INSTALL "${DREAM3D_SDK}/${extProjectName}-${discount_VERSION}-${CMAKE_BUILD_TYPE}")
+endif()
 
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "git://github.com/BlueQuartzSoftware/discount.git"
@@ -17,7 +19,7 @@ ExternalProject_Add(${extProjectName}
   DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
   SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source"
   BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${discount_VERSION}-${CMAKE_BUILD_TYPE}"
+  INSTALL_DIR "${discount_INSTALL}"
 
   #UPDATE_COMMAND "${GIT_EXECUTABLE} pull --rebase origin master"
   PATCH_COMMAND ""
