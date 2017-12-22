@@ -214,12 +214,12 @@ set(projectName ITKImageProcessing)
 CloneRepo(PROJECT_NAME ${projectName}
           DEPENDS DREAM3D
           GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
-          TMP_DIR      ${DREAM3D_SDK}/superbuild/${projectName}/tmp
-          STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
-          DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
+          TMP_DIR      ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/tmp
+          STAMP_DIR    ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/stamp
+          DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/download
           SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/Plugins/${projectName}
-          BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-          INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
+          BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/Binary
+          INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/Install)
 
 set(d3dPlugins Anisotropy DDDAnalysisToolbox FiberToolbox HEDMAnalysis ImageProcessing MASSIFUtilities TransformationPhase UCSBUtilities DREAM3DReview)
 foreach(plugin ${d3dPlugins})
