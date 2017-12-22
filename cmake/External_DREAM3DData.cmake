@@ -7,7 +7,7 @@ message(STATUS "External Project: ${extProjectName}" )
 ExternalProject_Add(${extProjectName}
   TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
   SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}
   BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}"
@@ -39,6 +39,13 @@ if(EXISTS ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100.tar.gz)
         URL ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100.tar.gz
         URL_MD5 815f774a82142bfc3633d14a5759ef58
         SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100
+
+        TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+        STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+        DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
+        BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+        INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}"
+
         #DOWNLOAD_COMMAND ""
         UPDATE_COMMAND ""
         PATCH_COMMAND ""
@@ -57,6 +64,13 @@ if(EXISTS ${DREAM3D_SDK}/${extProjectName}/Data/Image.tar.gz)
       URL ${DREAM3D_SDK}/${extProjectName}/Data/Image.tar.gz
       URL_MD5 171a9d4396058775f9c9495916584928
       SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}/Data/Image
+
+      TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+      STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+      DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
+      BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+      INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}"
+        
       #DOWNLOAD_COMMAND ""
       UPDATE_COMMAND ""
       PATCH_COMMAND ""

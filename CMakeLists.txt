@@ -100,7 +100,7 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(BUILD_SHARED_LIBS ON CACHE BOOL \"\")\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(DREAM3D_SDK_ROOT \"${DREAM3D_SDK}\")\n")
 
-
+include(External_Discount)
 include(External_DREAM3DData)
 include(External_DOxygen)
 include(External_Eigen)
@@ -166,6 +166,8 @@ function(CloneRepo)
   )
 
 endfunction()
+
+
 
 set(projectName DREAM3D)
 CloneRepo(PROJECT_NAME ${projectName}
@@ -233,6 +235,8 @@ foreach(plugin ${d3dPlugins})
           BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Binary
           INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Install)
 endforeach()
+
+
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/cmake/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)
 file(APPEND ${DREAM3D_SDK_FILE} ${DREAM3D_PLUGIN_CODE})
