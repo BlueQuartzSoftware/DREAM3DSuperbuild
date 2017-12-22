@@ -1,5 +1,5 @@
 
-set(Qt510 "1")
+set(Qt510 "0")
 # Qt 5.x is going to be used.
 if(Qt510)
   set(qt5_version_major "5.10")
@@ -70,7 +70,7 @@ if(APPLE)
 
   if(NOT EXISTS "${Qt5_DMG}")
     message(STATUS "===============================================================")
-    message(STATUS "    Downloading ${extProjectName}${qt5_version_full} Offline Installer")
+    message(STATUS "    Downloading ${extProjectName} Offline Installer")
     message(STATUS "    ${qt5_url}")
     message(STATUS "    Large Download!! This can take a bit... Please be patient")
     file(DOWNLOAD ${qt5_url} "${Qt5_DMG}" SHOW_PROGRESS)
