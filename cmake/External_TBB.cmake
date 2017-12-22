@@ -1,18 +1,15 @@
 set(extProjectName "tbb")
 message(STATUS "External Project: ${extProjectName}" )
 
-set(tbb_VERSION "2017_20170604")
-
+set(tbb_VERSION "2018_20171205")
 set(tbb_INSTALL "${DREAM3D_SDK}/tbb${tbb_VERSION}oss")
-set(tbb_url_server "http://dream3d.bluequartz.net/binaries/SDK/Sources/TBB")
+set(tbb_url_server "https://github.com/01org/tbb/releases/download/2018_U2")
+
 if(APPLE)
-# https://github.com/01org/tbb/releases/download/2017_U7/tbb2017_20170604oss_mac.tgz
-	set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_mac.tgz")
+  set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_mac.tgz")
 elseif(WIN32)
-# https://github.com/01org/tbb/releases/download/2017_U7/tbb2017_20170604oss_win.zip
 	set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_win.zip")
 else()
-# https://github.com/01org/tbb/releases/download/2017_U7/tbb2017_20170604oss_lin.tgz
 	set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_lin.tgz")
 endif()
 
