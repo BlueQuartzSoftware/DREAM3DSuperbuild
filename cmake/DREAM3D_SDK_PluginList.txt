@@ -1,5 +1,19 @@
 
 #--------------------------------------------------------------------------------------------------
+# If you have additional CMake settins that you do not want to be overwritten 
+# then this file is updated, then create a file called DREAM3D_SDK_Extra.cmake
+# at the same level as this file.
+#
+# If you have your own private plugins use that file to add the following code:
+#   set(DREAM3_Private_Plugins
+#     MyPersonalPlugin
+#   )
+#
+if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/DREAM3D_SDK_Extra.cmake")
+  include("${CMAKE_CURRENT_LIST_DIR}/DREAM3D_SDK_Extra.cmake")
+endif()
+
+#--------------------------------------------------------------------------------------------------
 # Only Run this the first time when configuring DREAM.3D. After that the values
 # are cached properly and the user can add additional plugins through the normal
 # CMake GUI or CCMake programs.
@@ -23,12 +37,6 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
     UCSBUtilities 
     DREAM3DReview
     )
-
-  # This CMake variable is a typically used to list out extra plugins that are internal to a company
-  # or institution and are NOT marked for release to the public.
-  set(DREAM3_Private_Plugins
-
-  )
 
   set (MyPlugins
     ${DREAM3D_Release_Plugins}
