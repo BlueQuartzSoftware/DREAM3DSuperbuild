@@ -5,10 +5,8 @@ set(qwt_VERSION "6.1.3")
 #set(qwt_url "http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/${qwt_VERSION}/${extProjectName}-${qwt_VERSION}.zip")
 set(qwt_url "http://dream3d.bluequartz.net/binaries/SDK/Sources/Qwt/qwt-${qwt_VERSION}.tar.bz2")
 
-set(qwt_INSTALL "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}")
+set(qwt_INSTALL "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}")
 
-
-set(qwt_INSTALL_LOCATION "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}")
 set(qwtConfig_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/qwtconfig.pri")
 set(qwtSrcPro_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/src.pro")
 set(COMMENT "")
@@ -67,8 +65,8 @@ ExternalProject_Add(${extProjectName}
 #-- configure DREAM3D for building
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "# Qwt ${qwt_VERSION}Library\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(QWT_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${qwt_VERSION}\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "# Qwt ${qwt_VERSION} Library\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(QWT_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}\" CACHE PATH \"\")\n")
 
 
 
