@@ -1,0 +1,5 @@
+#cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DQt5_DIR=/Users/Shared/DREAM3D_SDK/Qt5.9.2/5.9.2/clang_64/lib/cmake/Qt5 -DVTK_Group_Qt=ON -DVTK_QT_VERSION=5 -DModule_vtkGUISupportQtOpenGL=ON -DVTK_BUILD_QT_DESIGNER_PLUGIN=ON -DVTK_USE_SYSTEM_HDF5=ON -DHDF5_C_INCLUDE_DIR=/Users/Shared/DREAM3D_SDK/hdf5-1.8.19-Release/include -DHDF5_hdf5_LIBRARY_RELEASE=/Users/Shared/DREAM3D_SDK/hdf5-1.8.19-Release/lib/libhdf5.dylib -DHDF5_hdf5_hl_LIBRARY_RELEASE=/Users/Shared/DREAM3D_SDK/hdf5-1.8.19-Release/lib/libhdf5_hl.dylib  ../VTK-8.0.1
+
+
+
+#cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DQt5_DIR=/Users/Shared/DREAM3D_SDK/Qt5.9.2/5.9.2/clang_64/lib/cmake/Qt5 -DVTK_Group_Qt=ON -DVTK_QT_VERSION=5 -DModule_vtkGUISupportQtOpenGL=ON -DVTK_BUILD_QT_DESIGNER_PLUGIN=ON -DVTK_USE_SYSTEM_HDF5=ON -DHDF5_C_INCLUDE_DIR=/Users/Shared/DREAM3D_SDK/hdf5-1.8.19-Debug/include -DHDF5_hdf5_LIBRARY_DEBUG=/Users/Shared/DREAM3D_SDK/hdf5-1.8.19-Debug/lib/libhdf5_debug.dylib -DHDF5_hdf5_hl_LIBRARY_DEBUG=/Users/Shared/DREAM3D_SDK/hdf5-1.8.19-Debug/lib/libhdf5_hl_debug.dylib  ../VTK-8.0.1

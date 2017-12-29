@@ -13,6 +13,7 @@ Source/Plugins/CMUSurfaceMeshing
 /x64/
 /i386/
 /qtcreator/
+/Qt510/
 Support/WorkshopData
 Support/SmallIN100
 /Build2/
