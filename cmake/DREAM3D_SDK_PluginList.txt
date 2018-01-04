@@ -5,7 +5,7 @@
 # at the same level as this file.
 #
 # If you have your own private plugins use that file to add the following code:
-#   set(DREAM3_Private_Plugins
+#   set(DREAM3D_Private_Plugins
 #     MyPersonalPlugin
 #   )
 #
@@ -40,7 +40,7 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
 
   set (MyPlugins
     ${DREAM3D_Release_Plugins}
-    ${DREAM3_Private_Plugins}
+    ${DREAM3D_Private_Plugins}
   )
 
   # Loop on each plugin and generate a semi-colon separated list of values
