@@ -28,11 +28,11 @@ get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
 set(QT_INSTALL_LOCATION "${DREAM3D_SDK}/${extProjectName}")
 
 if(APPLE)
-  set(qt5_Headless_FILE "Qt_HeadlessInstall_OSX.js")
+  set(qt5_Headless_FILE "apple/Qt_HeadlessInstall_OSX.js")
 elseif(WIN32)
-  set(qt5_Headless_FILE "Qt_HeadlessInstall_Win64.js")
+  set(qt5_Headless_FILE "win32/Qt_HeadlessInstall_Win64.js")
 else()
-  set(qt5_Headless_FILE "Qt_HeadlessInstall_OSX.js")
+  set(qt5_Headless_FILE "unix/Qt_HeadlessInstall_OSX.js")
 endif()
 
 set(QT_MSVC_VERSION_NAME "")
@@ -62,7 +62,7 @@ if(APPLE)
   set(Qt5_DMG ${Qt5_OSX_DMG_ABS_PATH})
 
   configure_file(
-    "${_self_dir}/Qt5_osx_install.sh.in"
+    "${_self_dir}/apple/Qt5_osx_install.sh.in"
     "${CMAKE_BINARY_DIR}/Qt5_osx_install.sh"
     @ONLY
   )
@@ -104,7 +104,7 @@ elseif(WIN32)
 
   set(QT5_ONLINE_INSTALLER "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}")
   configure_file(
-    "${_self_dir}/Qt_HeadlessInstall.bat"
+    "${_self_dir}/win32/Qt_HeadlessInstall.bat"
     "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt_HeadlessInstall.bat"
     @ONLY
   )

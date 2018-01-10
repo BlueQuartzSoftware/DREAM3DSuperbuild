@@ -37,7 +37,7 @@ if(APPLE)
   set(DOXYGEN_DMG ${DOX_OSX_DMG_ABS_PATH})
 
 	configure_file(
-	  "${_self_dir}/Doxygen_osx_install.sh.in"
+	  "${_self_dir}/apple/Doxygen_osx_install.sh.in"
 	  "${CMAKE_BINARY_DIR}/Doxygen_osx_install.sh"
 	  @ONLY
 	)
@@ -59,7 +59,7 @@ if(APPLE)
   	message(STATUS "OUTPUT_VARIABLE: ${MOUNT_OUTPUT}")
   endif()
 
-ExternalProject_Add(${extProjectName}
+  ExternalProject_Add(${extProjectName}
     DOWNLOAD_COMMAND ""
     UPDATE_COMMAND ""
     PATCH_COMMAND ""

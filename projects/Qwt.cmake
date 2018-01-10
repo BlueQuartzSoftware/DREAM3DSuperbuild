@@ -17,13 +17,13 @@ endif()
 get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
 
 configure_file(
-  "${_self_dir}/qwt/qwtconfig.pri.in"
+  "${_self_dir}/patches/qwt/qwtconfig.pri.in"
   "${qwtConfig_FILE}"
   @ONLY
 )
 
 configure_file(
-  "${_self_dir}/qwt/src/src.pro.in"
+  "${_self_dir}/patches/qwt/src/src.pro.in"
   "${qwtSrcPro_FILE}"
   @ONLY
 )

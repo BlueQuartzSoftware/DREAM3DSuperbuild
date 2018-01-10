@@ -97,7 +97,7 @@ else()
 
   if(APPLE)
     set(output_file "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/OSX_UpdateRPaths.sh")
-    set(boost_fix_rpaths_FILE "OSX_UpdateRPaths.sh.in")
+    set(boost_fix_rpaths_FILE "apple/OSX_UpdateRPaths.sh.in")
     get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
     set(INSTALL_PREFIX "${boost_INSTALL}")
     configure_file(
