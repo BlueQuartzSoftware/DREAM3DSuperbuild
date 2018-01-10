@@ -32,7 +32,7 @@ if(APPLE)
 elseif(WIN32)
   set(qt5_Headless_FILE "win32/Qt_HeadlessInstall_Win64.js")
 else()
-  set(qt5_Headless_FILE "unix/Qt_HeadlessInstall_OSX.js")
+  set(qt5_Headless_FILE "unix/Qt_HeadlessInstall.js")
 endif()
 
 set(QT_MSVC_VERSION_NAME "")
@@ -119,7 +119,31 @@ elseif(WIN32)
   endif()
   set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/${QT_MSVC_VERSION_NAME}/bin/qmake.exe)
 else()
-  
+  set(qt5_online_installer "qt-opensource-linux-x64-${qt5_version_full}.run")
+  set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_major}/${qt5_version_short}/${qt5_online_installer}")
+
+  if(NOT EXISTS "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}")
+    message(STATUS "===============================================================")
+    message(STATUS "   Downloading ${extProjectName}")
+    message(STATUS "   Large Download!! This can take a bit... Please be patient")
+    file(DOWNLOAD ${qt5_url} "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}" SHOW_PROGRESS)
+  endif()
+
+  set(QT5_ONLINE_INSTALLER "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}")
+  configure_file(
+    "${_self_dir}/unix/Qt5_linux_install.sh.in"
+    "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt_HeadlessInstall.sh"
+  )
+
+  if(NOT EXISTS "${DREAM3D_SDK}/${extProjectName}")
+    message(STATUS "Executing the Qt5 Installer... ")
+    execute_process(COMMAND "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/Qt_HeadlessInstall.sh"
+                    OUTPUT_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/qt-unified-out.log"
+                    ERROR_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/qt-unified-err.log"
+                    ERROR_VARIABLE installer_error
+                    WORKING_DIRECTORY ${qt5_BINARY_DIR} )
+  endif()
+
   set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/gcc_64/bin/qmake)
 endif()
 
