@@ -158,7 +158,7 @@ foreach(plugin ${d3dPlugins} DREAM3D CMP SIMPL SIMPLView ITKImageProcessing )
 endforeach()
 
 ExternalProject_Add(${extProjectName}
-  DEPENDS     discount Eigen hdf5 ITK Qt5 qwt tbb ITK ${DREAM3D_REPO_DEPENDENCIES}
+  DEPENDS     discount Eigen hdf5 ITK Qt5 qwt ITK DREAM3D_Data ${DREAM3D_REPO_DEPENDENCIES}
   TMP_DIR      ${DREAM3D_SDK}/${extProjectName}/tmp
   STAMP_DIR    ${DREAM3D_SDK}/${extProjectName}/stamp-${BUILD_TYPE}
   DOWNLOAD_DIR ${DREAM3D_SDK}/${extProjectName}/download

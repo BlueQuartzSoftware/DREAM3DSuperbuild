@@ -103,8 +103,12 @@ include(DREAM3DData)
 include(DOxygen)
 include(Eigen)
 include(HDF5)
-include(ITK)
 include(TBB)
+
+option(BUILD_ITK "Build ITK" ON)
+if("${BUILD_ITK}" STREQUAL "ON")
+  include(ITK)
+endif()
 
 OPTION(BUILD_BOOST "Build Boost" OFF)
 if("${BUILD_BOOST}" STREQUAL "ON")
