@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo "Setting permissions on the installer"
+echo "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}"
+if [[ -e "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}" ]]
+then
+    chmod 0775 "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}"
+else
+    echo "Installer file does not exist"
+    exit
+fi
+
+
+echo "Executing Qt5 Installer .... "
+"${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}" --script "@JSFILE@"
+
