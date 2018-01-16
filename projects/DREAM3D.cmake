@@ -48,8 +48,9 @@ endfunction()
 
 set(CLONE_REPOS 1)
 if("${WORKSPACE_DIR}" STREQUAL "")
-  # get_filename_component(WORKSPACE_DIR ${DREAM3DSuperBuild_SOURCE_DIR} DIRECTORY)
-  set(CLONE_REPOS 0)
+  message(FATAL_ERROR "WORKSPACE_DIR is empty. Cloning and building DREAM.3D can not continue. \
+    Please set the WORKSPACE_DIR to the directory where you want to clone all the DREAM3D \
+    repositories. Anything in that directory may be over written.")
 endif()
 if(CLONE_REPOS)
   message(STATUS "Workspace Folder:   ${WORKSPACE_DIR}")
@@ -159,9 +160,9 @@ endforeach()
 
 ExternalProject_Add(${extProjectName}
   DEPENDS     discount Eigen hdf5 ITK Qt5 qwt ITK DREAM3D_Data ${DREAM3D_REPO_DEPENDENCIES}
-  TMP_DIR      ${DREAM3D_SDK}/${extProjectName}/tmp
-  STAMP_DIR    ${DREAM3D_SDK}/${extProjectName}/stamp-${BUILD_TYPE}
-  DOWNLOAD_DIR ${DREAM3D_SDK}/${extProjectName}/download
+  TMP_DIR      ${DREAM3D_SDK}/superbuild/${extProjectName}/tmp
+  STAMP_DIR    ${DREAM3D_SDK}/superbuild/${extProjectName}/stamp-${BUILD_TYPE}
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/download
   SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D
   BINARY_DIR   ${WORKSPACE_DIR}/DREAM3D-Build/${BUILD_TYPE}
   INSTALL_DIR  ${WORKSPACE_DIR}/DREAM3D-Install/
@@ -185,6 +186,7 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
     -DSIMPL_DISCOUNT_DOCUMENTATION:BOOL=ON
     -DSIMPL_DOXYGEN_DOCUMENTATION:BOOL=OFF
+    -DSIMPL_GENERATE_HTML:BOOL=OFF
     
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
