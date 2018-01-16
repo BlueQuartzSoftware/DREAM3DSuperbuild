@@ -1,7 +1,7 @@
 set(extProjectName "hdf5")
 message(STATUS "External Project: ${extProjectName}" )
 
-set(HDF5_VERSION "1.8.19")
+set(HDF5_VERSION "1.8.20")
 #set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
 set(HDF5_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/HDF5/hdf5-${HDF5_VERSION}.tar.gz")
 
@@ -21,16 +21,8 @@ set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 if(WIN32)
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
   set(C_FLAGS "/DWIN32 /D_WINDOWS /W3 /MP")
-
   set(C_CXX_FLAGS -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_C_FLAGS=${C_FLAGS})
-elseif(APPLE)
-  #set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
-else()
-  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    #set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
-  else()
-    #set(CXX_FLAGS "-std=c++11")
-  endif()
+
 endif()
 
 ExternalProject_Add(${extProjectName}
