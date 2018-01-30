@@ -21,7 +21,6 @@ function(CloneRepo)
     DOWNLOAD_DIR ${Z_DOWNLOAD_DIR}
     SOURCE_DIR   ${Z_SOURCE_DIR}
     BINARY_DIR   ${Z_BINARY_DIR}
-    INSTALL_DIR  ${Z_INSTALL_DIR}
 
     GIT_PROGRESS 1
     GIT_REPOSITORY "${Z_GIT_REPOSITORY}"
@@ -74,8 +73,7 @@ if(CLONE_REPOS)
             STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
             DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
             SOURCE_DIR   ${WORKSPACE_DIR}/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
+            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary)
 
   set(projectName CMP)
   CloneRepo(PROJECT_NAME ${projectName}
@@ -85,8 +83,7 @@ if(CLONE_REPOS)
             STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
             DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
             SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
+            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary)
 
   set(projectName SIMPL)
   CloneRepo(PROJECT_NAME ${projectName}
@@ -96,8 +93,7 @@ if(CLONE_REPOS)
             STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
             DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
             SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
+            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary)
 
   set(projectName SIMPLView)
   CloneRepo(PROJECT_NAME ${projectName}
@@ -107,8 +103,7 @@ if(CLONE_REPOS)
             STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
             DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
             SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
+            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary)
 
   set(projectName ITKImageProcessing) 
   CloneRepo(PROJECT_NAME ${projectName}
@@ -118,8 +113,7 @@ if(CLONE_REPOS)
             STAMP_DIR    ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/stamp
             DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/download
             SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/Plugins/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/Install)
+            BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/Binary)
 
   foreach(plugin ${d3dPlugins})
     CloneRepo(PROJECT_NAME ${plugin}
@@ -129,8 +123,7 @@ if(CLONE_REPOS)
             STAMP_DIR    ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/stamp
             DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/download
             SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/Plugins/${plugin}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Install)
+            BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Binary)
   endforeach()
 
 endif()
@@ -165,7 +158,6 @@ ExternalProject_Add(${extProjectName}
   DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/download
   SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D
   BINARY_DIR   ${WORKSPACE_DIR}/DREAM3D-Build/${BUILD_TYPE}
-  INSTALL_DIR  ${WORKSPACE_DIR}/DREAM3D-Install/
 
   DOWNLOAD_COMMAND ""
   UPDATE_COMMAND "" 
