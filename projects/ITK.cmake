@@ -1,9 +1,23 @@
 set(extProjectName "ITK")
 message(STATUS "External Project: ${extProjectName}" )
 
-set(ITK_VERSION "4.13.0")
-#set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
-set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
+if(NOT ITK_VERSION)
+  set(ITK_VERSION 4.13.0 CACHE STRING "Choose ITK version." FORCE)
+
+  # Set the possible values of ITK_VERSION for cmake-gui
+  set_property(CACHE ITK_VERSION PROPERTY STRINGS
+    "4.13.0"
+    "5.0.0"
+    )
+endif()
+
+if(ITK_VERSION STREQUAL "4.13.0")
+  set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
+elseif(ITK_VERSION STREQUAL "5.0.0")
+  set(ITK_URL "https://codeload.github.com/InsightSoftwareConsortium/ITK/zip/v5.0a01")
+else()
+  message(FATAL_ERROR "Unable to find requested version of ITK: ${ITK_VERSION}")
+endif()
 
 option(ITK_SCIFIO_SUPPORT "Add support for SCIFIO to the ITK build" ON)
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
@@ -111,6 +125,31 @@ ExternalProject_Add(${extProjectName}
   LOG_INSTALL 1
 )
 
+if(ITK_VERSION VERSION_GREATER 4.13.0)
+  message(STATUS "Building ITKMontage remote module.")
+  set(extProjectName-Addon ITKMontage)
+  ExternalProject_Add(${extProjectName-Addon}
+    GIT_REPOSITORY https://github.com/InsightSoftwareConsortium/${extProjectName-Addon}.git
+    GIT_TAG 18439a81bc3d5666e5b6f4b83eba0a2aa5f39c2c
+    SOURCE_DIR "${DREAM3D_SDK}/${extProjectName-Addon}"
+    BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName-Addon}/Build"
+    INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName-Addon}/Install"
+    INSTALL_COMMAND ""
+
+    CMAKE_ARGS
+      -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
+      -DCMAKE_BUILD_TYPE:=${CMAKE_BUILD_TYPE}
+      -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
+      -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
+      -DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET}
+      -DCMAKE_OSX_SYSROOT=${OSX_SDK}
+      -DCMAKE_CXX_STANDARD=11
+      -DCMAKE_CXX_STANDARD_REQUIRED=ON
+      -DITK_DIR:PATH=${BINARY_DIR}
+		  -DBUILD_TESTING=OFF
+    DEPENDS ITK
+  )
+endif()
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
