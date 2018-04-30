@@ -10,7 +10,7 @@ else()
 endif()
 
 ExternalProject_Add(${extProjectName}
-  GIT_REPOSITORY "git://github.com/BlueQuartzSoftware/discount.git"
+  GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/discount.git"
   GIT_PROGRESS 1
   #GIT_TAG master
 
