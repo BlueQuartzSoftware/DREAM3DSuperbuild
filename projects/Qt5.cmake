@@ -9,10 +9,10 @@ if(Qt510)
   set(qt5_installer_version "qt5.5101")
 else()
   set(qt5_version_major "5.9")
-  set(qt5_version_full "5.9.4")
-  set(qt5_version_short "5.9.4")
+  set(qt5_version_full "5.9.5")
+  set(qt5_version_short "5.9.5")
   # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "594")
+  set(qt5_installer_version "595")
 endif()
 
 set(extProjectName "Qt${qt5_version_full}")
