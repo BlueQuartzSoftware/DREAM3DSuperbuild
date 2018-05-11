@@ -9,6 +9,11 @@ else()
   set(haru_INSTALL "${DREAM3D_SDK}/${extProjectName}-${haru_VERSION}-${CMAKE_BUILD_TYPE}")
 endif()
 
+if(NOT APPLE AND NOT WIN32)
+  set(LINUX_COMPILE_OPTIONS "-fPIC")
+endif()
+
+
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "git://github.com/BlueQuartzSoftware/libharu.git"
   GIT_PROGRESS 1
@@ -30,7 +35,7 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_CXX_STANDARD=11 
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
     -Wno-dev
-    -DBUILD_SHARED_LIBS=OFF 
+    -DLIBHPDF_BUILD_SHARED_LIBS=ON 
 
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
