@@ -1,5 +1,5 @@
 
-set(Qt510 "0")
+set(Qt510 "1")
 # Qt 5.x is going to be used.
 if(Qt510)
   set(qt5_version_major "5.10")
