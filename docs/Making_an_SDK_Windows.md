@@ -1,5 +1,4 @@
-Making an SDK (Windows)
-===============
+# Making an SDK (Windows) #
 
 <a name="prerequisites">
 
@@ -19,7 +18,7 @@ If you have already fulfilled all of these prerequisites, skip to the [Procedure
 
 A compatible compiler needs to be installed on your system to be able to build DREAM.3D.
 
-This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Versions 2013 and 2015 are supported in this release and should be usable.  Both the **Pro** and **Community** versions will work. The **Express** version of 2013 is known to work but not extensively tested.
+This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Versions 2015 and 2017 are supported in this release and should be usable.  Both the **Professional** and **Community** versions will work.
 
 For more information, please visit [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html).
 
@@ -44,9 +43,9 @@ To install Git, please visit the [Git website](https://git-scm.com/downloads).
 
 **2: Download and install CMake from https://cmake.org/download:**
 
-Scroll down the page until you see the **Latest Release** section.  The latest release may be a higher version than 3.8.2.
+Scroll down the page until you see the **Latest Release** section.  The latest release may be a higher version than 3.11.2.
 ![](Images/Windows/cmake_download_page.png)
-Press the download link to download the zip file of the latest release of CMake.  It does not matter if the download is for 32-bit (win32-x86) or 64-bit (win64-x64).  Again, the latest release may be a higher version than 3.8.0, but that is ok.
+Press the download link to download the zip file of the latest release of CMake.  It does not matter if the download is for 32-bit (win32-x86) or 64-bit (win64-x64).  Again, the latest release may be a higher version than 3.11.0, but that is ok.
 
 Click on the zip file that you just downloaded to extract it into a folder.
 
@@ -83,25 +82,33 @@ Create a folder called **workspace** in your home directory (C:\Users\\[username
 6. Press the **Configure** button in CMake.  If the build directory specified does not already exist, CMake will ask if you want to create the directory.  Click "Yes".
 
 7. CMake will ask you which generator should be used for this project.
+
+  + If you are using Visual Studio 2017, select Visual Studio 15 2017 Win64.
   + If you are using Visual Studio 2015, select Visual Studio 14 2015 Win64.
-  + If you are using Visual Studio 2013, select Visual Studio 12 2013 Win64.
+
 ![](Images/Windows/cmake_select_generator.png)
+
   Click **Finish**.  If the selected Visual Studio and its C++ compiler are not installed, CMake will throw an error and will not allow you to proceed until you have done so.
 
 8. At this point, Qt 5 will be automatically downloaded and installed.  Sometimes during the installation of Qt the Qt installer application will crash.  Simply try configuring again to relaunch the Qt installer.  Since the Qt download is over 1 GB in size, this may take some time so please be patient.
+
 ![](Images/Windows/downloading_qt.png)
+
 Sometimes there is a pause between the download completing and the installer popping up, so just wait a minute or so for the installer to appear.
 ![](Images/Windows/qt_installer.png)
 
 9. Press the **Configure** button in CMake again.
+
 ![](Images/Windows/debug_configured.png)
 
 10. Press the **Generate** button in CMake to generate the build files.
+
 ![](Images/Windows/cmake_generated.png)
 
     *Note*: Although you still need to press **Configure** in step 9, Qt will not download or install again because it was already downloaded and installed the first time through.
 
 11. Click "Open Project" to launch Visual Studio with the DREAM3DSuperBuild Project. Check that ALL_BUILD and Debug are selected.
+
 ![](Images/Windows/visual_studio_project.png)
 
 12. Click Build -> Build Solution to begin building the SDK.  This will take some time.  Please be patient as your SDK builds.
@@ -109,16 +116,17 @@ Sometimes there is a pause between the download completing and the installer pop
 13. Change Debug selection to Release and repeat Step 12.
 
 ## Additional Notes ##
+
 The procedure above builds the following libraries:
 
-+ Doxygen 1.8.11 or higher
+
+
 + Eigen 3.2.9 or higher
-+ HDF5 1.8.16 or higher
-+ ITK 4.11.0 or higher
-+ Protocol Buffers 2.6.1 or higher
-+ Qt 5.6.2 or higher
++ HDF5 1.8.20 or higher
++ ITK 4.13.0 or higher
++ Qt 5.10.1 or higher
 + Qwt 6.1.3 or higher
-+ TBB tbb44_20160526oss or higher
++ TBB tbb2018_20171205oss or higher
 
 ---
 **Next Page**: [Configuring and Building DREAM.3D on Windows](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/windows_configure_and_build_dream3d.html).

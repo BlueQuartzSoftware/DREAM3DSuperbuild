@@ -1,5 +1,5 @@
-Making an SDK (Linux)
-===============
+# Making an SDK (Linux) #
+
 
 <a name="prerequisites">
 
@@ -27,16 +27,15 @@ DREAM.3D should compile under GCC 4.8 or newer but Clang 3.8 is used for develop
 You should be able to use "apt-get" or "yum" or your preferred package manager to get all the dependecies except possibly HDF5 1.8.16. If you need to build HDF5 1.8.13, build it as Shared Libraries and build all the types, (base, C++, High Level) and install it somewhere in the system.
 
 ## Additional Notes ##
+
 The procedure above builds the following libraries:
 
-+ Doxygen 1.8.11 or higher
 + Eigen 3.2.9 or higher
-+ HDF5 1.8.16 or higher
-+ ITK 4.9.1 or higher
-+ Protocol Buffers 2.6.1 or higher
-+ Qt 5.6.2 or higher
++ HDF5 1.8.20 or higher
++ ITK 4.13.0 or higher
++ Qt 5.10.1 or higher
 + Qwt 6.1.3 or higher
-+ TBB tbb44_20160524oss or higher
++ TBB tbb2018_20171205oss or higher
 
 ---
 **Next Page**: [Configuring and Building DREAM.3D on Linux](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/linux_configure_and_build_dream3d.html).
