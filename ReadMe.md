@@ -18,11 +18,5 @@ For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on M
 
 + General information is available at the [DREAM.3D home page](http://dream3d.bluequartz.net).
 
-+ Information on configuring and building DREAM.3D is found at:
-	
-  **Windows** - [Configuring and Building DREAM.3D](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/windows_configure_and_build_dream3d.html)
-  
-  **Mac OS X** - [Configuring and Building DREAM.3D](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/osx_configure_and_build_dream3d.html)
-  
-  **Linux** - [Configuring and Building DREAM.3D](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/linux_configure_and_build_dream3d.html)
++ An online version of the DREAM.3D documentation is at [](http://www.dream3d.io)
   
