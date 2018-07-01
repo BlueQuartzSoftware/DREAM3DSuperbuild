@@ -18,5 +18,5 @@ For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on M
 
 + General information is available at the [DREAM.3D home page](http://dream3d.bluequartz.net).
 
-+ An online version of the DREAM.3D documentation is at [](http://www.dream3d.io)
++ An online version of the DREAM.3D documentation is at [http://www.dream3d.i](http://www.dream3d.io)
   
