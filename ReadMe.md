@@ -12,7 +12,7 @@ For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on M
 
 ### Linux ###
 
-For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on Mac OS X, please visit [Making an SDK (Linux)](https://github.com/bluequartzsoftware/DREAM3DSuperbuild/blob/develop/docs/Making_an_SDK_Linux.md).
+For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on Linux, please visit [Making an SDK (Linux)](https://github.com/bluequartzsoftware/DREAM3DSuperbuild/blob/develop/docs/Making_an_SDK_Linux.md).
 
 ## Resources ##
 
