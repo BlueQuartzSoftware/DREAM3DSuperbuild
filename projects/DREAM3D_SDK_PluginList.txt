@@ -28,7 +28,6 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
     Anisotropy
     #CellularAutomata
     DDDAnalysisToolbox 
-    FiberToolbox 
     HEDMAnalysis 
     ImageProcessing 
     ITKImageProcessing
