@@ -15,7 +15,7 @@ endif()
 
 
 ExternalProject_Add(${extProjectName}
-  GIT_REPOSITORY "git://github.com/BlueQuartzSoftware/libharu.git"
+  GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/libharu.git"
   GIT_PROGRESS 1
   GIT_TAG develop
 
