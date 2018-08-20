@@ -1,9 +1,9 @@
 set(extProjectName "tbb")
 message(STATUS "External Project: ${extProjectName}" )
 
-set(tbb_VERSION "2018_20171205")
+set(tbb_VERSION "2018_20180618")
 set(tbb_INSTALL "${DREAM3D_SDK}/tbb${tbb_VERSION}oss")
-set(tbb_url_server "https://github.com/01org/tbb/releases/download/2018_U2")
+set(tbb_url_server "https://github.com/01org/tbb/releases/download/2018_U5")
 
 if(APPLE)
   set(tbb_URL "${tbb_url_server}/tbb${tbb_VERSION}oss_mac.tgz")
@@ -41,12 +41,14 @@ if(WIN32 OR APPLE OR "${BUILD_TBB}" STREQUAL "ON" )
 
   #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
   #-- configure DREAM3D for building
+  #-- Starting with TBB 2018 U5 the Parallel STL is included which is why we need 
+  #-- the double path to the TBB cmake directory
   FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "# Intel Threading Building Blocks Library\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(SIMPL_USE_MULTITHREADED_ALGOS ON CACHE BOOL \"\")\n")
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_INSTALL_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${tbb_VERSION}oss\" CACHE PATH \"\")\n")
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${tbb_VERSION}oss/cmake\" CACHE PATH \"\")\n") 
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_INSTALL_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${tbb_VERSION}oss/${extProjectName}${tbb_VERSION}oss\" CACHE PATH \"\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}${tbb_VERSION}oss/${extProjectName}${tbb_VERSION}oss/cmake\" CACHE PATH \"\")\n") 
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ARCH_TYPE \"intel64\" CACHE STRING \"\")\n")
 
 else()
