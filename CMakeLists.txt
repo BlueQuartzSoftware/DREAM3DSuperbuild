@@ -45,24 +45,46 @@ message(STATUS "DREAM3D_SDK_FILE:   ${DREAM3D_SDK_FILE}")
 set(BUILD_SHARED_LIBS ON)
 
 if(APPLE)
+  set(OSX_SDK "NOT-FOUND")
   EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
   STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
   message(STATUS "DARWIN_VERSION: ${DARWIN_VERSION}")
   IF (DARWIN_VERSION EQUAL 14) # macOS 10.10 Yosemite
+    message(STATUS "Found macOS 10.10 Yosemite as the host")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 15) # macOS 10.11 El Capitan
+    message(STATUS "Found macOS 10.11 El Capitan as the host")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 16) # macOS 10.12 Sierra (Xcode 8.x or Xcode 9.x)
+    message(STATUS "Found macOS 10.12 Sierra as the host")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
   ENDIF ()
   
   IF (DARWIN_VERSION EQUAL 17) # macOS 10.13 High Sierra (Xcode 9.x)
+    message(STATUS "Found macOS 10.13 High Sierra as the host")  
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
   ENDIF ()
+
+  IF (DARWIN_VERSION EQUAL 18) # macOS 10.14 Mojave (Xcode 10.x)
+    message(STATUS "Found macOS 10.14 Mojave as the host")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+  ENDIF ()
+
+  if("${OSX_SDK}" STREQUAL "NOT-FOUND")
+    message(FATAL_ERROR "This version of macOS (${DARWIN_VERSION}) is not recognized.\
+    The following versions are recognized:\n\
+    (14) macOS 10.10 Yosemite\n\
+    (15) macOS 10.11 El Capitan\n\
+    (16) macOS 10.12 Sierra\n\
+    (17) macOS 10.13 High Sierra\n\
+    Please edit ${CMAKE_CURRENT_LIST_FILE} and add this version of macOS to the detection logic.
+    ")
+
+  endif()
 
   set(OSX_DEPLOYMENT_TARGET "10.10")
 
