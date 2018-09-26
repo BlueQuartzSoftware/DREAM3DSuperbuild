@@ -1,18 +1,39 @@
 
-set(Qt510 "1")
-# Qt 5.x is going to be used.
-if(Qt510)
-  set(qt5_version_major "5.10")
-  set(qt5_version_full "5.10.1")
-  set(qt5_version_short "5.10.1")
-  # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "qt5.5101")
-else()
+set(Qt595 "1")
+set(Qt510 "0")
+set(Qt511 "0")
+
+if(Qt595)
+  if(Qt510 OR Qt511)
+    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
+  endif()
   set(qt5_version_major "5.9")
   set(qt5_version_full "5.9.5")
   set(qt5_version_short "5.9.5")
   # This variable is used inside the javascript file that performs the Qt installation
   set(qt5_installer_version "595")
+endif()
+
+if(Qt510)
+  if(Qt595 OR Qt511)
+    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
+  endif()
+  set(qt5_version_major "5.11")
+  set(qt5_version_full "5.11.1")
+  set(qt5_version_short "5.11.1")
+  # This variable is used inside the javascript file that performs the Qt installation
+  set(qt5_installer_version "qt5.5111")
+endif()
+
+if(Qt511)
+  if(Qt595 OR Qt510)
+    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
+  endif()
+  set(qt5_version_major "5.11")
+  set(qt5_version_full "5.11.1")
+  set(qt5_version_short "5.11.1")
+  # This variable is used inside the javascript file that performs the Qt installation
+  set(qt5_installer_version "qt5.5111")
 endif()
 
 set(extProjectName "Qt${qt5_version_full}")
