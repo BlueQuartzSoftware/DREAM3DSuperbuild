@@ -10,7 +10,11 @@ cmake_minimum_required(VERSION 3.11.0)
 
 project(DREAM3DSuperBuild VERSION 1.2.0.0 LANGUAGES C CXX)
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" "${CMAKE_CURRENT_SOURCE_DIR}/projects" ${CMAKE_MODULE_PATH})
+# This allows us to just use the "include()" command and the name of the project
+set(CMAKE_MODULE_PATH 
+        "${CMAKE_CURRENT_SOURCE_DIR}/cmake" 
+        "${CMAKE_CURRENT_SOURCE_DIR}/projects" 
+        ${CMAKE_MODULE_PATH})
 
 set(BUILD_TYPE ${CMAKE_BUILD_TYPE})
 if("${BUILD_TYPE}" STREQUAL "")
@@ -48,29 +52,29 @@ if(APPLE)
   set(OSX_SDK "NOT-FOUND")
   EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
   STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
-  message(STATUS "DARWIN_VERSION: ${DARWIN_VERSION}")
+  #message(STATUS "DARWIN_VERSION: ${DARWIN_VERSION}")
   IF (DARWIN_VERSION EQUAL 14) # macOS 10.10 Yosemite
-    message(STATUS "Found macOS 10.10 Yosemite as the host")
+    message(STATUS "Found macOS 10.10 Yosemite as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 15) # macOS 10.11 El Capitan
-    message(STATUS "Found macOS 10.11 El Capitan as the host")
+    message(STATUS "Found macOS 10.11 El Capitan as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 16) # macOS 10.12 Sierra (Xcode 8.x or Xcode 9.x)
-    message(STATUS "Found macOS 10.12 Sierra as the host")
+    message(STATUS "Found macOS 10.12 Sierra as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
   ENDIF ()
   
   IF (DARWIN_VERSION EQUAL 17) # macOS 10.13 High Sierra (Xcode 9.x)
-    message(STATUS "Found macOS 10.13 High Sierra as the host")  
+    message(STATUS "Found macOS 10.13 High Sierra as the host. Darwin Version:${DARWIN_VERSION}")  
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 18) # macOS 10.14 Mojave (Xcode 10.x)
-    message(STATUS "Found macOS 10.14 Mojave as the host")
+    message(STATUS "Found macOS 10.14 Mojave as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
   ENDIF ()
 
@@ -118,6 +122,16 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(BUILD_SHARED_LIBS ON CACHE BOOL \"\")\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(DREAM3D_SDK_ROOT \"${DREAM3D_SDK}\")\n")
 
+FILE(APPEND ${DREAM3D_SDK_FILE} "\n#--------------------------------------------------------------------------------------------------\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "# DREAM.3D does not use QtWebEngine to render the docs anymore. Let the system do it.\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(SIMPL_USE_QtWebEngine OFF)\n")
+
+FILE(APPEND ${DREAM3D_SDK_FILE} "\n#--------------------------------------------------------------------------------------------------\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "# Always write out the compile_commands.json file to help out things like QtCreator and VS Code\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_EXPORT_COMPILE_COMMANDS ON)\n")
+
+
+include(Python)
 include(Pybind11)
 include(Discount)
 include(DREAM3DData)

@@ -19,6 +19,4 @@ if("${BUILD_TYPE}" STREQUAL "")
     set(BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif()
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
 message(STATUS "The Current Build type being used is ${BUILD_TYPE}")
