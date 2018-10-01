@@ -1,7 +1,7 @@
 set(extProjectName "haru")
 set(haru_VERSION "2.0.0")
 
-message(STATUS "External Project: ${extProjectName}" )
+message(STATUS "External Project: ${extProjectName}: ${haru_VERSION}" )
 
 if(WIN32)
   set(haru_INSTALL "${DREAM3D_SDK}/${extProjectName}-${haru_VERSION}")

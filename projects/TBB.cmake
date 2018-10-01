@@ -1,7 +1,8 @@
 set(extProjectName "tbb")
-message(STATUS "External Project: ${extProjectName}" )
-
 set(tbb_VERSION "2018_20180618")
+
+message(STATUS "External Project: ${extProjectName}: ${tbb_VERSION}" )
+
 set(tbb_INSTALL "${DREAM3D_SDK}/tbb${tbb_VERSION}oss")
 set(tbb_url_server "https://github.com/01org/tbb/releases/download/2018_U5")
 

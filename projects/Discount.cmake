@@ -1,7 +1,7 @@
 set(extProjectName "discount")
 set(discount_VERSION "2.2.3")
 
-message(STATUS "External Project: ${extProjectName}" )
+message(STATUS "External Project: ${extProjectName}: ${discount_VERSION}" )
 
 if(WIN32)
   set(discount_INSTALL "${DREAM3D_SDK}/${extProjectName}-${discount_VERSION}")

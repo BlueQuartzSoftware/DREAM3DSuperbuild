@@ -1,7 +1,8 @@
 set(extProjectName "hdf5")
-message(STATUS "External Project: ${extProjectName}" )
 
 set(HDF5_VERSION "1.8.20")
+message(STATUS "External Project: ${extProjectName}: ${HDF5_VERSION}" )
+
 #set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
 set(HDF5_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/HDF5/hdf5-${HDF5_VERSION}.tar.gz")
 

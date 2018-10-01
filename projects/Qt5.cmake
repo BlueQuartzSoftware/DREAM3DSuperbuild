@@ -37,7 +37,7 @@ if(Qt511)
 endif()
 
 set(extProjectName "Qt${qt5_version_full}")
-message(STATUS "External Project: ${extProjectName}" )
+message(STATUS "External Project: ${extProjectName}: ${qt5_version_full}" )
 
 
 

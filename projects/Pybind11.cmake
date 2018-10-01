@@ -2,7 +2,7 @@
 set(extProjectName "pybind11")
 set(pybind11_VERSION "2.2")
 
-message(STATUS "External Project: ${extProjectName}" )
+message(STATUS "External Project: ${extProjectName}: ${pybind11_VERSION}" )
 
 if(WIN32)
   set(pybind11_INSTALL "${DREAM3D_SDK}/${extProjectName}-${pybind11_VERSION}")
