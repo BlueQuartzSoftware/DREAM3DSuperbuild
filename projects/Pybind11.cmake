@@ -13,7 +13,7 @@ endif()
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "https://github.com/pybind/pybind11.git"
   GIT_PROGRESS 1
-  GIT_TAG v2.2
+  GIT_TAG v2.2.4
 
   TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
