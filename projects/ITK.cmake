@@ -1,10 +1,11 @@
 set(extProjectName "ITK")
 
-set(ITK_VERSION "4.13.1")
+set(ITK_VERSION "v5.0b03")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
 #set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
-set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
+#set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
+set(ITK_URL "https://github.com/InsightSoftwareConsortium/ITK/archive/${ITK_VERSION}.tar.gz")
 
 option(ITK_SCIFIO_SUPPORT "Add support for SCIFIO to the ITK build" OFF)
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
@@ -71,26 +72,28 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_OSX_SYSROOT=${OSX_SDK}
     -DCMAKE_CXX_STANDARD=11 
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
+    -DCMAKE_CXX_EXTENSIONS=OFF
 
-		-DBUILD_DOCUMENTATION=OFF
-		-DITK_USE_SYSTEM_HDF5=ON
-		-DBUILD_EXAMPLES=OFF
-		-DBUILD_TESTING=OFF
-		-DDITK_LEGACY_REMOVE=ON
-		-DKWSYS_USE_MD5=ON
-		-DModule_ITKReview=ON
-		-DITK_BUILD_DEFAULT_MODULES=OFF
-		-DITKGroup_Core=ON
-		-DITKGroup_Filtering=ON
-		-DITKGroup_Registration=ON
-		-DITKGroup_Segmentation=ON
-		-DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
+    -DBUILD_DOCUMENTATION=OFF
+    -DITK_USE_SYSTEM_HDF5=ON
+    -DBUILD_EXAMPLES=OFF
+    -DBUILD_TESTING=OFF
+    -DITK_LEGACY_REMOVE=ON
+    -DKWSYS_USE_MD5=ON
+    -DModule_Montage=ON
+    -DModule_ITKReview=ON
+    -DITK_BUILD_DEFAULT_MODULES=OFF
+    -DITKGroup_Core=ON
+    -DITKGroup_Filtering=ON
+    -DITKGroup_Registration=ON
+    -DITKGroup_Segmentation=ON
+    -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
     -DModule_ITKIOMRC=ON
-		-DCMAKE_SKIP_INSTALL_RPATH=OFF
-		-DCMAKE_SKIP_RPATH=OFF
-		-DUSE_COMPILER_HIDDEN_VISIBILITY=OFF
+    -DCMAKE_SKIP_INSTALL_RPATH=OFF
+    -DCMAKE_SKIP_RPATH=OFF
+    -DUSE_COMPILER_HIDDEN_VISIBILITY=OFF
 
-		-DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
+    -DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
   
   DEPENDS hdf5
   LOG_DOWNLOAD 1
