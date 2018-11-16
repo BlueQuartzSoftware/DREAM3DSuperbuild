@@ -13,22 +13,41 @@ execute_process(
               )
 
 if(PYTHONINTERP_FOUND) 
-  #message(STATUS "Python Found: ${PYTHON_EXECUTABLE} ${PYTHON_VERSION_STRING}")
+  message(STATUS "Python (${PYTHON_VERSION_STRING}) Found: ${PYTHON_EXECUTABLE}")
 else()
   message(STATUS "Python NOT Found.")
 endif()
 
-execute_process(
-  COMMAND
-    ${PYTHON_EXECUTABLE} "-c" "import re, sys;\nimport mkdocs\nprint(re.compile('/__init__.py.*').sub('',mkdocs.__file__))"
-  RESULT_VARIABLE _mkdocs_status
-  OUTPUT_VARIABLE _mkdocs_location
-  #ERROR_QUIET
-  OUTPUT_STRIP_TRAILING_WHITESPACE
-  )
+# -----------------------------------------------------------------------------
+# This is valid for an Anaconda installation on Windows. Not sure if this will
+# work for other Python distributions
+if(WIN32)
+  get_filename_component(PYTHON_DIR  ${PYTHON_EXECUTABLE} DIRECTORY)
+  set(_mkdocs_location "${PYTHON_DIR}/Scripts/mkdocs.exe")
+  execute_process(
+              COMMAND
+              ${_mkdocs_location} "--version"
+              RESULT_VARIABLE _mkdocs_status
+              OUTPUT_VARIABLE _output
+#             ERROR_QUIET
+              OUTPUT_STRIP_TRAILING_WHITESPACE
+              )
+  # message(STATUS "_status: ${_status}")
+  # message(STATUS "_output: ${_output}")
 
-#  message(STATUS "_mkdocs_status: ${_mkdocs_status}")
-#  message(STATUS "_mkdocs_location: ${_mkdocs_location}")
+else()            
+  execute_process(
+    COMMAND
+      ${PYTHON_EXECUTABLE} "-c" "import re, sys;\nimport mkdocs\nprint(re.compile('/__init__.py.*').sub('',mkdocs.__file__))"
+    RESULT_VARIABLE _mkdocs_status
+    OUTPUT_VARIABLE _mkdocs_location
+    #ERROR_QUIET
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+  # message(STATUS "_mkdocs_status: ${_mkdocs_status}")
+  # message(STATUS "_mkdocs_location: ${_mkdocs_location}")
+endif()
 
 if(NOT _mkdocs_status)
   set(Mkdocs ${_mkdocs_location} CACHE STRING "Location of mkdocs")
@@ -42,7 +61,7 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE
   )
 
-#  message(STATUS "_mkdocs_version: ${_mkdocs_version}")
+  
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Mkdocs
@@ -56,8 +75,10 @@ if(NOT Mkdocs_FOUND)
   One would typically install it using 'pip install mkdocs-material'\n\
   You may also need to do 'pip install msgpack'")
 else()
-#  message(STATUS "Mkdocs Found: ${_mkdocs_location}")
+  message(STATUS "Mkdocs (${_mkdocs_version}) Found: ${_mkdocs_location}")
 endif()
+
+
 
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
@@ -66,6 +87,7 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "# Python is needed if you want to build the doc
 FILE(APPEND ${DREAM3D_SDK_FILE} "# nice looking documentation. If there is no python environment found then DREAM3D will \n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# use the 'discount' library to generate the help files.\n")
 if(PYTHONINTERP_FOUND AND Mkdocs_FOUND)
+  file(TO_CMAKE_PATH ${_mkdocs_location} _mkdocs_location)
   FILE(APPEND ${DREAM3D_SDK_FILE} "# A suitable Python and mkdocs were found.\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(PYTHON_EXECUTABLE \"${PYTHON_EXECUTABLE}\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(MKDOCS_EXECUTABLE \"${_mkdocs_location}\")\n")
