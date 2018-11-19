@@ -1,6 +1,6 @@
 
-set(Qt595 "1")
-set(Qt510 "0")
+set(Qt595 "0")
+set(Qt510 "1")
 set(Qt511 "0")
 
 if(Qt595)
