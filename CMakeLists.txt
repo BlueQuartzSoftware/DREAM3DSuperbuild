@@ -80,11 +80,12 @@ if(APPLE)
 
   if("${OSX_SDK}" STREQUAL "NOT-FOUND")
     message(FATAL_ERROR "This version of macOS (${DARWIN_VERSION}) is not recognized.\
-    The following versions are recognized:\n\
+    The following versions are supported:\n\
     (14) macOS 10.10 Yosemite\n\
     (15) macOS 10.11 El Capitan\n\
     (16) macOS 10.12 Sierra\n\
     (17) macOS 10.13 High Sierra\n\
+    (18) macOS 10.14 Mojave\n\
     Please edit ${CMAKE_CURRENT_LIST_FILE} and add this version of macOS to the detection logic.
     ")
 
