@@ -1,10 +1,11 @@
 set(extProjectName "ITK")
 
-set(ITK_VERSION "4.13.1")
+set(ITK_VERSION "master")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
 #set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
-set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
+#set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
+set(ITK_URL "https://github.com/InsightSoftwareConsortium/ITK/archive/${ITK_VERSION}.tar.gz")
 
 option(ITK_SCIFIO_SUPPORT "Add support for SCIFIO to the ITK build" OFF)
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
@@ -37,7 +38,7 @@ else()
   else()
     set(CXX_FLAGS "-std=c++11")
   endif()
-  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake")
+  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake/hdf5")
 endif()
 
 if( CMAKE_BUILD_TYPE MATCHES Debug )
@@ -72,25 +73,29 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_CXX_STANDARD=11 
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
 
-		-DBUILD_DOCUMENTATION=OFF
-		-DITK_USE_SYSTEM_HDF5=ON
-		-DBUILD_EXAMPLES=OFF
-		-DBUILD_TESTING=OFF
-		-DDITK_LEGACY_REMOVE=ON
-		-DKWSYS_USE_MD5=ON
-		-DModule_ITKReview=ON
-		-DITK_BUILD_DEFAULT_MODULES=OFF
-		-DITKGroup_Core=ON
-		-DITKGroup_Filtering=ON
-		-DITKGroup_Registration=ON
-		-DITKGroup_Segmentation=ON
-		-DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
-    -DModule_ITKIOMRC=ON
-		-DCMAKE_SKIP_INSTALL_RPATH=OFF
-		-DCMAKE_SKIP_RPATH=OFF
-		-DUSE_COMPILER_HIDDEN_VISIBILITY=OFF
+    -DBUILD_DOCUMENTATION=OFF
 
-		-DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
+    -DBUILD_EXAMPLES=OFF
+    -DBUILD_TESTING=OFF
+    -DITKV4_COMPATIBILITY=ON
+    -DITK_SKIP_PATH_LENGTH_CHECKS=ON # Development hack: using full hash as version specification pushes the source path over the limit of 50
+    -DDITK_LEGACY_REMOVE=OFF # cannot be on at the same time as ITKV4_COMPATIBILITY
+    -DKWSYS_USE_MD5=ON
+    -DModule_Montage=ON
+    -DModule_ITKReview=ON
+    -DITK_BUILD_DEFAULT_MODULES=OFF
+    -DITKGroup_Core=ON
+    -DITKGroup_Filtering=ON
+    -DITKGroup_Registration=ON
+    -DITKGroup_Segmentation=ON
+    -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
+    -DModule_ITKIOMRC=ON
+    -DCMAKE_SKIP_INSTALL_RPATH=OFF
+    -DCMAKE_SKIP_RPATH=OFF
+    -DUSE_COMPILER_HIDDEN_VISIBILITY=OFF
+
+    -DITK_USE_SYSTEM_HDF5=ON
+    -DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
   
   DEPENDS hdf5
   LOG_DOWNLOAD 1
