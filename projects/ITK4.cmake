@@ -1,9 +1,8 @@
 set(extProjectName "ITK")
 
-set(ITK_VERSION "master")
+set(ITK_VERSION "5.0.0")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
-#set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
 #set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
 set(ITK_URL "https://github.com/InsightSoftwareConsortium/ITK/archive/${ITK_VERSION}.tar.gz")
 
@@ -23,6 +22,7 @@ if(WIN32)
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake/hdf5")
 elseif(APPLE)
+  set(APPLE_CMAKE_ARGS "-DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET} -DCMAKE_OSX_SYSROOT=${OSX_SDK} -DCMAKE_SKIP_INSTALL_RPATH=OFF -DCMAKE_SKIP_RPATH=OFF")
   set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
@@ -38,7 +38,6 @@ else()
   else()
     set(CXX_FLAGS "-std=c++11")
   endif()
-  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake/hdf5")
 endif()
 
 if( CMAKE_BUILD_TYPE MATCHES Debug )
@@ -50,17 +49,26 @@ else()
 endif( CMAKE_BUILD_TYPE MATCHES Debug )
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
+set(D3DSP_BASE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}")
 
+#------------------------------------------------------------------------------
+# In the below we are using ITK 5.0 from the master of the repository because
+# as of NOV 21 2018 the official release of ITK 5 is not completed yet. Once
+# ITK 5 is released then we can move to a different tag and use that instead.
 ExternalProject_Add(${extProjectName}
-  DOWNLOAD_NAME ${extProjectName}-${ITK_VERSION}.tar.gz
-  URL ${ITK_URL}
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
+
+  GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
+  GIT_PROGRESS 1
+  GIT_TAG master
+
+  #DOWNLOAD_NAME ${extProjectName}-${ITK_VERSION}.tar.gz
+  #URL ${ITK_URL}
+  TMP_DIR "${D3DSP_BASE_DIR}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${D3DSP_BASE_DIR}/Stamp/${CMAKE_BUILD_TYPE}"
+  DOWNLOAD_DIR ${D3DSP_BASE_DIR}
   SOURCE_DIR "${SOURCE_DIR}"
-  #BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
   BINARY_DIR "${BINARY_DIR}"
-  INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Install"
+  INSTALL_DIR "${D3DSP_BASE_DIR}/Install"
   INSTALL_COMMAND ""
   
   CMAKE_ARGS
@@ -68,31 +76,24 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_BUILD_TYPE:=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
     -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
-    -DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET}
-    -DCMAKE_OSX_SYSROOT=${OSX_SDK}
+    ${APPLE_CMAKE_ARGS}
+
     -DCMAKE_CXX_STANDARD=11 
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
 
     -DBUILD_DOCUMENTATION=OFF
-
     -DBUILD_EXAMPLES=OFF
     -DBUILD_TESTING=OFF
-    -DITKV4_COMPATIBILITY=ON
-    -DITK_SKIP_PATH_LENGTH_CHECKS=ON # Development hack: using full hash as version specification pushes the source path over the limit of 50
-    -DDITK_LEGACY_REMOVE=OFF # cannot be on at the same time as ITKV4_COMPATIBILITY
-    -DKWSYS_USE_MD5=ON
-    -DModule_Montage=ON
-    -DModule_ITKReview=ON
+
+    -DITK_LEGACY_REMOVE=ON
+    -DITK_FUTURE_LEGACY_REMOVE=ON
+    -DITK_LEGACY_SILENT=ON
+    -DITKV4_COMPATIBILITY=OFF
+
     -DITK_BUILD_DEFAULT_MODULES=OFF
-    -DITKGroup_Core=ON
-    -DITKGroup_Filtering=ON
-    -DITKGroup_Registration=ON
-    -DITKGroup_Segmentation=ON
+    #-DModule_Montage=ON
+    -DModule_ITKReview=ON
     -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
-    -DModule_ITKIOMRC=ON
-    -DCMAKE_SKIP_INSTALL_RPATH=OFF
-    -DCMAKE_SKIP_RPATH=OFF
-    -DUSE_COMPILER_HIDDEN_VISIBILITY=OFF
 
     -DITK_USE_SYSTEM_HDF5=ON
     -DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
