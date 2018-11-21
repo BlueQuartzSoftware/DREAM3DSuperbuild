@@ -7,9 +7,8 @@ function Controller() {
     })
 }
 
-Controller.prototype.WelcomePageCallback = function () {
-    // click delay here because the next button is initially disabled for ~1 second
-    gui.clickButton(buttons.NextButton, 3000);
+Controller.prototype.WelcomePageCallback = function() {
+    gui.clickButton(buttons.NextButton, 5000);
 }
 
 Controller.prototype.CredentialsPageCallback = function() {

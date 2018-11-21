@@ -8,8 +8,7 @@ function Controller() {
 }
 
 Controller.prototype.WelcomePageCallback = function() {
-    // click delay here because the next button is initially disabled for ~1 second
-    gui.clickButton(buttons.NextButton, 3000);
+    gui.clickButton(buttons.NextButton, 5000);
 }
 
 Controller.prototype.CredentialsPageCallback = function() {
@@ -43,7 +42,7 @@ Controller.prototype.ComponentSelectionPageCallback = function() {
     widget.selectComponent("qt.@qt5_installer_version@.qtdatavis3d.win64_@QT_MSVC_VERSION_NAME@");
     widget.selectComponent("qt.@qt5_installer_version@.qtwebengine");
     widget.selectComponent("qt.@qt5_installer_version@.qtwebengine.win64_@QT_MSVC_VERSION_NAME@");
-    // widget.selectComponent("qt.@qt5_installer_version@.src");
+  //  widget.selectComponent("qt.@qt5_installer_version@.src");
     widget.selectComponent("qt.@qt5_installer_version@.win64_@QT_MSVC_VERSION_NAME@");
     widget.selectComponent("qt.tools.qtcreator");
     widget.selectComponent("qt.tools.vcredist_@QT_MSVC_VERSION_NAME@_x64");
