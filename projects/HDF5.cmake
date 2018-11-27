@@ -1,6 +1,6 @@
 set(extProjectName "hdf5")
 
-set(HDF5_VERSION "1.8.20")
+set(HDF5_VERSION "1.10.3")
 message(STATUS "External Project: ${extProjectName}: ${HDF5_VERSION}" )
 
 #set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
@@ -66,12 +66,12 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "#----------------------------------------------
 FILE(APPEND ${DREAM3D_SDK_FILE} "# HDF5 Library Location\n")
 if(APPLE)
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${BUILD_TYPE}\" CACHE PATH \"\")\n")
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${BUILD_TYPE}/share/cmake\" CACHE PATH \"\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${BUILD_TYPE}/share/cmake/hdf5\" CACHE PATH \"\")\n")
 elseif(WIN32)
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}\" CACHE PATH \"\")\n")
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}/cmake\" CACHE PATH \"\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}/cmake/hdf5\" CACHE PATH \"\")\n")
 else()
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${BUILD_TYPE}\" CACHE PATH \"\")\n")
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${BUILD_TYPE}/share/cmake\" CACHE PATH \"\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(HDF5_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${HDF5_VERSION}-\${BUILD_TYPE}/share/cmake/hdf5\" CACHE PATH \"\")\n")
 endif()
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${HDF5_DIR})\n")

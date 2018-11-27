@@ -1,7 +1,7 @@
 
 set(Qt595 "0")
-set(Qt510 "1")
-set(Qt511 "0")
+set(Qt510 "0")
+set(Qt511 "1")
 
 if(Qt595)
   if(Qt510 OR Qt511)
@@ -30,10 +30,10 @@ if(Qt511)
     message(FATAL_ERROR "Please select only 1 kind of Qt to install")
   endif()
   set(qt5_version_major "5.11")
-  set(qt5_version_full "5.11.1")
-  set(qt5_version_short "5.11.1")
+  set(qt5_version_full "5.11.2")
+  set(qt5_version_short "5.11.2")
   # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "qt5.5111")
+  set(qt5_installer_version "qt5.5112")
 endif()
 
 set(extProjectName "Qt${qt5_version_full}")
