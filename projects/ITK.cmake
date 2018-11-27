@@ -11,22 +11,26 @@ set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectN
 set(ITK_INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
 set(BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build-${CMAKE_BUILD_TYPE}")
 
+#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#
+# The next section about setting the HDF5_CMAKE_MODULE_DIR directory is VERY 
+# dependent on the version of HDF5 that is being used.
+
 if(WIN32)
   set(SOURCE_DIR "${DREAM3D_SDK}/${extProjectName}-src")
   set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}")
   set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}")
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
-  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake")
+  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake/hdf5")
 elseif(APPLE)
   set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
-  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake")
+  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake/hdf5")
 elseif("${BUILD_ITK}" STREQUAL "ON")
   set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(CXX_FLAGS "-std=c++11")
-  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake")
+  set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake/hdf5")
 else()
   if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
@@ -42,8 +46,7 @@ if( CMAKE_BUILD_TYPE MATCHES Debug )
 else()
   set(HDF5_SUFFIX "")
   set(upper "RELEASE")
-ENDif( CMAKE_BUILD_TYPE MATCHES Debug )
-
+endif( CMAKE_BUILD_TYPE MATCHES Debug )
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 
@@ -88,20 +91,6 @@ ExternalProject_Add(${extProjectName}
 		-DUSE_COMPILER_HIDDEN_VISIBILITY=OFF
 
 		-DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
-		-DHDF5_CXX_COMPILER_EXECUTABLE=HDF5_CXX_COMPILER_EXECUTABLE-NOTFOUND
-		-DHDF5_CXX_INCLUDE_DIR=${HDF5_INSTALL}/include
-		-DHDF5_C_COMPILER_EXECUTABLE=HDF5_C_COMPILER_EXECUTABLE-NOTFOUND
-		-DHDF5_C_INCLUDE_DIR=${HDF5_INSTALL}/include
-
-		-DHDF5_DIFF_EXECUTABLE=${HDF5_INSTALL}/bin/h5diff
-		-DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
-		-DHDF5_Fortran_COMPILER_EXECUTABLE=HDF5_Fortran_COMPILER_EXECUTABLE-NOTFOUND
-		-DHDF5_IS_PARALLEL=OFF
-
-		-DHDF5_CXX_LIBRARY=${HDF5_INSTALL}/lib/libhdf5_cpp${HDF5_SUFFIX}.${HDF5_VERSION}.dylib
-    -DHDF5_C_LIBRARY=${HDF5_INSTALL}/lib/libhdf5${HDF5_SUFFIX}.${HDF5_VERSION}.dylib
-    -DHDF5_hdf5_LIBRARY_${upper}=${HDF5_INSTALL}/lib/libhdf5${HDF5_SUFFIX}.dylib
-    -DHDF5_hdf5_cpp_LIBRARY_${upper}=${HDF5_INSTALL}/lib/libhdf5_cpp${HDF5_SUFFIX}.dylib
   
   DEPENDS hdf5
   LOG_DOWNLOAD 1
