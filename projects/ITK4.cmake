@@ -11,6 +11,7 @@ set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectN
 set(ITK_INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
 set(BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build-${CMAKE_BUILD_TYPE}")
 
+set(EIGEN3_CMAKE_MODULE_DIR "${EIGEN3_INSTALL}/share/eigen3/cmake")
 #!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#
 # The next section about setting the HDF5_CMAKE_MODULE_DIR directory is VERY 
 # dependent on the version of HDF5 that is being used.
@@ -91,14 +92,18 @@ ExternalProject_Add(${extProjectName}
     -DITKV4_COMPATIBILITY=OFF
 
     -DITK_BUILD_DEFAULT_MODULES=OFF
-    #-DModule_Montage=ON
+    -DITKGroup_Filtering=ON
+    -DModule_ITKIOMRC=ON
+    -DModule_Montage=ON
+    -DITK_USE_SYSTEM_EIGEN=ON
+    -DEigen3_DIR=${EIGEN3_CMAKE_MODULE_DIR}
     -DModule_ITKReview=ON
     -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
 
     -DITK_USE_SYSTEM_HDF5=ON
     -DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
   
-  DEPENDS hdf5
+  DEPENDS hdf5 Eigen
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
   LOG_CONFIGURE 1
