@@ -1,6 +1,5 @@
 # Making an SDK (Linux) #
 
-
 <a name="prerequisites">
 
 ## Prerequisites ##
@@ -30,14 +29,12 @@ You should be able to use "apt-get" or "yum" or your preferred package manager t
 
 The procedure above builds the following libraries:
 
-+ Eigen 3.2.9 or higher
-+ HDF5 1.8.20 or higher
-+ ITK 4.13.0 or higher
-+ Qt 5.10.1 or higher
++ Eigen 3.3.5 or higher
++ HDF5 1.20.3.20 or higher
++ ITK 4.13.2 or higher
++ Qt 5.11.1 or higher
 + Qwt 6.1.3 or higher
-+ TBB tbb2018_20171205oss or higher
++ TBB 2018_20180618 or higher
 
 ---
-**Next Page**: [Configuring and Building DREAM.3D on Linux](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/linux_configure_and_build_dream3d.html).
-
 **Previous Page**: [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html)
