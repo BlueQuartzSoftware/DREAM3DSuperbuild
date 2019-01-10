@@ -26,15 +26,14 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
   # CMake on a clean DREAM3D build diretory.
   set(DREAM3D_Release_Plugins
     Anisotropy
-    #CellularAutomata
     DDDAnalysisToolbox 
+    DREAM3DReview
     HEDMAnalysis 
-    ImageProcessing 
     ITKImageProcessing
     MASSIFUtilities 
     TransformationPhase 
     UCSBUtilities 
-    DREAM3DReview
+    ZeissImport
     )
 
   set (MyPlugins
