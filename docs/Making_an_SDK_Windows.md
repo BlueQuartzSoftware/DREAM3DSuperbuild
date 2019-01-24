@@ -115,16 +115,3 @@ Sometimes there is a pause between the download completing and the installer pop
 
 13. Change Debug selection to Release and repeat Step 12.
 
-## Additional Notes ##
-
-The procedure above builds the following libraries:
-
-+ Eigen 3.3.5 or higher
-+ HDF5 1.20.3.20 or higher
-+ ITK 4.13.2 or higher
-+ Qt 5.11.1 or higher
-+ Qwt 6.1.3 or higher
-+ TBB 2018_20180618 or higher
-
----
-**Previous Page**: [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html)

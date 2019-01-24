@@ -2,6 +2,18 @@
 
 This project allows a developer to download and compile the necessary libraries that DREAM.3D and SIMPL depend on.
 
+## Dependent Libraries ##
+
++ discount 2.2.3
++ haru 2.0.0
++ Eigen 3.3.5
++ HDF5 1.10.3
++ ITK 4.13.1
++ Qt 5.9.x/5.10.x/5.11
++ Qwt 6.1.3 or higher
++ TBB 2018_20180618
+
+
 ### Windows ###
 
 For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on Windows, please visit [Making an SDK (Windows)](https://github.com/bluequartzsoftware/DREAM3DSuperbuild/blob/develop/docs/Making_an_SDK_Windows.md).
