@@ -110,7 +110,7 @@ if(APPLE)
     )
 
   endif()
-  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/clang_64/bin/qmake)
+  set(Qt5_QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/clang_64/bin/qmake)
 
 elseif(WIN32)
   set(qt5_online_installer "qt-opensource-windows-x86-${qt5_version_full}.exe")
@@ -138,7 +138,7 @@ elseif(WIN32)
                     ERROR_VARIABLE installer_error
                     WORKING_DIRECTORY ${qt5_BINARY_DIR} )
   endif()
-  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/${QT_MSVC_VERSION_NAME}/bin/qmake.exe)
+  set(Qt5_QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/${QT_MSVC_VERSION_NAME}/bin/qmake.exe)
 else()
   set(qt5_online_installer "qt-opensource-linux-x64-${qt5_version_full}.run")
   set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_major}/${qt5_version_short}/${qt5_online_installer}")
@@ -165,7 +165,7 @@ else()
                     WORKING_DIRECTORY ${qt5_BINARY_DIR} )
   endif()
 
-  set(QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/gcc_64/bin/qmake)
+  set(Qt5_QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/gcc_64/bin/qmake)
 endif()
 
 

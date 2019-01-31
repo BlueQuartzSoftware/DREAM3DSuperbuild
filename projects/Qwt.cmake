@@ -48,7 +48,7 @@ ExternalProject_Add(${extProjectName}
   #BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${qwt_INSTALL}"
 
-  CONFIGURE_COMMAND ${QMAKE_EXECUTABLE} qwt.pro
+  CONFIGURE_COMMAND ${Qt5_QMAKE_EXECUTABLE} qwt.pro
   PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${qwtConfig_FILE} <SOURCE_DIR>/qwtconfig.pri
                 COMMAND ${CMAKE_COMMAND} -E copy ${qwtSrcPro_FILE} <SOURCE_DIR>/src/src.pro
   BUILD_COMMAND ${qwt_BUILD_COMMAND} ${qwt_ParallelBuild}
