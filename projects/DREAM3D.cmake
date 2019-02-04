@@ -62,7 +62,22 @@ if(CLONE_REPOS)
   message(STATUS "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 endif()
 
-set(d3dPlugins Anisotropy DDDAnalysisToolbox FiberToolbox HEDMAnalysis ImageProcessing MASSIFUtilities TransformationPhase UCSBUtilities DREAM3DReview)
+set(GitHub_DREAM3D_Plugins 
+              Anisotropy 
+              DDDAnalysisToolbox 
+              HEDMAnalysis 
+              ImageProcessing 
+              MASSIFUtilities 
+              TransformationPhase 
+              UCSBUtilities 
+              DREAM3DReview
+)
+
+set(GitHub_BLUEQUARTZ_Plugins
+  ITKImageProcessing
+  SimulationIO
+  ZeissImport
+)
 
 
 if(CLONE_REPOS)
@@ -110,25 +125,26 @@ if(CLONE_REPOS)
             BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
             INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
 
-  set(projectName ITKImageProcessing) 
-  CloneRepo(PROJECT_NAME ${projectName}
-            DEPENDS DREAM3D ITK
-            GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
-            TMP_DIR      ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/tmp
-            STAMP_DIR    ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/stamp
-            DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/download
-            SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/Plugins/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${projectName}/Install)
+  foreach(plugin ${GitHub_BLUEQUARTZ_Plugins})
+            CloneRepo(PROJECT_NAME ${plugin}
+                    DEPENDS DREAM3D
+                    GIT_REPOSITORY http://www.github.com/dream3d/${plugin}
+                    TMP_DIR      ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/tmp
+                    STAMP_DIR    ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/stamp
+                    DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/download
+                    SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D_Plugins/${plugin}
+                    BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Binary
+                    INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Install)
+          endforeach()
 
-  foreach(plugin ${d3dPlugins})
+  foreach(plugin ${GitHub_DREAM3D_Plugins})
     CloneRepo(PROJECT_NAME ${plugin}
             DEPENDS DREAM3D
             GIT_REPOSITORY http://www.github.com/dream3d/${plugin}
             TMP_DIR      ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/tmp
             STAMP_DIR    ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/stamp
             DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/download
-            SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/Plugins/${plugin}
+            SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D_Plugins/${plugin}
             BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Binary
             INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Install)
   endforeach()
@@ -154,7 +170,7 @@ else()
 endif()
 
 set(DREAM3D_REPO_DEPENDENCIES "")
-foreach(plugin ${d3dPlugins} DREAM3D CMP SIMPL SIMPLView ITKImageProcessing )
+foreach(plugin ${GitHub_DREAM3D_Plugins} DREAM3D CMP SIMPL SIMPLView ITKImageProcessing )
   list(APPEND DREAM3D_REPO_DEPENDENCIES ${plugin})
 endforeach()
 
