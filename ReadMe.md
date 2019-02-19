@@ -7,9 +7,9 @@ This project allows a developer to download and compile the necessary libraries 
 + discount 2.2.3
 + haru 2.0.0
 + Eigen 3.3.5
-+ HDF5 1.10.3
++ HDF5 1.10.4
 + ITK 4.13.1
-+ Qt 5.9.x/5.10.x/5.11
++ Qt 5.10.x/5.11.x/5.12.x
 + Qwt 6.1.3 or higher
 + TBB 2018_20180618
 
@@ -30,5 +30,5 @@ For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on L
 
 + General information is available at the [DREAM.3D home page](http://dream3d.bluequartz.net).
 
-+ An online version of the DREAM.3D documentation is at [http://www.dream3d.i](http://www.dream3d.io)
++ An online version of the DREAM.3D documentation is at [http://www.dream3d.io](http://www.dream3d.io)
   
