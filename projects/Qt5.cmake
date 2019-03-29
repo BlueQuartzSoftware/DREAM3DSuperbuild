@@ -43,10 +43,10 @@ if(Qt512)
     message(FATAL_ERROR "Please select only 1 kind of Qt to install")
   endif()
   set(qt5_version_major "5.12")
-  set(qt5_version_full "5.12.1")
-  set(qt5_version_short "5.12.1")
+  set(qt5_version_full "5.12.2")
+  set(qt5_version_short "5.12.2")
   # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "qt5.5121")
+  set(qt5_installer_version "qt5.5122")
 endif()
 
 set(extProjectName "Qt${qt5_version_full}")
