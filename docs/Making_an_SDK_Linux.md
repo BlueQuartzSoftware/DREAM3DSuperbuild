@@ -22,7 +22,7 @@ For more information, please visit [Installing a Compiler Suite](http://dream3d.
 
 ## Prerequisites ##
 
-DREAM.3D should compile under GCC 4.8.5 or newer.
+DREAM.3D should compile under GCC 5.4.0 or newer.
 
 You should be able to use "apt-get" or "yum" or your preferred package manager to get all the dependecies except possibly HDF5 1.10.3. If you need to build HDF5 1.10.3, build it as Shared Libraries and build all the types, (base, C++, High Level) and install it somewhere in the system.
 
