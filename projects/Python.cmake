@@ -87,7 +87,7 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "# Python is needed if you want to build the doc
 FILE(APPEND ${DREAM3D_SDK_FILE} "# nice looking documentation. If there is no python environment found then DREAM3D will \n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# use the 'discount' library to generate the help files.\n")
 if(PYTHONINTERP_FOUND AND Mkdocs_FOUND)
-  file(TO_CMAKE_PATH ${_mkdocs_location} _mkdocs_location)
+  file(TO_CMAKE_PATH "${_mkdocs_location}" _mkdocs_location)
   FILE(APPEND ${DREAM3D_SDK_FILE} "# A suitable Python and mkdocs were found.\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(PYTHON_EXECUTABLE \"${PYTHON_EXECUTABLE}\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(MKDOCS_EXECUTABLE \"${_mkdocs_location}\")\n")
