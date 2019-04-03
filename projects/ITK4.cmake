@@ -89,14 +89,19 @@ ExternalProject_Add(${extProjectName}
     -DITK_FUTURE_LEGACY_REMOVE=ON
     -DITK_LEGACY_SILENT=ON
     -DITKV4_COMPATIBILITY=OFF
-
-    -DITK_BUILD_DEFAULT_MODULES=OFF
-    #-DModule_Montage=ON
-    -DModule_ITKReview=ON
-    -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
-
+    
     -DITK_USE_SYSTEM_HDF5=ON
     -DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
+
+    -DITK_BUILD_DEFAULT_MODULES=OFF
+    -DModule_ITKIOMRC=ON
+    -DModule_ITKConvolution=ON
+    -DModule_ITKDenoising=ON
+    -DModule_ITKImageNoise=ON
+    -DModule_ITKReview=ON    
+    -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
+
+    -DModule_Montage=ON
   
   DEPENDS hdf5
   LOG_DOWNLOAD 1
