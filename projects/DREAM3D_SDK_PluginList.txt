@@ -10,7 +10,7 @@
 #   )
 #
 if(EXISTS "${CMAKE_CURRENT_LIST_DIR}/DREAM3D_SDK_Extra.cmake")
-  include("${CMAKE_CURRENT_LIST_DIR}/DREAM3D_SDK_Extra.cmake")
+  #include("${CMAKE_CURRENT_LIST_DIR}/DREAM3D_SDK_Extra.cmake")
 endif()
 
 #--------------------------------------------------------------------------------------------------
@@ -25,17 +25,10 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
   # If you want to use any of these plugins you need to first UNCOMMENT the lines and then run
   # CMake on a clean DREAM3D build diretory.
   set(DREAM3D_Release_Plugins
-        Anisotropy 
-        DDDAnalysisToolbox 
-        DREAM3DReview
-        HEDMAnalysis 
-        ImageProcessing 
-        ITKImageProcessing
-        MASSIFUtilities 
-        SimulationIO
-        TransformationPhase 
-        UCSBUtilities 
-        ZeissImport
+      # GitHub.com/BluequartzSoftware/
+      @GitHub_BLUEQUARTZ_Plugins@
+      # GitHub.com/DREAM3D
+      @GitHub_DREAM3D_Plugins@  
     )
 
   set (MyPlugins

@@ -144,9 +144,10 @@ include(Haru)
 #--------------------------------------------------------------------------------------------------
 # Are we building ITK (ON by default)
 #--------------------------------------------------------------------------------------------------
+set(ITKVersion "4" CACHE STRING "ITK Major version. Valid values are 4|5. Default=4")
 option(BUILD_ITK "Build ITK" ON)
 if("${BUILD_ITK}" STREQUAL "ON")
-  include(ITK)
+  include(ITK${ITKVersion})
 endif()
 
 #--------------------------------------------------------------------------------------------------
@@ -199,12 +200,41 @@ endif()
 #--------------------------------------------------------------------------------------------------
 # Are we building DREAM3D itself (OFF by default. Not well tested)
 #--------------------------------------------------------------------------------------------------
+set(GitHub_DREAM3D_Plugins 
+Anisotropy 
+DDDAnalysisToolbox 
+HEDMAnalysis 
+ImageProcessing 
+MASSIFUtilities 
+TransformationPhase 
+UCSBUtilities 
+DREAM3DReview
+)
+
+set(GitHub_BLUEQUARTZ_Plugins
+ITKImageProcessing
+SimulationIO
+ZeissImport
+)
+
+file(READ ${CMAKE_CURRENT_SOURCE_DIR}/projects/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)
+string(REPLACE ";" "\n    " GitHub_DREAM3D_Plugins_Txt "${GitHub_DREAM3D_Plugins}")
+string(REPLACE ";" "\n    " GitHub_BLUEQUARTZ_Plugins_Txt "${GitHub_BLUEQUARTZ_Plugins}")
+string(REPLACE "@GitHub_DREAM3D_Plugins@" "${GitHub_DREAM3D_Plugins_Txt}" DREAM3D_PLUGIN_CODE ${DREAM3D_PLUGIN_CODE})
+string(REPLACE "@GitHub_BLUEQUARTZ_Plugins@" "${GitHub_BLUEQUARTZ_Plugins_Txt}" DREAM3D_PLUGIN_CODE ${DREAM3D_PLUGIN_CODE})
+
+file(APPEND ${DREAM3D_SDK_FILE} ${DREAM3D_PLUGIN_CODE})
+
+# Reset the variables here because we just messed with the internal layout and cmake will complain.
+set(DREAM3D_Base_Repos
+CMP
+SIMPL
+SIMPLView
+)
+
+
 OPTION(BUILD_DREAM3D "Build DREAM.3D" OFF)
 if("${BUILD_DREAM3D}" STREQUAL "ON")
   include(DREAM3D)
 endif()
-
-
-file(READ ${CMAKE_CURRENT_SOURCE_DIR}/projects/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)
-file(APPEND ${DREAM3D_SDK_FILE} ${DREAM3D_PLUGIN_CODE})
 

@@ -8,7 +8,7 @@ function(CloneRepo)
   cmake_parse_arguments(Z "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
   set(projectName ${Z_PROJECT_NAME})
-  message(STATUS "Cloning ${projectName}" )
+  message(STATUS "Creating External Project: ${projectName}" )
 
   set(SOURCE_DIR "${Z_WORKSPACE_DIR}")
 
@@ -49,7 +49,7 @@ endfunction()
 set(CLONE_REPOS 1)
 if("${WORKSPACE_DIR}" STREQUAL "")
   message(FATAL_ERROR "WORKSPACE_DIR is empty. Cloning and building DREAM.3D can not continue. \
-    Please set the WORKSPACE_DIR to the directory where you want to clone all the DREAM3D \
+    Please set the -DWORKSPACE_DIR=/Path/to/Directory/of/DREAM3D to the directory where you want to clone all the DREAM3D \
     repositories. Anything in that directory may be over written.")
 endif()
 if(CLONE_REPOS)
@@ -62,91 +62,40 @@ if(CLONE_REPOS)
   message(STATUS "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 endif()
 
-set(GitHub_DREAM3D_Plugins 
-              Anisotropy 
-              DDDAnalysisToolbox 
-              HEDMAnalysis 
-              ImageProcessing 
-              MASSIFUtilities 
-              TransformationPhase 
-              UCSBUtilities 
-              DREAM3DReview
-)
-
-set(GitHub_BLUEQUARTZ_Plugins
-  ITKImageProcessing
-  SimulationIO
-  ZeissImport
-)
-
 
 if(CLONE_REPOS)
 
-  set(projectName DREAM3D)
-  CloneRepo(PROJECT_NAME ${projectName}
-            GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
-            TMP_DIR      ${DREAM3D_SDK}/superbuild/${projectName}/tmp
-            STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
-            DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
-            SOURCE_DIR   ${WORKSPACE_DIR}/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
-
-  set(projectName CMP)
-  CloneRepo(PROJECT_NAME ${projectName}
-            DEPENDS DREAM3D
-            GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
-            TMP_DIR      ${DREAM3D_SDK}/superbuild/${projectName}/tmp
-            STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
-            DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
-            SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
-
-  set(projectName SIMPL)
-  CloneRepo(PROJECT_NAME ${projectName}
-            DEPENDS DREAM3D
-            GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
-            TMP_DIR      ${DREAM3D_SDK}/superbuild/${projectName}/tmp
-            STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
-            DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
-            SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
-
-  set(projectName SIMPLView)
-  CloneRepo(PROJECT_NAME ${projectName}
-            DEPENDS DREAM3D
-            GIT_REPOSITORY http://www.github.com/bluequartzsoftware/${projectName}
-            TMP_DIR      ${DREAM3D_SDK}/superbuild/${projectName}/tmp
-            STAMP_DIR    ${DREAM3D_SDK}/superbuild/${projectName}/stamp
-            DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${projectName}/download
-            SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D/ExternalProjects/${projectName}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/${projectName}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/${projectName}/Install)
+  foreach(plugin ${DREAM3D_Base_Repos})
+    CloneRepo(PROJECT_NAME ${plugin}
+          GIT_REPOSITORY https://www.github.com/bluequartzsoftware/${plugin}
+          TMP_DIR      ${WORKSPACE_DIR}/Temp/${plugin}/tmp
+          STAMP_DIR    ${WORKSPACE_DIR}/Temp/${plugin}/stamp
+          DOWNLOAD_DIR ${WORKSPACE_DIR}/Temp/${plugin}/download
+          SOURCE_DIR   ${WORKSPACE_DIR}/${plugin}
+          BINARY_DIR   ${WORKSPACE_DIR}/Temp/${plugin}/Binary
+          INSTALL_DIR  ${WORKSPACE_DIR}/Temp/${plugin}/Install)
+  endforeach()
 
   foreach(plugin ${GitHub_BLUEQUARTZ_Plugins})
-            CloneRepo(PROJECT_NAME ${plugin}
-                    DEPENDS DREAM3D
-                    GIT_REPOSITORY http://www.github.com/dream3d/${plugin}
-                    TMP_DIR      ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/tmp
-                    STAMP_DIR    ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/stamp
-                    DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/download
-                    SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D_Plugins/${plugin}
-                    BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Binary
-                    INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Install)
-          endforeach()
+    CloneRepo(PROJECT_NAME ${plugin}
+            GIT_REPOSITORY https://www.github.com/bluequartzsoftware/${plugin}
+            TMP_DIR      ${WORKSPACE_DIR}/Temp/${plugin}/tmp
+            STAMP_DIR    ${WORKSPACE_DIR}/Temp/${plugin}/stamp
+            DOWNLOAD_DIR ${WORKSPACE_DIR}/Temp/${plugin}/download
+            SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D_Plugins/${plugin}
+            BINARY_DIR   ${WORKSPACE_DIR}/Temp/${plugin}/Binary
+            INSTALL_DIR  ${WORKSPACE_DIR}/Temp/${plugin}/Install)
+  endforeach()
 
   foreach(plugin ${GitHub_DREAM3D_Plugins})
     CloneRepo(PROJECT_NAME ${plugin}
-            DEPENDS DREAM3D
-            GIT_REPOSITORY http://www.github.com/dream3d/${plugin}
-            TMP_DIR      ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/tmp
-            STAMP_DIR    ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/stamp
-            DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/download
+            GIT_REPOSITORY https://www.github.com/dream3d/${plugin}
+            TMP_DIR      ${WORKSPACE_DIR}/Temp/${plugin}/tmp
+            STAMP_DIR    ${WORKSPACE_DIR}/Temp/${plugin}/stamp
+            DOWNLOAD_DIR ${WORKSPACE_DIR}/Temp/${plugin}/download
             SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D_Plugins/${plugin}
-            BINARY_DIR   ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Binary
-            INSTALL_DIR  ${DREAM3D_SDK}/superbuild/DREAM3D_Plugins/${plugin}/Install)
+            BINARY_DIR   ${WORKSPACE_DIR}/Temp/${plugin}/Binary
+            INSTALL_DIR  ${WORKSPACE_DIR}/Temp/${plugin}/Install)
   endforeach()
 
 endif()
@@ -170,39 +119,37 @@ else()
 endif()
 
 set(DREAM3D_REPO_DEPENDENCIES "")
-foreach(plugin ${GitHub_DREAM3D_Plugins} DREAM3D CMP SIMPL SIMPLView ITKImageProcessing )
-  list(APPEND DREAM3D_REPO_DEPENDENCIES ${plugin})
+foreach(repo ${GitHub_DREAM3D_Plugins} ${DREAM3D_Base_Repos} ${GitHub_BLUEQUARTZ_Plugins} )
+  list(APPEND DREAM3D_REPO_DEPENDENCIES ${repo})
+  message(STATUS "Add Dependency: ${repo}" )
 endforeach()
 
+
 ExternalProject_Add(${extProjectName}
-  DEPENDS     discount Eigen hdf5 ITK Qt5 qwt ITK DREAM3D_Data ${DREAM3D_REPO_DEPENDENCIES}
-  TMP_DIR      ${DREAM3D_SDK}/superbuild/${extProjectName}/tmp
-  STAMP_DIR    ${DREAM3D_SDK}/superbuild/${extProjectName}/stamp-${BUILD_TYPE}
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/download
+  DEPENDS     discount Eigen haru hdf5 ITK Qt5 qwt DREAM3D_Data ${DREAM3D_REPO_DEPENDENCIES}
+  TMP_DIR      ${WORKSPACE_DIR}/Temp/DREAM3D/tmp
+  STAMP_DIR    ${WORKSPACE_DIR}/Temp/DREAM3D/stamp-${BUILD_TYPE}
+  DOWNLOAD_DIR ${WORKSPACE_DIR}/Temp/DREAM3D/download
   SOURCE_DIR   ${WORKSPACE_DIR}/DREAM3D
   BINARY_DIR   ${WORKSPACE_DIR}/DREAM3D-Build/${BUILD_TYPE}
   INSTALL_DIR  ${WORKSPACE_DIR}/DREAM3D-Install/
 
-  DOWNLOAD_COMMAND ""
-  UPDATE_COMMAND "" 
-  PATCH_COMMAND "" 
-  # CONFIGURE_COMMAND "" 
-  # BUILD_COMMAND "" 
-  # INSTALL_COMMAND ""
-  TEST_COMMAND ""
+  GIT_PROGRESS 1
+  GIT_REPOSITORY "https://www.github.com/bluequartzsoftware/DREAM3D"
+  GIT_TAG develop
 
-  #GIT_PROGRESS 1
-  #GIT_REPOSITORY "http://www.github.com/bluequartzsoftware/DREAM3D"
-  #GIT_TAG develop
+  UPDATE_COMMAND ""
+  PATCH_COMMAND ""
+  #CONFIGURE_COMMAND ""
+  #BUILD_COMMAND ""
+  #INSTALL_COMMAND ""
+  TEST_COMMAND ""
 
   CMAKE_ARGS
     -DDREAM3D_SDK:PATH=${DREAM3D_SDK}
     -DCMAKE_BUILD_TYPE:STRING=${BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=${WORKSPACE_DIR}/${extProjectName}-Install
     -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
-    -DSIMPL_DISCOUNT_DOCUMENTATION:BOOL=ON
-    -DSIMPL_DOXYGEN_DOCUMENTATION:BOOL=OFF
-    -DSIMPL_GENERATE_HTML:BOOL=OFF
     
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
