@@ -144,7 +144,9 @@ include(Haru)
 #--------------------------------------------------------------------------------------------------
 # Are we building ITK (ON by default)
 #--------------------------------------------------------------------------------------------------
-set(ITKVersion "4" CACHE STRING "ITK Major version. Valid values are 4|5. Default=4")
+if(${ITKVersion} STREQUAL "")
+  set(ITKVersion "4")
+endif()
 option(BUILD_ITK "Build ITK" ON)
 if("${BUILD_ITK}" STREQUAL "ON")
   include(ITK${ITKVersion})
