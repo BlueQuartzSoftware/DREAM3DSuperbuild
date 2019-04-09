@@ -18,7 +18,7 @@ If you have already fulfilled all of these prerequisites, skip to the [Procedure
 
 A compatible compiler needs to be installed on your system to be able to build DREAM.3D.
 
-For more information, please visit [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html).
+For more information, please visit [Installing a Compiler Suite](http://www.dream3d.io/6_Developer/CompilerSuite/index.html).
 
 ## Prerequisites ##
 

@@ -20,7 +20,7 @@ A compatible compiler needs to be installed on your system to be able to build D
 
 This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Versions 2015 and 2017 are supported in this release and should be usable.  Both the **Professional** and **Community** versions will work.
 
-For more information, please visit [Installing a Compiler Suite](http://dream3d.bluequartz.net/binaries/Help/DREAM3D/compiler_suite.html).
+For more information, please visit [Installing a Compiler Suite](http://www.dream3d.io/6_Developer/CompilerSuite/index.html).
 
 ### Install Git ###
 
@@ -44,7 +44,9 @@ To install Git, please visit the [Git website](https://git-scm.com/downloads).
 **2: Download and install CMake from https://cmake.org/download:**
 
 Scroll down the page until you see the **Latest Release** section.  The latest release may be a higher version than 3.13.0
+
 ![](Images/Windows/cmake_download_page.png)
+
 Press the download link to download the zip file of the latest release of CMake.  It does not matter if the download is for 32-bit (win32-x86) or 64-bit (win64-x64).  Again, the latest release may be a higher version than 3.13.0, but that is ok.
 
 Click on the zip file that you just downloaded to extract it into a folder.
