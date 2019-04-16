@@ -6,9 +6,9 @@ if(${CMAKE_MAJOR_VERSION} STREQUAL "3")
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-cmake_minimum_required(VERSION 3.11.0)
+cmake_minimum_required(VERSION 3.13.0)
 
-project(DREAM3DSuperBuild VERSION 1.2.0.0 LANGUAGES C CXX)
+project(DREAM3DSuperBuild VERSION 2.0.0.0 LANGUAGES C CXX)
 
 # This allows us to just use the "include()" command and the name of the project
 set(CMAKE_MODULE_PATH 
@@ -144,7 +144,7 @@ include(Haru)
 #--------------------------------------------------------------------------------------------------
 # Are we building ITK (ON by default)
 #--------------------------------------------------------------------------------------------------
-if(${ITKVersion} STREQUAL "")
+if("${ITKVersion}" STREQUAL "")
   set(ITKVersion "4")
 endif()
 option(BUILD_ITK "Build ITK" ON)
@@ -203,20 +203,20 @@ endif()
 # Are we building DREAM3D itself (OFF by default. Not well tested)
 #--------------------------------------------------------------------------------------------------
 set(GitHub_DREAM3D_Plugins 
-Anisotropy 
-DDDAnalysisToolbox 
-HEDMAnalysis 
-ImageProcessing 
-MASSIFUtilities 
-TransformationPhase 
-UCSBUtilities 
-DREAM3DReview
+  Anisotropy 
+  DDDAnalysisToolbox 
+  HEDMAnalysis 
+  ImageProcessing 
+  MASSIFUtilities 
+  TransformationPhase 
+  UCSBUtilities 
+  DREAM3DReview
 )
 
 set(GitHub_BLUEQUARTZ_Plugins
-ITKImageProcessing
-SimulationIO
-ZeissImport
+  ITKImageProcessing
+  SimulationIO
+  ZeissImport
 )
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/projects/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)
@@ -229,9 +229,9 @@ file(APPEND ${DREAM3D_SDK_FILE} ${DREAM3D_PLUGIN_CODE})
 
 # Reset the variables here because we just messed with the internal layout and cmake will complain.
 set(DREAM3D_Base_Repos
-CMP
-SIMPL
-SIMPLView
+  CMP
+  SIMPL
+  SIMPLView
 )
 
 

@@ -1,6 +1,6 @@
 set(extProjectName "ITK")
 
-set(ITK_VERSION "4.13.1")
+set(ITK_VERSION "4.13.2")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
 #set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
