@@ -28,3 +28,6 @@ Support/Scripts/GMT/gmt.history
 /VS2015/
 /VS2017/
 /.vscode/
+/imf-debug/
+/imf-release/
+

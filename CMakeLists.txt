@@ -216,7 +216,6 @@ set(GitHub_DREAM3D_Plugins
 set(GitHub_BLUEQUARTZ_Plugins
   ITKImageProcessing
   SimulationIO
-  ZeissImport
 )
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/projects/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)
