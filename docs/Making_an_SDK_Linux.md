@@ -135,14 +135,9 @@ You will now want to clone the actual DREAM.3D repositories and supporting respo
         git remote add upstream ssh://git@github.com/bluequartzsoftware/$P
       done
 
-      PLUGINS="Anisotropy\
-      CellularAutomata\
-      DDDAnalysisToolbox\
+      PLUGINS="
       DREAM3DReview\
-      FiberToolbox\
-      HEDMAnalysis\
       ImageProcessing\
-      MASSIFUtilities\
       TransformationPhase\
       UCSBUtilities" 
       for P in $PLUGINS; do
