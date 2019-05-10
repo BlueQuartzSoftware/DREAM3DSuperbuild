@@ -203,14 +203,10 @@ endif()
 # Are we building DREAM3D itself (OFF by default. Not well tested)
 #--------------------------------------------------------------------------------------------------
 set(GitHub_DREAM3D_Plugins 
-  Anisotropy 
-  DDDAnalysisToolbox 
-  HEDMAnalysis 
+  DREAM3DReview
   ImageProcessing 
-  MASSIFUtilities 
   TransformationPhase 
   UCSBUtilities 
-  DREAM3DReview
 )
 
 set(GitHub_BLUEQUARTZ_Plugins
