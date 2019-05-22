@@ -71,8 +71,10 @@ find_package_handle_standard_args(Mkdocs
 )
 
 if(NOT Mkdocs_FOUND)
-  message(FATAL_ERROR "The python module 'mkdocs' is needed.\n\
-  One would typically install it using 'pip install mkdocs-material'\n\
+  message("Mkdocs is missing or not defined and will impact your ability to generate the documentation.\n\
+  When building DREAM3D, set SIMPL_USE_MKDOCS = OFF and SIMPL_USE_DISCOUNT = ON\n\
+  or disable the generation of the documentation by setting SIMPLView_BUILD_DOCUMENTATION=OFF.\n\
+  One would typically install mkdocs using 'pip install mkdocs-material'\n\
   You may also need to do 'pip install msgpack'")
 else()
   message(STATUS "Mkdocs (${_mkdocs_version}) Found: ${_mkdocs_location}")
