@@ -98,6 +98,7 @@ ExternalProject_Add(${extProjectName}
     -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
 
     -DModule_Montage=ON
+    -DREMOTE_GIT_TAG_Montage:STRING=e34663554a95e483186c20be1ef4e794193bd1a1
   
   DEPENDS hdf5
   LOG_DOWNLOAD 1
