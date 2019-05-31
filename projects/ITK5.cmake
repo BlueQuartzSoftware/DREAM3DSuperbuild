@@ -25,18 +25,18 @@ elseif(APPLE)
   set(APPLE_CMAKE_ARGS "-DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET} -DCMAKE_OSX_SYSROOT=${OSX_SDK} -DCMAKE_SKIP_INSTALL_RPATH=OFF -DCMAKE_SKIP_RPATH=OFF")
   set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
-  set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
+  set(CXX_FLAGS "-stdlib=libc++ -std=c++14")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake/hdf5")
 elseif("${BUILD_ITK}" STREQUAL "ON")
   set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
-  set(CXX_FLAGS "-std=c++11")
+  set(CXX_FLAGS "-std=c++14")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/share/cmake/hdf5")
 else()
   if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CXX_FLAGS "-stdlib=libc++ -std=c++11")
+    set(CXX_FLAGS "-stdlib=libc++ -std=c++14")
   else()
-    set(CXX_FLAGS "-std=c++11")
+    set(CXX_FLAGS "-std=c++14")
   endif()
 endif()
 
@@ -74,28 +74,40 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
     ${APPLE_CMAKE_ARGS}
 
-    -DCMAKE_CXX_STANDARD=11 
+    -DCMAKE_CXX_STANDARD=14
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
 
     -DBUILD_DOCUMENTATION=OFF
     -DBUILD_EXAMPLES=OFF
     -DBUILD_TESTING=OFF
-
-    -DITK_LEGACY_REMOVE=ON
+   
+    -DKWSYS_USE_MD5=ON
+    
+    -DITK_LEGACY_REMOVE=OFF
     -DITK_FUTURE_LEGACY_REMOVE=ON
-    -DITK_LEGACY_SILENT=ON
-    -DITKV4_COMPATIBILITY=OFF
+    -DITK_LEGACY_SILENT=OFF
+    -DITKV4_COMPATIBILITY=ON
     
     -DITK_USE_SYSTEM_HDF5=ON
     -DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
 
+		-DITKGroup_Core=ON
+		-DITKGroup_Filtering=ON
+		-DITKGroup_Registration=ON
+		-DITKGroup_Segmentation=ON
+
     -DITK_BUILD_DEFAULT_MODULES=OFF
     -DModule_ITKIOMRC=ON
+    -DModule_ITKReview=ON   
+    -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
+
+    -DModule_ITKMetricsv4=ON
+    -DModule_ITKOptimizersv4=ON
+    -DModule_ITKRegistrationMethodsv4=ON
+    -DModule_ITKIOTransformBase=ON
     -DModule_ITKConvolution=ON
     -DModule_ITKDenoising=ON
     -DModule_ITKImageNoise=ON
-    -DModule_ITKReview=ON    
-    -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
 
     -DModule_Montage=ON
     -DREMOTE_GIT_TAG_Montage:STRING=e34663554a95e483186c20be1ef4e794193bd1a1
