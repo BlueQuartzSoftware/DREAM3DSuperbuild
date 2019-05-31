@@ -204,8 +204,7 @@ endif()
 #--------------------------------------------------------------------------------------------------
 set(GitHub_DREAM3D_Plugins 
   DREAM3DReview
-  ImageProcessing 
-  TransformationPhase 
+  ImageProcessing  
   UCSBUtilities 
 )
 
