@@ -67,6 +67,7 @@ ExternalProject_Add(${extProjectName}
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
+set(Eigen3_DIR ${DREAM3D_SDK_ROOT}/Eigen-${Eigen_VERSION}/share/eigen3/cmake CACHE PATH "" )
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# Eigen3 Library Location\n")
