@@ -110,7 +110,7 @@ ExternalProject_Add(${extProjectName}
     -DModule_ITKImageNoise=ON
 
     -DModule_Montage=ON
-    -DREMOTE_GIT_TAG_Montage:STRING=e34663554a95e483186c20be1ef4e794193bd1a1
+    -DREMOTE_GIT_TAG_Montage:STRING=master
   
   DEPENDS hdf5
   LOG_DOWNLOAD 1
