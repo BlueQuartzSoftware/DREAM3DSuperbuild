@@ -1,5 +1,6 @@
 set(extProjectName "ITK")
 
+set(ITK5_GIT_TAG "master")
 set(ITK_VERSION "5.0.0")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
@@ -57,7 +58,7 @@ ExternalProject_Add(${extProjectName}
 
   GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
   GIT_PROGRESS 1
-  GIT_TAG v5.0.0
+  GIT_TAG ${ITK5_GIT_TAG}
 
   TMP_DIR "${D3DSP_BASE_DIR}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${D3DSP_BASE_DIR}/Stamp/${CMAKE_BUILD_TYPE}"
