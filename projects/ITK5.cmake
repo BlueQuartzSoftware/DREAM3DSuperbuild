@@ -112,7 +112,8 @@ ExternalProject_Add(${extProjectName}
 
     -DModule_Montage=ON
     -DREMOTE_GIT_TAG_Montage:STRING=master
-  
+    -DModule_TotalVariation=ON
+
   DEPENDS hdf5
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
