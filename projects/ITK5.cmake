@@ -1,11 +1,10 @@
 set(extProjectName "ITK")
 
 set(ITK5_GIT_TAG "master")
-set(ITK_VERSION "5.0.0")
+set(ITK_VERSION "5.0.1")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
-#set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
-set(ITK_URL "https://github.com/InsightSoftwareConsortium/ITK/archive/${ITK_VERSION}.tar.gz")
+set(ITK_URL "https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${ITK_VERSION}/InsightToolkit-${ITK_VERSION}.tar.gz")
 
 option(ITK_SCIFIO_SUPPORT "Add support for SCIFIO to the ITK build" OFF)
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
@@ -56,17 +55,28 @@ set(D3DSP_BASE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}")
 # In the below we are using ITK 5.0 from the 5.0.0 tag.
 ExternalProject_Add(${extProjectName}
 
-  GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
-  GIT_PROGRESS 1
-  GIT_TAG ${ITK5_GIT_TAG}
-
-  TMP_DIR "${D3DSP_BASE_DIR}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${D3DSP_BASE_DIR}/Stamp/${CMAKE_BUILD_TYPE}"
-  DOWNLOAD_DIR ${D3DSP_BASE_DIR}
+# ========== This is for downloading and building an official release of ITK 5
+  DOWNLOAD_NAME ${extProjectName}-${ITK_VERSION}.tar.gz
+  URL ${ITK_URL}
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
   SOURCE_DIR "${SOURCE_DIR}"
   BINARY_DIR "${BINARY_DIR}"
-  INSTALL_DIR "${D3DSP_BASE_DIR}/Install"
+  INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Install"
   INSTALL_COMMAND ""
+
+# ========== This is for downloading and building a git tag of ITK
+  # GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
+  # GIT_PROGRESS 1
+  # GIT_TAG ${ITK5_GIT_TAG}
+  # TMP_DIR "${D3DSP_BASE_DIR}/tmp/${CMAKE_BUILD_TYPE}"
+  # STAMP_DIR "${D3DSP_BASE_DIR}/Stamp/${CMAKE_BUILD_TYPE}"
+  # DOWNLOAD_DIR ${D3DSP_BASE_DIR}
+  # SOURCE_DIR "${SOURCE_DIR}"
+  # BINARY_DIR "${BINARY_DIR}"
+  # INSTALL_DIR "${D3DSP_BASE_DIR}/Install"
+  # INSTALL_COMMAND ""
   
   CMAKE_ARGS
     -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
