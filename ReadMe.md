@@ -7,12 +7,12 @@ This project will download, configure and build a complete DREAM3D SDK and optio
 + CMake 3.13.0
 + discount 2.2.3
 + haru 2.0.0
-+ Eigen 3.3.5
++ Eigen 3.3.7
 + HDF5 1.10.4
-+ ITK 4.13.1
-+ Qt 5.10.x/5.11.x/5.12.x
++ ITK 4.13.2
++ Qt 5.12.4
 + Qwt 6.1.3 or higher
-+ TBB 2018_20180618
++ TBB 2019_20190320
 + Python 3.7 (Anaconda Preferred) if you want to include the Python bindings. The script will NOT download or install Python. That is left as an exercise for the developer.
 
 _Please note in the below instructions that the version of CMake on www.cmake.org may be newer than what is shown in the scree captures. That is perfectly normal.
