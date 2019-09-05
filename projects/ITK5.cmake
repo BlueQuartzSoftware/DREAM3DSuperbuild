@@ -56,74 +56,79 @@ set(D3DSP_BASE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}")
 ExternalProject_Add(${extProjectName}
 
 # ========== This is for downloading and building an official release of ITK 5
-  DOWNLOAD_NAME ${extProjectName}-${ITK_VERSION}.tar.gz
-  URL ${ITK_URL}
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
-  SOURCE_DIR "${SOURCE_DIR}"
-  BINARY_DIR "${BINARY_DIR}"
-  INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Install"
-  INSTALL_COMMAND ""
-
-# ========== This is for downloading and building a git tag of ITK
-  # GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
-  # GIT_PROGRESS 1
-  # GIT_TAG ${ITK5_GIT_TAG}
-  # TMP_DIR "${D3DSP_BASE_DIR}/tmp/${CMAKE_BUILD_TYPE}"
-  # STAMP_DIR "${D3DSP_BASE_DIR}/Stamp/${CMAKE_BUILD_TYPE}"
-  # DOWNLOAD_DIR ${D3DSP_BASE_DIR}
+  # DOWNLOAD_NAME ${extProjectName}-${ITK_VERSION}.tar.gz
+  # URL ${ITK_URL}
+  # TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+  # STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+  # DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
   # SOURCE_DIR "${SOURCE_DIR}"
   # BINARY_DIR "${BINARY_DIR}"
-  # INSTALL_DIR "${D3DSP_BASE_DIR}/Install"
+  # INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Install"
   # INSTALL_COMMAND ""
+
+# ========== This is for downloading and building a git tag of ITK
+  GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
+  GIT_PROGRESS 1
+  GIT_TAG ${ITK5_GIT_TAG}
+  TMP_DIR "${D3DSP_BASE_DIR}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${D3DSP_BASE_DIR}/Stamp/${CMAKE_BUILD_TYPE}"
+  DOWNLOAD_DIR ${D3DSP_BASE_DIR}
+  SOURCE_DIR "${SOURCE_DIR}"
+  BINARY_DIR "${BINARY_DIR}"
+  INSTALL_DIR "${D3DSP_BASE_DIR}/Install"
+  INSTALL_COMMAND ""
   
   CMAKE_ARGS
-    -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}
-    -DCMAKE_BUILD_TYPE:=${CMAKE_BUILD_TYPE}
+    -DBUILD_SHARED_LIBS:STRING=${BUILD_SHARED_LIBS}
+    -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
     -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
     ${APPLE_CMAKE_ARGS}
 
-    -DCMAKE_CXX_STANDARD=14
-    -DCMAKE_CXX_STANDARD_REQUIRED=ON
+    -DCMAKE_CXX_STANDARD:STRING=14
+    -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=ON
 
-    -DBUILD_DOCUMENTATION=OFF
-    -DBUILD_EXAMPLES=OFF
-    -DBUILD_TESTING=OFF
+    -DBUILD_DOCUMENTATION:BOOL=OFF
+    -DBUILD_EXAMPLES:BOOL=OFF
+    -DBUILD_TESTING:BOOL=OFF
    
-    -DKWSYS_USE_MD5=ON
+    -DKWSYS_USE_MD5:BOOL=ON
     
-    -DITK_LEGACY_REMOVE=OFF
-    -DITK_FUTURE_LEGACY_REMOVE=ON
-    -DITK_LEGACY_SILENT=OFF
-    -DITKV4_COMPATIBILITY=ON
-    
-    -DITK_USE_SYSTEM_HDF5=ON
+    -DITK_LEGACY_REMOVE:BOOL=OFF
+    -DITK_FUTURE_LEGACY_REMOVE:BOOL=ON
+    -DITK_LEGACY_SILENT:BOOL=OFF
+    -DITKV4_COMPATIBILITY:BOOL=ON
+    -DITK_USE_SYSTEM_EIGEN:BOOL=ON
+    -DITK_USE_SYSTEM_HDF5:BOOL=ON
     -DHDF5_DIR=${HDF5_CMAKE_MODULE_DIR}
 
-		-DITKGroup_Core=ON
-		-DITKGroup_Filtering=ON
-		-DITKGroup_Registration=ON
-		-DITKGroup_Segmentation=ON
+		-DITKGroup_Core:BOOL=ON
+		-DITKGroup_Filtering:BOOL=ON
+		-DITKGroup_Registration:BOOL=ON
+		-DITKGroup_Segmentation:BOOL=ON
 
-    -DITK_BUILD_DEFAULT_MODULES=OFF
-    -DModule_ITKIOMRC=ON
-    -DModule_ITKReview=ON   
+    -DITK_BUILD_DEFAULT_MODULES=:BOOLOFF
+    -DModule_ITKIOMRC=:BOOLON
+    -DModule_ITKReview=:BOOLON   
     -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
 
-    -DModule_ITKMetricsv4=ON
-    -DModule_ITKOptimizersv4=ON
-    -DModule_ITKRegistrationMethodsv4=ON
-    -DModule_ITKIOTransformBase=ON
-    -DModule_ITKConvolution=ON
-    -DModule_ITKDenoising=ON
-    -DModule_ITKImageNoise=ON
+    -DModule_ITKMetricsv4:BOOL=ON
+    -DModule_ITKOptimizersv4:BOOL=ON
+    -DModule_ITKRegistrationMethodsv4:BOOL=ON
+    -DModule_ITKIOTransformBase:BOOL=ON
+    -DModule_ITKConvolution:BOOL=ON
+    -DModule_ITKDenoising:BOOL=ON
+    -DModule_ITKImageNoise:BOOL=ON
 
-    -DModule_Montage=ON
+    -DModule_Montage:BOOL=ON
     -DREMOTE_GIT_TAG_Montage:STRING=master
+
+    -DModule_TotalVariation:BOOL=ON
+    -DREMOTE_GIT_TAG_TotalVariation:STRING=master
+    -DEigen3_DIR:PATH=${Eigen3_DIR}
   
   DEPENDS hdf5
+  DEPENDS Eigen
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
   LOG_CONFIGURE 1
