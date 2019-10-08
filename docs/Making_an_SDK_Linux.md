@@ -22,13 +22,13 @@ For more information, please visit [Installing a Compiler Suite](http://www.drea
 
 ## Prerequisites ##
 
-DREAM.3D should compile under GCC 5.4.0 or newer.
+DREAM.3D requires a C++14 compliant compiler. GCC Version 7.4 is used for testing under Ubuntu 16.04 LTS environment.
 
 You should be able to use "apt-get" or "yum" or your preferred package manager to get all the dependecies except possibly HDF5 1.10.3. If you need to build HDF5 1.10.3, build it as Shared Libraries and build all the types, (base, C++, High Level) and install it somewhere in the system.
 
 + Git
-+ [CMake 3.13.x](http://www.cmake.org)
-+ Compiler Suite (GCC 5.x is now required. Recent Versions of Clang will also work.)
++ [CMake 3.14.x](http://www.cmake.org)
++ Compiler Suite (GCC 7.x is now required. Recent Versions of Clang will also work.)
 + _optionally_ install ninja from [GitHub](https://github.com/ninja-build/ninja/releases) or your package manager.
 
 ## Procedure ##
@@ -37,8 +37,9 @@ You should be able to use "apt-get" or "yum" or your preferred package manager t
 
 + /usr/local/DREAM3_SDK
 + /opt/DREAM3D_SDK
++ /home/$USER/DREAM3D_SDK
 
-are 2 possible locations to use. Make sure those directories are created and you have write access to them.
+are 3 possible locations to use. Make sure those directories are created and you have write access to them.
 
 Clone this repository:
 
@@ -54,7 +55,7 @@ Clone this repository:
 
 ... Wait for the build to complete. This may take a while (up to an hour on lesser hardware) for **each** type of build.
 
-** Now create a Release build following generally the same procedure **
+**Now create a Release build following generally the same procedure**
 
     cd $HOME/DREAM3DSuperbuild/
     mkdir Release && cd Release
@@ -111,11 +112,6 @@ You will now want to clone the actual DREAM.3D repositories and supporting respo
         git remote add upstream ssh://git@github.com/bluequartzsoftware/$P
       done
 
-      printHeader BrandedDREAM3D
-      git clone -b develop ssh://git@gitlab.bluequartz.net/DREAM3D/BrandedDREAM3D
-      cd BrandedDREAM3D
-      git remote add upstream ssh://git@gitlab.bluequartz.net/DREAM3D/BrandedDREAM3D
-
       cd $rootdir/DREAM3D/ExternalProjects
       mkdir Plugins
       cd Plugins
@@ -125,8 +121,7 @@ You will now want to clone the actual DREAM.3D repositories and supporting respo
       # plugins directory
 
       PLUGINS="ITKImageProcessing\
-      SimulationIO\
-      ZeissImport"
+      SimulationIO"
       for P in $PLUGINS; do
         cd $rootdir/DREAM3D/ExternalProjects/Plugins
         printHeader $P
