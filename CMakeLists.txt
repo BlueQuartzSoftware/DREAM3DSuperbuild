@@ -78,6 +78,11 @@ if(APPLE)
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
   ENDIF ()
 
+  IF (DARWIN_VERSION EQUAL 19) # macOS 10.14 Catalina (Xcode 11.x)
+    message(STATUS "Found macOS 10.15 Catalina as the host. Darwin Version:${DARWIN_VERSION}")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+  ENDIF ()
+
   if("${OSX_SDK}" STREQUAL "NOT-FOUND")
     message(FATAL_ERROR "This version of macOS (${DARWIN_VERSION}) is not recognized.\
     The following versions are supported:\n\
@@ -86,6 +91,7 @@ if(APPLE)
     (16) macOS 10.12 Sierra\n\
     (17) macOS 10.13 High Sierra\n\
     (18) macOS 10.14 Mojave\n\
+    (19) macOS 10.15 Catalina\n\
     Please edit ${CMAKE_CURRENT_LIST_FILE} and add this version of macOS to the detection logic.
     ")
 
@@ -145,6 +151,7 @@ include(Haru)
 # Are we building ITK (ON by default)
 #--------------------------------------------------------------------------------------------------
 if("${ITKVersion}" STREQUAL "")
+  message(STATUS "ITK Version 4 is being used. If you want ITK Version 5 then use -DITKVersion=5 when configuring.")
   set(ITKVersion "4")
 endif()
 option(BUILD_ITK "Build ITK" ON)
