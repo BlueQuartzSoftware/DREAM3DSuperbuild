@@ -53,8 +53,6 @@ endif()
 set(extProjectName "Qt${qt5_version_full}")
 message(STATUS "External Project: ${extProjectName}: ${qt5_version_full}" )
 
-
-
 set(qt5_INSTALL "${DREAM3D_SDK}/${extProjectName}${qt5_version_full}")
 set(qt5_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
 

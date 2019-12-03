@@ -138,14 +138,14 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "# Always write out the compile_commands.json fi
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_EXPORT_COMPILE_COMMANDS ON)\n")
 
 
-include(Python)
-include(Pybind11)
-include(Discount)
-include(DREAM3DData)
-include(Eigen)
+# include(Python)
+# include(Pybind11)
+# include(Discount)
+# include(DREAM3DData)
+# include(Eigen)
 include(HDF5)
-include(TBB)
-include(Haru)
+# include(TBB)
+# include(Haru)
 
 #--------------------------------------------------------------------------------------------------
 # Are we building ITK (ON by default)
@@ -166,7 +166,6 @@ OPTION(BUILD_BOOST "Build Boost" OFF)
 if("${BUILD_BOOST}" STREQUAL "ON")
   include(Boost)
 endif()
-
 
 #--------------------------------------------------------------------------------------------------
 # Are we installing Qt5 or is it already installed
@@ -205,6 +204,18 @@ if("${BUILD_QWT}" STREQUAL "ON")
 else()
   message(STATUS "Qwt is NOT being built. Plase be sure to set the QWT_INSTALL cmake variable when configuring DREAM3D")
 endif()
+
+#--------------------------------------------------------------------------------------------------
+# Are we building VTK (OFF by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(BUILD_VTK "Build VTK" OFF)
+if("${BUILD_VTK}" STREQUAL "ON" AND "${INSTALL_QT5}" STREQUAL "ON")
+  include(VTK)
+else()
+  message(STATUS "VTK is NOT being built.")
+endif()
+
+
 
 #--------------------------------------------------------------------------------------------------
 # Are we building DREAM3D itself (OFF by default. Not well tested)
