@@ -138,14 +138,14 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "# Always write out the compile_commands.json fi
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_EXPORT_COMPILE_COMMANDS ON)\n")
 
 
-# include(Python)
-# include(Pybind11)
-# include(Discount)
-# include(DREAM3DData)
-# include(Eigen)
+include(Python)
+include(Pybind11)
+include(Discount)
+include(DREAM3DData)
+include(Eigen)
 include(HDF5)
-# include(TBB)
-# include(Haru)
+include(TBB)
+include(Haru)
 
 #--------------------------------------------------------------------------------------------------
 # Are we building ITK (ON by default)
