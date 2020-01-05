@@ -1,7 +1,7 @@
 set(extProjectName "ITK")
 
-set(ITK5_GIT_TAG "master")
-set(ITK_VERSION "5.0.1")
+set(ITK5_GIT_TAG "v5.1rc01")
+set(ITK_VERSION "5.1")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
 set(ITK_URL "https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${ITK_VERSION}/InsightToolkit-${ITK_VERSION}.tar.gz")
