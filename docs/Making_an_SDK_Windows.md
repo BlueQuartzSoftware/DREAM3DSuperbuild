@@ -20,6 +20,13 @@ A compatible compiler needs to be installed on your system to be able to build D
 
 This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Versions 2015 and 2017 are supported in this release and should be usable.  Both the **Professional** and **Community** versions will work.
 
+If you are using VS2019 please ensure that when you installed VS2019 that you also installed the VS2017 (v141) toolset. It will be needed later on in the process.
+
+You will also need a compatible python environment. Python version 3.6 or 3.7 is needed as a base with the added dependency of the "mkdocs" system which is used to generate the user facing documentation for DREAM.3D. The easiest way to do this is to open a python command prompt and do
+
+        pip install mkdocs-material
+
+
 For more information, please visit [Installing a Compiler Suite](http://www.dream3d.io/6_Developer/CompilerSuite/index.html).
 
 ### Install Git ###
@@ -85,8 +92,13 @@ Create a folder called **workspace** in your home directory (C:\Users\\[username
 
 7. CMake will ask you which generator should be used for this project.
 
++ If you are using Visual Studio 2019, select Visual Studio 16 2019.
 + If you are using Visual Studio 2017, select Visual Studio 15 2017 Win64.
 + If you are using Visual Studio 2015, select Visual Studio 14 2015 Win64.
+
+### VS2019 WARNING ###
+
+Due to an incompatibility between VS2019 and ITK 4.13.x when configuring DREAM3DSuperbuild the user will need to also add "v141" to the "Optional toolset to use" text field. This just tells the compiler to use the compilers from VS2017 instead of the newer compilers from VS2019. No functionality is lost when doing this but this is the only way to allow the compilation to finish without any errors.
 
 ![Select a Generator](Images/Windows/cmake_select_generator.png)
 
