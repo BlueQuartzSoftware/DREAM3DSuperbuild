@@ -1,6 +1,6 @@
 set(extProjectName "ITK")
 
-set(ITK5_GIT_TAG "v5.1rc01")
+set(ITK5_GIT_TAG "v5.1rc02")
 set(ITK_VERSION "5.1")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
