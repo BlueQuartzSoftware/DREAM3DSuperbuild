@@ -37,7 +37,8 @@ if(Qt511)
   set(qt5_installer_version "qt5.5112")
 endif()
 
-
+# Qt 5.12 shoudl STAY at 5.12.4. 5.12.7 had issues with DREAM3D configuration throwing errors.
+#
 if(Qt512)
   if(Qt595 OR Qt510 OR Qt511)
     message(FATAL_ERROR "Please select only 1 kind of Qt to install")
