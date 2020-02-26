@@ -107,9 +107,9 @@ ExternalProject_Add(${extProjectName}
 		-DITKGroup_Registration:BOOL=ON
 		-DITKGroup_Segmentation:BOOL=ON
 
-    -DITK_BUILD_DEFAULT_MODULES=:BOOLOFF
-    -DModule_ITKIOMRC=:BOOLON
-    -DModule_ITKReview=:BOOLON   
+    -DITK_BUILD_DEFAULT_MODULES:BOOL=OFF
+    -DModule_ITKIOMRC:BOOL=ON
+    -DModule_ITKReview:BOOL=ON
     -DModule_SCIFIO=${ITK_SCIFIO_SUPPORT}
 
     -DModule_ITKMetricsv4:BOOL=ON
