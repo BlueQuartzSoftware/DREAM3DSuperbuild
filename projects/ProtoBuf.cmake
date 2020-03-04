@@ -5,7 +5,7 @@ set(ProtoBuf_VERSION "2.6.1")
 
 set(ProtoBuf_INSTALL "${DREAM3D_SDK}/protocol_buffers_${ProtoBuf_VERSION}")
 #set(ProtoBuf_URL "https://github.com/google/protobuf/releases/download/v${ProtoBuf_VERSION}/protobuf-${ProtoBuf_VERSION}.tar.gz")
-set(ProtoBuf_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ProtocolBuffers/protobuf-${ProtoBuf_VERSION}.tar.gz")
+set(ProtoBuf_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/protobuf-${ProtoBuf_VERSION}.tar.gz")
 
 
 set(ProtoBuf_REPOSITORY "https://github.com/google/protobuf")

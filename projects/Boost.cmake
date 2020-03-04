@@ -2,7 +2,7 @@ set(extProjectName "boost")
 message(STATUS "External Project: ${extProjectName}" )
 set(boost_version "1.66.0")
 set(boost_version_u "1_66_0")
-set(boost_url "http://dream3d.bluequartz.net/binaries/SDK/Sources/Boost/boost_${boost_version_u}.tar.gz")
+set(boost_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/boost_${boost_version_u}.tar.gz")
 
 set(boost_INSTALL "${DREAM3D_SDK}/${extProjectName}-${boost_version}")
 set(boost_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")

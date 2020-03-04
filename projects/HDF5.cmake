@@ -1,10 +1,10 @@
 set(extProjectName "hdf5")
 
-set(HDF5_VERSION "1.10.4")
+set(HDF5_VERSION "1.10.6")
 message(STATUS "External Project: ${extProjectName}: ${HDF5_VERSION}" )
 
 #set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
-set(HDF5_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/HDF5/hdf5-${HDF5_VERSION}.tar.gz")
+set(HDF5_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/hdf5-${HDF5_VERSION}.tar.gz")
 
 if(WIN32)
   set(HDF5_INSTALL "${DREAM3D_SDK}/${extProjectName}-${HDF5_VERSION}")

@@ -5,7 +5,7 @@ set(qwt_VERSION "6.1.3")
 message(STATUS "External Project: ${extProjectName}: ${qwt_VERSION}" )
 
 #set(qwt_url "http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/${qwt_VERSION}/${extProjectName}-${qwt_VERSION}.zip")
-set(qwt_url "http://dream3d.bluequartz.net/binaries/SDK/Sources/Qwt/qwt-${qwt_VERSION}.tar.bz2")
+set(qwt_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${qwt_VERSION}.tar.bz2")
 
 set(qwt_INSTALL "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}")
 
