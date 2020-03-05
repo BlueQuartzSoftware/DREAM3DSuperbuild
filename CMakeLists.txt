@@ -221,8 +221,8 @@ set(GitHub_BLUEQUARTZ_Plugins
 )
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/projects/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)
-string(REPLACE ";" "\n    " GitHub_DREAM3D_Plugins_Txt "${GitHub_DREAM3D_Plugins}")
-string(REPLACE ";" "\n    " GitHub_BLUEQUARTZ_Plugins_Txt "${GitHub_BLUEQUARTZ_Plugins}")
+string(REPLACE ";" "\n      " GitHub_DREAM3D_Plugins_Txt "${GitHub_DREAM3D_Plugins}")
+string(REPLACE ";" "\n      " GitHub_BLUEQUARTZ_Plugins_Txt "${GitHub_BLUEQUARTZ_Plugins}")
 string(REPLACE "@GitHub_DREAM3D_Plugins@" "${GitHub_DREAM3D_Plugins_Txt}" DREAM3D_PLUGIN_CODE ${DREAM3D_PLUGIN_CODE})
 string(REPLACE "@GitHub_BLUEQUARTZ_Plugins@" "${GitHub_BLUEQUARTZ_Plugins_Txt}" DREAM3D_PLUGIN_CODE ${DREAM3D_PLUGIN_CODE})
 

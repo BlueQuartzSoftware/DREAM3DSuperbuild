@@ -1,9 +1,10 @@
 
 set(Qt595 "0")
-set(Qt510 "0")
-set(Qt511 "0")
 set(Qt512 "1")
+set(Qt514 "0")
 
+# ------------------------------------------------------------------------------
+# Qt 5.9.x is a LTS release
 if(Qt595)
   if(Qt510 OR Qt511 OR Qt512)
     message(FATAL_ERROR "Please select only 1 kind of Qt to install")
@@ -15,30 +16,9 @@ if(Qt595)
   set(qt5_installer_version "595")
 endif()
 
-if(Qt510)
-  if(Qt595 OR Qt511 OR Qt512)
-    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
-  endif()
-  set(qt5_version_major "5.10")
-  set(qt5_version_full "5.10.1")
-  set(qt5_version_short "5.10.1")
-  # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "qt5.5101")
-endif()
-
-if(Qt511)
-  if(Qt595 OR Qt510 OR Qt512)
-    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
-  endif()
-  set(qt5_version_major "5.11")
-  set(qt5_version_full "5.11.2")
-  set(qt5_version_short "5.11.2")
-  # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "qt5.5112")
-endif()
-
-# Qt 5.12 shoudl STAY at 5.12.4. 5.12.7 had issues with DREAM3D configuration throwing errors.
-#
+# ------------------------------------------------------------------------------
+# Qt 5.12 should STAY at 5.12.4. 5.12.7 had issues with DREAM3D configuration throwing errors.
+# Qt 5.12 is a LTS release
 if(Qt512)
   if(Qt595 OR Qt510 OR Qt511)
     message(FATAL_ERROR "Please select only 1 kind of Qt to install")
@@ -49,6 +29,21 @@ if(Qt512)
   # This variable is used inside the javascript file that performs the Qt installation
   set(qt5_installer_version "qt5.5124")
 endif()
+
+# ------------------------------------------------------------------------------
+# Qt 5.14.x
+# Qt 5.12 is a LTS release
+if(Qt514)
+  if(Qt595 OR Qt512)
+    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
+  endif()
+  set(qt5_version_major "5.14")
+  set(qt5_version_full "5.14.1")
+  set(qt5_version_short "5.14.1")
+  # This variable is used inside the javascript file that performs the Qt installation
+  set(qt5_installer_version "qt5.5141")
+endif()
+
 
 set(extProjectName "Qt${qt5_version_full}")
 message(STATUS "External Project: ${extProjectName}: ${qt5_version_full}" )

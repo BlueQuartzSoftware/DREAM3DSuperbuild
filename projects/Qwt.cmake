@@ -1,6 +1,6 @@
 
 set(extProjectName "qwt")
-set(qwt_VERSION "6.1.3")
+set(qwt_VERSION "6.1.4")
 
 message(STATUS "External Project: ${extProjectName}: ${qwt_VERSION}" )
 
