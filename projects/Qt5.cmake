@@ -1,26 +1,26 @@
 
-set(Qt595 "0")
+set(Qt599 "0")
 set(Qt512 "1")
 set(Qt514 "0")
 
 # ------------------------------------------------------------------------------
 # Qt 5.9.x is a LTS release
-if(Qt595)
-  if(Qt510 OR Qt511 OR Qt512)
+if(Qt599)
+  if(Qt512 OR Qt514)
     message(FATAL_ERROR "Please select only 1 kind of Qt to install")
   endif()
   set(qt5_version_major "5.9")
-  set(qt5_version_full "5.9.5")
-  set(qt5_version_short "5.9.5")
+  set(qt5_version_full "5.9.9")
+  set(qt5_version_short "5.9.9")
   # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "595")
+  set(qt5_installer_version "599")
 endif()
 
 # ------------------------------------------------------------------------------
 # Qt 5.12 should STAY at 5.12.4. 5.12.7 had issues with DREAM3D configuration throwing errors.
 # Qt 5.12 is a LTS release
 if(Qt512)
-  if(Qt595 OR Qt510 OR Qt511)
+  if(Qt599 OR Qt514)
     message(FATAL_ERROR "Please select only 1 kind of Qt to install")
   endif()
   set(qt5_version_major "5.12")
@@ -34,7 +34,7 @@ endif()
 # Qt 5.14.x
 # Qt 5.12 is a LTS release
 if(Qt514)
-  if(Qt595 OR Qt512)
+  if(Qt599 OR Qt512)
     message(FATAL_ERROR "Please select only 1 kind of Qt to install")
   endif()
   set(qt5_version_major "5.14")
