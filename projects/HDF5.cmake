@@ -1,6 +1,6 @@
 set(extProjectName "hdf5")
 
-set(HDF5_VERSION "1.10.6")
+set(HDF5_VERSION "1.10.4")
 message(STATUS "External Project: ${extProjectName}: ${HDF5_VERSION}" )
 
 #set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
