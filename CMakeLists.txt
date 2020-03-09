@@ -146,6 +146,7 @@ include(Eigen)
 include(HDF5)
 include(TBB)
 include(Haru)
+include(Boost)
 
 #--------------------------------------------------------------------------------------------------
 # Are we building ITK (ON by default)
@@ -158,15 +159,6 @@ option(BUILD_ITK "Build ITK" ON)
 if("${BUILD_ITK}" STREQUAL "ON")
   include(ITK${ITKVersion})
 endif()
-
-#--------------------------------------------------------------------------------------------------
-# Are we building Boost (OFF by default)
-#--------------------------------------------------------------------------------------------------
-OPTION(BUILD_BOOST "Build Boost" OFF)
-if("${BUILD_BOOST}" STREQUAL "ON")
-  include(Boost)
-endif()
-
 
 #--------------------------------------------------------------------------------------------------
 # Are we installing Qt5 or is it already installed

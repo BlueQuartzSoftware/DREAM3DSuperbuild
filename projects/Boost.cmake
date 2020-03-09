@@ -1,5 +1,14 @@
+
+#--------------------------------------------------------------------------------------------------
+# Are we building Boost (OFF by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(BUILD_BOOST "Build Boost" OFF)
+if("${BUILD_BOOST}" STREQUAL "OFF")
+  return()
+endif()
+
 set(extProjectName "boost")
-message(STATUS "External Project: ${extProjectName}" )
+message(STATUS "Building: ${extProjectName} = ${BUILD_BOOST}" )
 set(boost_version "1.66.0")
 set(boost_version_u "1_66_0")
 set(boost_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/boost_${boost_version_u}.tar.gz")
