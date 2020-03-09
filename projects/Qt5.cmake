@@ -13,7 +13,10 @@ if(Qt599)
   set(qt5_version_full "5.9.9")
   set(qt5_version_short "5.9.9")
   # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "599")
+  # Up to maybe Qt5.9.5 we use this
+  set(qt5_installer_version "595")
+  # At some point then the installer changed to the following form
+  set(qt5_installer_version "qt5.599")
 endif()
 
 # ------------------------------------------------------------------------------
