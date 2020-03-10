@@ -1,5 +1,13 @@
+#--------------------------------------------------------------------------------------------------
+# Are we using DREAM3DData (ON by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(USE_DREAM3DDATA "Use DREAM3D Data" ON)
+if("${USE_DREAM3DDATA}" STREQUAL "OFF")
+  return()
+endif()
+
 set(extProjectName "DREAM3D_Data")
-message(STATUS "External Project: ${extProjectName}" )
+message(STATUS "Using: ${extProjectName} = ${USE_DREAM3DDATA}" )
 
 #set(dream3d_data_url "http://dream3d.bluequartz.net/binaries/SDK/DREAM3D_Data.tar.gz")
 

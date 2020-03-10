@@ -1,3 +1,32 @@
+#--------------------------------------------------------------------------------------------------
+# Are we installing Qt (ON by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(INSTALL_QT5 "Build Qt" ON)
+if("${INSTALL_QT5}" STREQUAL "OFF")
+  return()
+elseif("${Qt5_QMAKE_EXECUTABLE}" STREQUAL "")
+  message(FATAL_ERROR "You have indicated that Qt5 is already installed. Please set the Qt5_QMAKE_EXECUTABLE cmake variable to point to the location of the qmake(.exe) executable.")
+  return()
+  elseif(NOT "${Qt5_QMAKE_EXECUTABLE}" STREQUAL "")
+  execute_process(
+    COMMAND "${Qt5_QMAKE_EXECUTABLE}" -query QT_VERSION
+    OUTPUT_VARIABLE qt5_version_full
+    OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_STRIP_TRAILING_WHITESPACE
+  )
+  execute_process(
+    COMMAND "${Qt5_QMAKE_EXECUTABLE}" -query QT_INSTALL_LIBS
+    OUTPUT_VARIABLE QT_INSTALL_LIBS
+    OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_STRIP_TRAILING_WHITESPACE
+  )
+
+  set(extProjectName "Qt${qt5_version_full}")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "# Qt5 ${qt5_version_full} Library\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(Qt5_DIR \"${QT_INSTALL_LIBS}/cmake/Qt5\" CACHE PATH \"\")\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${Qt5_DIR})\n")
+  return()
+endif()
 
 set(Qt599 "0")
 set(Qt512 "1")
@@ -49,7 +78,7 @@ endif()
 
 
 set(extProjectName "Qt${qt5_version_full}")
-message(STATUS "External Project: ${extProjectName}: ${qt5_version_full}" )
+message(STATUS "Installing: ${extProjectName} = ${INSTALL_QT5}" )
 
 
 

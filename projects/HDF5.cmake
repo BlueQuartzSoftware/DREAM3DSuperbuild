@@ -1,7 +1,15 @@
-set(extProjectName "hdf5")
+#--------------------------------------------------------------------------------------------------
+# Are we building HDF5 (ON by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(BUILD_HDF5 "Build HDF5" ON)
+if("${BUILD_HDF5}" STREQUAL "OFF")
+  return()
+endif()
 
+set(extProjectName "hdf5")
 set(HDF5_VERSION "1.10.4")
-message(STATUS "External Project: ${extProjectName}: ${HDF5_VERSION}" )
+message(STATUS "Building: ${extProjectName} ${HDF5_VERSION} = ${BUILD_HDF5}" )
+set(HDF5_GIT_TAG "hdf5-1_10_4")
 
 #set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
 set(HDF5_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/hdf5-${HDF5_VERSION}.tar.gz")
@@ -27,8 +35,18 @@ if(WIN32)
 endif()
 
 ExternalProject_Add(${extProjectName}
-  DOWNLOAD_NAME ${extProjectName}-${HDF5_VERSION}.tar.gz
-  URL ${HDF5_URL}
+  # DOWNLOAD_NAME ${extProjectName}-${HDF5_VERSION}.tar.gz
+  # URL ${HDF5_URL}
+  # TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+  # STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+  # DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
+  # SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}"
+  # BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+  # INSTALL_DIR "${HDF5_INSTALL}"
+
+  GIT_REPOSITORY "https://bitbucket.hdfgroup.org/scm/hdffv/hdf5.git"
+  GIT_PROGRESS 1
+  GIT_TAG ${HDF5_GIT_TAG}
   TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
   DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}

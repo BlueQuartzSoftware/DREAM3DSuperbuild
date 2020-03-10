@@ -1,9 +1,17 @@
+#--------------------------------------------------------------------------------------------------
+# Are we building TBB (ON by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(BUILD_TBB "Build TBB" ON)
+if("${BUILD_TBB}" STREQUAL "OFF")
+  return()
+endif()
+
 set(extProjectName "tbb")
 set(tbb_VERSION "2020.1")
 
 #https://github.com/intel/tbb/releases/download/v2020.1/tbb-2020.1-lin.tgz
 
-message(STATUS "External Project: ${extProjectName}: ${tbb_VERSION}" )
+message(STATUS "Building: ${extProjectName} ${tbb_VERSION} = ${BUILD_TBB}" )
 
 set(tbb_url_server "https://github.com/intel/tbb/releases/download/v2020.1")
 

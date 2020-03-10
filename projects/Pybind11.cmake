@@ -1,8 +1,14 @@
+#--------------------------------------------------------------------------------------------------
+# Are we building Pybind11 (ON by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(BUILD_PYBIND11 "Build Pybind11" ON)
+if("${BUILD_PYBIND11}" STREQUAL "OFF")
+  return()
+endif()
 
 set(extProjectName "pybind11")
 set(pybind11_VERSION "2.2")
-
-message(STATUS "External Project: ${extProjectName}: ${pybind11_VERSION}" )
+message(STATUS "Building: ${extProjectName} ${pybind11_VERSION} = ${BUILD_PYBIND11}" )
 
 if(WIN32)
   set(pybind11_INSTALL "${DREAM3D_SDK}/${extProjectName}-${pybind11_VERSION}")

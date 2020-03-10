@@ -1,7 +1,14 @@
+#--------------------------------------------------------------------------------------------------
+# Are we building Haru (ON by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(BUILD_HARU "Build Haru" ON)
+if("${BUILD_HARU}" STREQUAL "OFF")
+  return()
+endif()
+
 set(extProjectName "haru")
 set(haru_VERSION "2.0.0")
-
-message(STATUS "External Project: ${extProjectName}: ${haru_VERSION}" )
+message(STATUS "Building: ${extProjectName} ${haru_VERSION} = ${BUILD_HARU}" )
 
 if(WIN32)
   set(haru_INSTALL "${DREAM3D_SDK}/${extProjectName}-${haru_VERSION}")

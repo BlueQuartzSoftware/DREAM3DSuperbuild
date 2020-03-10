@@ -1,8 +1,16 @@
+#--------------------------------------------------------------------------------------------------
+# Are we using Python (ON by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(USE_PYTHON "Use Python" ON)
+if("${USE_PYTHON}" STREQUAL "OFF")
+  return()
+endif()
 
 set(extProjectName "Python")
-message(STATUS "External Project: ${extProjectName}" )
+set(python_VERSION 3.5)
+message(STATUS "Using: ${extProjectName} ${python_VERSION} = ${USE_PYTHON}" )
 
-find_package(PythonInterp REQUIRED 3.5)
+find_package(PythonInterp REQUIRED ${python_VERSION})
 execute_process(
               COMMAND
                 ${PYTHON_EXECUTABLE} "-c" "print('Hello, world!')"

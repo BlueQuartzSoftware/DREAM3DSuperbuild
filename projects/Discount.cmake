@@ -1,7 +1,14 @@
+#--------------------------------------------------------------------------------------------------
+# Are we building Discount (ON by default)
+#--------------------------------------------------------------------------------------------------
+OPTION(BUILD_DISCOUNT "Build Discount" ON)
+if("${BUILD_DISCOUNT}" STREQUAL "OFF")
+  return()
+endif()
+
 set(extProjectName "discount")
 set(discount_VERSION "2.2.3")
-
-message(STATUS "External Project: ${extProjectName}: ${discount_VERSION}" )
+message(STATUS "Building: ${extProjectName} ${discount_VERSION} = ${BUILD_DISCOUNT}" )
 
 if(WIN32)
   set(discount_INSTALL "${DREAM3D_SDK}/${extProjectName}-${discount_VERSION}")
