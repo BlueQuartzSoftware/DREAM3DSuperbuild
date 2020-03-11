@@ -8,7 +8,7 @@ endif()
 
 set(extProjectName "qwt")
 set(qwt_VERSION "6.1.4")
-message(STATUS "Building: ${extProjectName} ${qwt_VERSION} = ${BUILD_QWT}" )
+message(STATUS "Building: ${extProjectName} ${qwt_VERSION}: -DBUILD_QWT=${BUILD_QWT}" )
 
 #set(qwt_url "http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/${qwt_VERSION}/${extProjectName}-${qwt_VERSION}.zip")
 set(qwt_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${qwt_VERSION}.tar.bz2")

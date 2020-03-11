@@ -86,9 +86,6 @@ if(APPLE)
   if("${OSX_SDK}" STREQUAL "NOT-FOUND")
     message(FATAL_ERROR "This version of macOS (${DARWIN_VERSION}) is not recognized.\
     The following versions are supported:\n\
-    (14) macOS 10.10 Yosemite\n\
-    (15) macOS 10.11 El Capitan\n\
-    (16) macOS 10.12 Sierra\n\
     (17) macOS 10.13 High Sierra\n\
     (18) macOS 10.14 Mojave\n\
     (19) macOS 10.15 Catalina\n\
@@ -141,23 +138,34 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_EXPORT_COMPILE_COMMANDS ON)\n")
 include(Python)
 include(Pybind11)
 include(Discount)
-include(DREAM3DData)
 include(Eigen)
 include(HDF5)
 include(TBB)
 include(Haru)
 include(Boost)
 
+#--------------------------------------------------------------------------------------------------
+# By Default use ITK4 until ITK5.1 is offically released.
+#--------------------------------------------------------------------------------------------------
 if("${ITKVersion}" STREQUAL "")
   message(STATUS "ITK Version 4 is being used. If you want ITK Version 5 then use -DITKVersion=5 when configuring.")
   set(ITKVersion "4")
 endif()
-
 include(ITK${ITKVersion})
-include(Qt5)
 
 #--------------------------------------------------------------------------------------------------
-# Are we building DREAM3D itself (OFF by default. Not well tested)
+# Install or figure out where Qt5 is installed, then build Qwt based on that information
+#--------------------------------------------------------------------------------------------------
+include(Qt5)
+include(Qwt)
+
+#--------------------------------------------------------------------------------------------------
+# Clone the DREAM3DData repository
+#--------------------------------------------------------------------------------------------------
+include(DREAM3DData)
+
+#--------------------------------------------------------------------------------------------------
+# Set up the default DREAM3D Plugins that are typically compiled
 #--------------------------------------------------------------------------------------------------
 set(GitHub_DREAM3D_Plugins 
   DREAM3DReview
@@ -185,7 +193,9 @@ set(DREAM3D_Base_Repos
   SIMPLView
 )
 
-
+#--------------------------------------------------------------------------------------------------
+# Are we building DREAM3D itself (OFF by default. Not well tested)
+#--------------------------------------------------------------------------------------------------
 OPTION(BUILD_DREAM3D "Build DREAM.3D" OFF)
 if("${BUILD_DREAM3D}" STREQUAL "ON")
   include(DREAM3D)

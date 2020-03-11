@@ -9,7 +9,7 @@ endif()
 
 set(extProjectName "boost")
 set(boost_version "1.66.0")
-message(STATUS "Building: ${extProjectName} ${boost_version} = ${BUILD_BOOST}" )
+message(STATUS "Building: ${extProjectName} ${boost_version}: -DBUILD_BOOST=${BUILD_BOOST}" )
 set(boost_version_u "1_66_0")
 set(boost_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/boost_${boost_version_u}.tar.gz")
 

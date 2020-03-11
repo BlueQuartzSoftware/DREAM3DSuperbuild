@@ -9,7 +9,7 @@ endif()
 set(extProjectName "ITK")
 set(ITK5_GIT_TAG "v5.1rc02")
 set(ITK_VERSION "5.1")
-message(STATUS "Building: ${extProjectName} ${ITK_VERSION} = ${BUILD_ITK}" )
+message(STATUS "Building: ${extProjectName} ${ITK_VERSION}: -DBUILD_ITK=${BUILD_ITK}" )
 
 set(ITK_URL "https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${ITK_VERSION}/InsightToolkit-${ITK_VERSION}.tar.gz")
 

@@ -8,7 +8,7 @@ endif()
 
 set(extProjectName "hdf5")
 set(HDF5_VERSION "1.10.4")
-message(STATUS "Building: ${extProjectName} ${HDF5_VERSION} = ${BUILD_HDF5}" )
+message(STATUS "Building: ${extProjectName} ${HDF5_VERSION}: -DBUILD_HDF5=${BUILD_HDF5}" )
 set(HDF5_GIT_TAG "hdf5-1_10_4")
 
 #set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")

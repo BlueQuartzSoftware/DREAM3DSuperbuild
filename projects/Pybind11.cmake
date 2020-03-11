@@ -8,7 +8,7 @@ endif()
 
 set(extProjectName "pybind11")
 set(pybind11_VERSION "2.2")
-message(STATUS "Building: ${extProjectName} ${pybind11_VERSION} = ${BUILD_PYBIND11}" )
+message(STATUS "Building: ${extProjectName} ${pybind11_VERSION}: -DBUILD_PYBIND11=${BUILD_PYBIND11}" )
 
 if(WIN32)
   set(pybind11_INSTALL "${DREAM3D_SDK}/${extProjectName}-${pybind11_VERSION}")

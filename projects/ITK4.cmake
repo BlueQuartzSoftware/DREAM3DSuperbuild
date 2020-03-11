@@ -8,7 +8,7 @@ endif()
 
 set(extProjectName "ITK")
 set(ITK_VERSION "4.13.2")
-message(STATUS "Building: ${extProjectName} ${ITK_VERSION} = ${BUILD_ITK}" )
+message(STATUS "Building: ${extProjectName} ${ITK_VERSION}: -DBUILD_ITK=${BUILD_ITK}" )
 
 #set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
 set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")

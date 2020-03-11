@@ -3,12 +3,14 @@
 #--------------------------------------------------------------------------------------------------
 OPTION(USE_PYTHON "Use Python" ON)
 if("${USE_PYTHON}" STREQUAL "OFF")
+  message(FATAL_ERROR "Python is used to build the documentation and optionally to create Python bindings for the various DREAM.3D Libraries.\
+  If you do not check for a valid Python distribution then configuring DREAM.3D may not work.")
   return()
 endif()
 
 set(extProjectName "Python")
 set(python_VERSION 3.5)
-message(STATUS "Using: ${extProjectName} ${python_VERSION} = ${USE_PYTHON}" )
+message(STATUS "Using: ${extProjectName} ${python_VERSION}: -DUSE_PYTHON=${USE_PYTHON}" )
 
 find_package(PythonInterp REQUIRED ${python_VERSION})
 execute_process(
@@ -20,10 +22,8 @@ execute_process(
               OUTPUT_STRIP_TRAILING_WHITESPACE
               )
 
-if(PYTHONINTERP_FOUND) 
-  message(STATUS "Python (${PYTHON_VERSION_STRING}) Found: ${PYTHON_EXECUTABLE}")
-else()
-  message(STATUS "Python NOT Found.")
+if(NOT PYTHONINTERP_FOUND) 
+  message(STATUS "Python NOT Found. Do you need to 'conda activate [virtual environment]'?")
 endif()
 
 # -----------------------------------------------------------------------------
@@ -42,19 +42,20 @@ if(WIN32)
               )
   # message(STATUS "_status: ${_status}")
   # message(STATUS "_output: ${_output}")
-
 else()            
+  # This should work for Anaconda on macOS or Linux
+  get_filename_component(PYTHON_DIR  ${PYTHON_EXECUTABLE} DIRECTORY)
+  set(_mkdocs_location "${PYTHON_DIR}/mkdocs")
   execute_process(
-    COMMAND
-      ${PYTHON_EXECUTABLE} "-c" "import re, sys;\nimport mkdocs\nprint(re.compile('/__init__.py.*').sub('',mkdocs.__file__))"
-    RESULT_VARIABLE _mkdocs_status
-    OUTPUT_VARIABLE _mkdocs_location
-    #ERROR_QUIET
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-
-  # message(STATUS "_mkdocs_status: ${_mkdocs_status}")
-  # message(STATUS "_mkdocs_location: ${_mkdocs_location}")
+              COMMAND
+              ${_mkdocs_location} "--version"
+              RESULT_VARIABLE _mkdocs_status
+              OUTPUT_VARIABLE _output
+#             ERROR_QUIET
+              OUTPUT_STRIP_TRAILING_WHITESPACE
+              )
+  # message(STATUS "_status: ${_status}")
+  # message(STATUS "_output: ${_output}")
 endif()
 
 if(NOT _mkdocs_status)
@@ -84,8 +85,6 @@ if(NOT Mkdocs_FOUND)
   or disable the generation of the documentation by setting SIMPLView_BUILD_DOCUMENTATION=OFF.\n\
   One would typically install mkdocs using 'pip install mkdocs-material'\n\
   You may also need to do 'pip install msgpack'")
-else()
-  message(STATUS "Mkdocs (${_mkdocs_version}) Found: ${_mkdocs_location}")
 endif()
 
 
@@ -107,6 +106,6 @@ else()
   FILE(APPEND ${DREAM3D_SDK_FILE} "# A suitable Python and mkdocs were NOT found. Documentation will be built with discount.\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "#set(PYTHON_EXECUTABLE \"${PYTHON_EXECUTABLE}\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "#set(MKDOCS_EXECUTABLE \"${_mkdocs_location}\")\n")
-  FILE(APPEND ${DREAM3D_SDK_FILE} "#set(SIMPL_USE_DISCOUNT ON)\n")
-  FILE(APPEND ${DREAM3D_SDK_FILE} "#set(SIMPL_USE_MKDOCS OFF)\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(SIMPL_USE_DISCOUNT ON)\n")
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(SIMPL_USE_MKDOCS OFF)\n")
 endif()

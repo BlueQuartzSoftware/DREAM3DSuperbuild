@@ -8,7 +8,7 @@ endif()
 
 set(extProjectName "haru")
 set(haru_VERSION "2.0.0")
-message(STATUS "Building: ${extProjectName} ${haru_VERSION} = ${BUILD_HARU}" )
+message(STATUS "Building: ${extProjectName} ${haru_VERSION}: -DBUILD_HARU=${BUILD_HARU}" )
 
 if(WIN32)
   set(haru_INSTALL "${DREAM3D_SDK}/${extProjectName}-${haru_VERSION}")

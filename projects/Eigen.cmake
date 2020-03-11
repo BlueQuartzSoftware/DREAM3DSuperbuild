@@ -8,7 +8,7 @@ endif()
 
 set(extProjectName "Eigen")
 set(Eigen_VERSION "3.3.7")
-message(STATUS "Building: ${extProjectName} ${Eigen_VERSION} = ${BUILD_EIGEN}" )
+message(STATUS "Building: ${extProjectName} ${Eigen_VERSION}: -DBUILD_EIGEN=${BUILD_EIGEN}" )
 set(Eigen_GIT_TAG ${Eigen_VERSION})
 
 #set(Eigen_URL "https://bitbucket.org/eigen/eigen/get/${Eigen_VERSION}.tar.gz")

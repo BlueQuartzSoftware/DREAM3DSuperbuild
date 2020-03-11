@@ -8,7 +8,7 @@ endif()
 
 set(extProjectName "discount")
 set(discount_VERSION "2.2.3")
-message(STATUS "Building: ${extProjectName} ${discount_VERSION} = ${BUILD_DISCOUNT}" )
+message(STATUS "Building: ${extProjectName} ${discount_VERSION}: -DBUILD_DISCOUNT=${BUILD_DISCOUNT}" )
 
 if(WIN32)
   set(discount_INSTALL "${DREAM3D_SDK}/${extProjectName}-${discount_VERSION}")
