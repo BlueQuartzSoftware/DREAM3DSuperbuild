@@ -7,14 +7,12 @@ if("${BUILD_ITK}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "ITK")
-set(ITK5_GIT_TAG "v5.1rc02")
+set(ITK_GIT_TAG "v5.1rc02")
 set(ITK_VERSION "5.1")
 message(STATUS "Building: ${extProjectName} ${ITK_VERSION}: -DBUILD_ITK=${BUILD_ITK}" )
 
-set(ITK_URL "https://github.com/InsightSoftwareConsortium/ITK/releases/download/v${ITK_VERSION}/InsightToolkit-${ITK_VERSION}.tar.gz")
-
 option(ITK_SCIFIO_SUPPORT "Add support for SCIFIO to the ITK build" OFF)
-set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
+set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${ITK_VERSION}/Source/${extProjectName}")
 set(ITK_INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
 set(BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build-${CMAKE_BUILD_TYPE}")
 
@@ -56,27 +54,14 @@ else()
 endif( CMAKE_BUILD_TYPE MATCHES Debug )
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
-set(D3DSP_BASE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}")
+set(D3DSP_BASE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${ITK_VERSION}")
 
 #------------------------------------------------------------------------------
 # In the below we are using ITK 5.0 from the 5.0.0 tag.
 ExternalProject_Add(${extProjectName}
-
-# ========== This is for downloading and building an official release of ITK 5
-  # DOWNLOAD_NAME ${extProjectName}-${ITK_VERSION}.tar.gz
-  # URL ${ITK_URL}
-  # TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  # STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  # DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
-  # SOURCE_DIR "${SOURCE_DIR}"
-  # BINARY_DIR "${BINARY_DIR}"
-  # INSTALL_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Install"
-  # INSTALL_COMMAND ""
-
-# ========== This is for downloading and building a git tag of ITK
   GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
   GIT_PROGRESS 1
-  GIT_TAG ${ITK5_GIT_TAG}
+  GIT_TAG ${ITK_GIT_TAG}
   TMP_DIR "${D3DSP_BASE_DIR}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${D3DSP_BASE_DIR}/Stamp/${CMAKE_BUILD_TYPE}"
   DOWNLOAD_DIR ${D3DSP_BASE_DIR}
