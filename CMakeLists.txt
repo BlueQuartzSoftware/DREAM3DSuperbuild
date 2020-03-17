@@ -169,7 +169,6 @@ include(DREAM3DData)
 #--------------------------------------------------------------------------------------------------
 set(GitHub_DREAM3D_Plugins 
   DREAM3DReview
-  ImageProcessing  
   UCSBUtilities 
 )
 
