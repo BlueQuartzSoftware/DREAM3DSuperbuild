@@ -6,7 +6,7 @@ if(${CMAKE_MAJOR_VERSION} STREQUAL "3")
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-cmake_minimum_required(VERSION 3.13.0)
+cmake_minimum_required(VERSION 3.14.0)
 
 project(DREAM3DSuperBuild VERSION 2.0.0.0 LANGUAGES C CXX)
 
@@ -36,6 +36,12 @@ ProcessorCount(CoreCount)
 
 if( "${DREAM3D_SDK}" STREQUAL "")
   message(FATAL_ERROR "Please specify the DREAM3D_SDK cmake variable which is the top level directory where all the DREAM.3D dependent libraries will be built")
+endif()
+
+if( "${DREAM3D_WORKSPACE}" STREQUAL "${DREAM3D_SDK}")
+  message(STATUS "DREAM3D_SDK=${DREAM3D_SDK}")
+  message(STATUS "DREAM3D_WORKSPACE=${DREAM3D_WORKSPACE}")
+  message(FATAL_ERROR "Please specify a directory where the source codes for DREAM3D will be cloned into. That directory can not be the same as the DREAM3D_SDK directory")
 endif()
 
 set(DREAM3D_SDK_FILE ${DREAM3D_SDK}/DREAM3D_SDK.cmake)
@@ -78,7 +84,7 @@ if(APPLE)
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
   ENDIF ()
 
-  IF (DARWIN_VERSION EQUAL 19) # macOS 10.14 Catalina (Xcode 11.x)
+  IF (DARWIN_VERSION EQUAL 19) # macOS 10.15 Catalina (Xcode 11.x)
     message(STATUS "Found macOS 10.15 Catalina as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
   ENDIF ()
@@ -94,7 +100,7 @@ if(APPLE)
 
   endif()
 
-  set(OSX_DEPLOYMENT_TARGET "10.10")
+  set(OSX_DEPLOYMENT_TARGET "10.13")
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/projects/apple/OSX_DREAM3D_SDK.cmake
               ${DREAM3D_SDK}/DREAM3D_SDK.cmake @ONLY )
@@ -192,6 +198,7 @@ set(DREAM3D_Base_Repos
   SIMPLView
   H5Support
   EbsdLib
+  DREAM3DData
 )
 
 #--------------------------------------------------------------------------------------------------

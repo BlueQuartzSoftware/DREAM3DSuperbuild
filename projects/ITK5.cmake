@@ -7,7 +7,7 @@ if("${BUILD_ITK}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "ITK")
-set(ITK_GIT_TAG "v5.1rc02")
+set(ITK_GIT_TAG "v5.1rc03")
 set(ITK_VERSION "5.1")
 message(STATUS "Building: ${extProjectName} ${ITK_VERSION}: -DBUILD_ITK=${BUILD_ITK}" )
 
