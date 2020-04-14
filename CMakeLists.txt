@@ -202,10 +202,6 @@ set(DREAM3D_Base_Repos
 )
 
 #--------------------------------------------------------------------------------------------------
-# Are we building DREAM3D itself (OFF by default. Not well tested)
+# Possibly build DREAM3D
 #--------------------------------------------------------------------------------------------------
-OPTION(BUILD_DREAM3D "Build DREAM.3D" OFF)
-if("${BUILD_DREAM3D}" STREQUAL "ON")
-  include(DREAM3D)
-endif()
-
+include(DREAM3D)

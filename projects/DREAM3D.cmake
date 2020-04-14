@@ -1,3 +1,13 @@
+#--------------------------------------------------------------------------------------------------
+# Are we building DREAM3D itself (OFF by default. Not well tested)
+#--------------------------------------------------------------------------------------------------
+OPTION(BUILD_DREAM3D "Build DREAM.3D" OFF)
+if("${BUILD_DREAM3D}" STREQUAL "OFF")
+  return()
+endif()
+set(extProjectName "DREAM3D")
+message(STATUS "Building: ${extProjectName}: -DBUILD_DREAM3D=${BUILD_DREAM3D}")
+
 #------------------------------------------------------------------------------
 #
 #------------------------------------------------------------------------------
