@@ -9,19 +9,23 @@ endif()
 set(extProjectName "DREAM3D_Data")
 message(STATUS "Using: ${extProjectName}: -DUSE_DREAM3DDATA=${USE_DREAM3DDATA}" )
 
-#set(dream3d_data_url "http://dream3d.bluequartz.net/binaries/SDK/DREAM3D_Data.tar.gz")
-
+set(DATA_ROOT "${DREAM3D_SDK}")
+set(DATA_TEMP "superbuild")
+if(NOT "${DREAM3D_WORKSPACE}" STREQUAL "")
+  set(DATA_ROOT ${DREAM3D_WORKSPACE})
+  set(DATA_TEMP "Temp")
+endif()
 
 ExternalProject_Add(${extProjectName}
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
-  SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}"
+  TMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+  DOWNLOAD_DIR ${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Download
+  SOURCE_DIR   ${DATA_ROOT}/${extProjectName}
+  BINARY_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+  INSTALL_DIR "${DATA_ROOT}/${extProjectName}"
 
   GIT_PROGRESS 1
-  GIT_REPOSITORY "http://www.github.com/dream3d/DREAM3D_Data"
+  GIT_REPOSITORY "https://www.github.com/dream3d/DREAM3D_Data"
   GIT_TAG develop
   
   UPDATE_COMMAND ""
@@ -40,19 +44,19 @@ ExternalProject_Add(${extProjectName}
   LOG_INSTALL 1
 )
 
-if(EXISTS ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100.tar.gz)
+#if(EXISTS ${DATA_ROOT}/${extProjectName}/Data/SmallIN100.tar.gz)
 
     ExternalProject_Add(${extProjectName}_SMALLIN100
         DEPENDS ${extProjectName}
-        URL ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100.tar.gz
+        URL ${DATA_ROOT}/${extProjectName}/Data/SmallIN100.tar.gz
         URL_MD5 815f774a82142bfc3633d14a5759ef58
-        SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100
+        SOURCE_DIR   ${DATA_ROOT}/${extProjectName}/Data/SmallIN100
 
-        TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-        STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-        DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
-        BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-        INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}"
+        TMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+        STAMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+        DOWNLOAD_DIR ${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Download
+        BINARY_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+        INSTALL_DIR "${DATA_ROOT}/${extProjectName}"
 
         #DOWNLOAD_COMMAND ""
         UPDATE_COMMAND ""
@@ -63,21 +67,21 @@ if(EXISTS ${DREAM3D_SDK}/${extProjectName}/Data/SmallIN100.tar.gz)
         TEST_COMMAND ""
     )
 
-endif()
+#endif()
 
-if(EXISTS ${DREAM3D_SDK}/${extProjectName}/Data/Image.tar.gz)
+#if(EXISTS ${DATA_ROOT}/${extProjectName}/Data/Image.tar.gz)
 
   ExternalProject_Add(${extProjectName}_IMAGE
       DEPENDS ${extProjectName}
-      URL ${DREAM3D_SDK}/${extProjectName}/Data/Image.tar.gz
+      URL ${DATA_ROOT}/${extProjectName}/Data/Image.tar.gz
       URL_MD5 171a9d4396058775f9c9495916584928
-      SOURCE_DIR   ${DREAM3D_SDK}/${extProjectName}/Data/Image
+      SOURCE_DIR   ${DATA_ROOT}/${extProjectName}/Data/Image
 
-      TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-      STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-      DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
-      BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-      INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}"
+      TMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+      STAMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+      DOWNLOAD_DIR ${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Download
+      BINARY_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+      INSTALL_DIR "${DATA_ROOT}/${extProjectName}"
         
       #DOWNLOAD_COMMAND ""
       UPDATE_COMMAND ""
@@ -87,10 +91,31 @@ if(EXISTS ${DREAM3D_SDK}/${extProjectName}/Data/Image.tar.gz)
       INSTALL_COMMAND ""
       TEST_COMMAND ""
   )
-endif()
+#endif()
+
+ExternalProject_Add(${extProjectName}_T12_MAI_2020
+    DEPENDS ${extProjectName}
+    URL ${DATA_ROOT}/${extProjectName}/Data/T12-MAI-2010.tar.gz
+  #  URL_MD5 171a9d4396058775f9c9495916584928
+    SOURCE_DIR   ${DATA_ROOT}/${extProjectName}/Data/T12-MAI-2010
+
+    TMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+    STAMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
+    DOWNLOAD_DIR ${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Download
+    BINARY_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+    INSTALL_DIR "${DATA_ROOT}/${extProjectName}"
+      
+    #DOWNLOAD_COMMAND ""
+    UPDATE_COMMAND ""
+    PATCH_COMMAND ""
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
+    TEST_COMMAND ""
+)
 
 
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# DREAM3D Data Folder Location\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(DREAM3D_DATA_DIR \"\${DREAM3D_SDK_ROOT}/DREAM3D_Data\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(DREAM3D_DATA_DIR \"${DATA_ROOT}/DREAM3D_Data\" CACHE PATH \"\")\n")

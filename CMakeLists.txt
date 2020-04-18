@@ -173,7 +173,7 @@ include(DREAM3DData)
 #--------------------------------------------------------------------------------------------------
 # Set up the default DREAM3D Plugins that are typically compiled
 #--------------------------------------------------------------------------------------------------
-set(GitHub_DREAM3D_Plugins 
+set(GitHub_DREAM3D_Plugins
   DREAM3DReview
   UCSBUtilities 
 )
@@ -198,7 +198,7 @@ set(DREAM3D_Base_Repos
   SIMPLView
   H5Support
   EbsdLib
-  DREAM3DData
+  DREAM3D
 )
 
 #--------------------------------------------------------------------------------------------------

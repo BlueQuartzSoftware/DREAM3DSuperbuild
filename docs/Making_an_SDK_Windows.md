@@ -26,6 +26,7 @@ You will also need a compatible python environment. Python version 3.6 or 3.7 is
 
         pip install mkdocs-material
 
+DREAM.3D Developers specifically use Anaconda3 environments for development and have the most experience with those python environments. If you want to use python from another distribution it *should* be usable as long as you install "mldocs-material" through pip. 
 
 For more information, please visit [Installing a Compiler Suite](http://www.dream3d.io/6_Developer/CompilerSuite/index.html).
 
@@ -63,7 +64,7 @@ Move the newly extracted folder into the **DREAM3D_SDK** folder that we created 
 
 ### Clone Repository ###
 
-Create a folder called **workspace** in your home directory (C:\Users\\[username]), and then use git to clone the DREAM.3D Superbuild repository at https://github.com/bluequartzsoftware/DREAM3DSuperbuild to the **workspace** folder that you just created.  For quick access to the git terminal at a given directory, right-click on the directory and select "Git Bash Here" once git has been installed.  Then, type the following command to create a copy of the source code in the current directory:
+Create a folder called **workspace** in your home directory (C:\Users\\[username]), and then use git to clone the DREAM.3D Superbuild repository at [https://github.com/bluequartzsoftware/DREAM3DSuperbuild](https://github.com/bluequartzsoftware/DREAM3DSuperbuild) to the **workspace** folder that you just created.  For quick access to the git terminal at a given directory, right-click on the directory and select "Git Bash Here" once git has been installed.  Then, type the following command to create a copy of the source code in the current directory:
 
     git clone https://github.com/bluequartzsoftware/DREAM3DSuperbuild.git
 
@@ -83,9 +84,14 @@ Create a folder called **workspace** in your home directory (C:\Users\\[username
 ![](Images/Windows/add_entry.png)
 
 4. Set the **Name** to *DREAM3D_SDK*.  Set the **Type** to *PATH* and set the **Value** to the location of the DREAM3D_SDK folder that we created earlier (*C:\DREAM3D_SDK*).
+
 ![](Images/Windows/create_cmake_variable.png)
 
-5. You should now have a single variable, DREAM3D_SDK.
+Add another variable "DREAM3D_CLONE_SOURCES", type=BOOL, Value = ON.
+
+![](Images/Windows/create_cmake_variable_2.png)
+
+5. You should now have a few variables, DREAM3D_SDK.
 ![](Images/Windows/cmake_before_configuration.png)
 
 6. Press the **Configure** button in CMake.  If the build directory specified does not already exist, CMake will ask if you want to create the directory.  Click "Yes".
@@ -125,7 +131,30 @@ Sometimes there is a pause between the download completing and the installer pop
 
 ![Visual Studio](Images/Windows/visual_studio_project.png)
 
-12. Click Build -> Build Solution to begin building the SDK.  This will take some time.  Please be patient as your SDK builds.
+12. Click Build -> Build Solution to begin building the SDK.  This will take some time.  Please be patient as your SDK builds. Once the build starts all of the dependent libaries are either built or downloaded. All libraries are installed into the DREAM3D_SDK folder that you specified earlier. Nothing that DREAM.3D depends on is installed into any system directories.
+In addition all of the needed source codes for DREAM.3D itself will be cloned from GitHub and stored in directories rooted at the same level as the DREAM3DSuperbuild directory. You can override this behavior by specifying the **DREAM3D_WORKSPACE** CMake variable.
 
 13. Change Debug selection to Release and repeat Step 12.
+
+## Building DREAM.3D ##
+
+Now that you have all of the dependent libraries built and the source codes for DREAM.3D has been cloned onto your computer you are now ready to compile DREAM.3D. For the examples below we are going to assume the following folder structure:
+
+* DREAM3D_SDK is located at C:/DREAM3D_SDK
+* DREAM3D_WORKSPACE is located at C:/Users/\[USERNAME\]/Workspace
+
+Use CMake-GUI to configure the DREAM.3D project. Before clicking the configure button it should look like the following (NOTE: Your username will be different than mine)
+
+![Images/Windows/DREAM3D_Configure.png](Images/Windows/Configure_DREAM3D_1.png)
+
+Click the **Configure** button and select the proper Generator. We are using Visual Studio 15 2017 in this example. On CMake versions starting at 15.0 you now need to also select the "Platform" for the generator. In our case we want __x64__ because we are going to compile as a 64 bit application. Note that all of the selections should mirror what you selected when building the DREAM3D SDK.
+
+![](Images/Windows/Configure_DREAM3D_2.png)
+
+Click **Finish** and let CMake configure the project for you.
+
+When the configuration completes you should click the **Generate** button to actually generate the DREAM3DProj.sln file for Visual Studio to use. Once the generation step is complete you can use the **Open Project** button to open the project in Visual Studio. Once the project is open, in a similar fashion, go to the "Build->Build Solution" menul to build DREAM.3D. The defualt configuration is Debug.
+
+If you are interested in building from a command line using alternate IDEs (such as QtCreator, CLion, VSCode) all of these steps are repeatable through command line invocations.
+
 

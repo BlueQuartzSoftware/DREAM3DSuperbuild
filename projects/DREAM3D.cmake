@@ -1,12 +1,28 @@
 #--------------------------------------------------------------------------------------------------
-# Are we building DREAM3D itself (OFF by default. Not well tested)
+# Are we Fetching DREAM3D itself
 #--------------------------------------------------------------------------------------------------
-OPTION(BUILD_DREAM3D "Build DREAM.3D" OFF)
-if("${BUILD_DREAM3D}" STREQUAL "OFF")
+set(extProjectName "DREAM3D")
+OPTION(DREAM3D_CLONE_SOURCES "Clone DREAM3D Sources" OFF)
+if("${DREAM3D_CLONE_SOURCES}" STREQUAL "OFF")
   return()
 endif()
-set(extProjectName "DREAM3D")
-message(STATUS "Building: ${extProjectName}: -DBUILD_DREAM3D=${BUILD_DREAM3D}")
+
+message(STATUS "Cloning: ${extProjectName}: -DDREAM3D_CLONE_SOURCES=${DREAM3D_CLONE_SOURCES}" )
+
+if("${DREAM3D_WORKSPACE}" STREQUAL "")
+  message(STATUS "DREAM3D_WORKSPACE is Blank. Attempting to set to same directory as DREAM3DSuperbuild....")
+  get_filename_component(DREAM3D_WORKSPACE "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
+  message(STATUS "DREAM3D_WORKSPACE: ${DREAM3D_WORKSPACE}")
+  if(EXISTS ${DREAM3D_WORKSPACE}/DREAM3D)
+    message(STATUS "*------------------------------------------------------------")
+    message(STATUS "*  The directory ${DREAM3D_WORKSPACE}/DREAM3D")
+    message(STATUS "*  WILL be over written with a fresh checkout. If you have any unsaved changes")
+    message(STATUS "*  or commits that need to be pushed. DO THAT BEFORE starting the")
+    message(STATUS "*  build process.")
+    message(STATUS "*------------------------------------------------------------")
+  endif()
+endif()
+
 
 #------------------------------------------------------------------------------
 #
@@ -21,8 +37,6 @@ function(CloneRepo)
   message(STATUS "Creating External Project: ${projectName}" )
 
   set(SOURCE_DIR "${Z_DREAM3D_WORKSPACE}")
-
-  # set_property(DIRECTORY PROPERTY EP_BASE ${SOURCE_DIR}/${projectName})
 
   ExternalProject_Add(${projectName}
     DEPENDS      ${Z_DEPENDS}
@@ -56,21 +70,15 @@ function(CloneRepo)
 endfunction()
 
 
-set(CLONE_REPOS 1)
+
 if("${DREAM3D_WORKSPACE}" STREQUAL "")
-  message(FATAL_ERROR "DREAM3D_WORKSPACE is empty. Cloning and building DREAM.3D can not continue. \
+  message(FATAL_ERROR "DREAM3D_WORKSPACE is empty. Cloning DREAM.3D can not continue. \
     Please set the -DDREAM3D_WORKSPACE=/Path/to/Directory/of/DREAM3D to the directory where you want to clone all the DREAM3D \
     repositories. Anything in that directory may be over written.")
 endif()
-if(CLONE_REPOS)
-  message(STATUS "Workspace Folder:   ${DREAM3D_WORKSPACE}")
-  message(STATUS "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-  message(STATUS "The directory ${DREAM3D_WORKSPACE}/DREAM3D")
-  message(STATUS "WILL be over written with a fresh checkout. If you have any unsaved changes")
-  message(STATUS "or commits that need to be pushed. DO THAT BEFORE starting the")
-  message(STATUS "build process.")
-  message(STATUS "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-endif()
+
+
+
 
 
 if(CLONE_REPOS)
@@ -109,6 +117,11 @@ if(CLONE_REPOS)
 
 endif()
 
+
+
+if(TRUE)
+return()
+endif()
 #------------------------------------------------------------------------------
 #
 #------------------------------------------------------------------------------
@@ -135,7 +148,7 @@ endforeach()
 
 
 ExternalProject_Add(${extProjectName}
-  DEPENDS     discount Eigen haru hdf5 ITK Qt5 qwt DREAM3D_Data ${DREAM3D_REPO_DEPENDENCIES}
+  DEPENDS     discount Eigen haru hdf5 ITK Qt5 qwt ${DREAM3D_REPO_DEPENDENCIES}
   TMP_DIR      ${DREAM3D_WORKSPACE}/Temp/DREAM3D/tmp
   STAMP_DIR    ${DREAM3D_WORKSPACE}/Temp/DREAM3D/stamp-${BUILD_TYPE}
   DOWNLOAD_DIR ${DREAM3D_WORKSPACE}/Temp/DREAM3D/download
@@ -149,9 +162,9 @@ ExternalProject_Add(${extProjectName}
 
   UPDATE_COMMAND ""
   PATCH_COMMAND ""
-  #CONFIGURE_COMMAND ""
-  #BUILD_COMMAND ""
-  #INSTALL_COMMAND ""
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND ""
+  INSTALL_COMMAND ""
   TEST_COMMAND ""
 
   CMAKE_ARGS
