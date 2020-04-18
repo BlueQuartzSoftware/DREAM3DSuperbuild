@@ -69,7 +69,6 @@ if(WIN32 OR APPLE OR "${BUILD_TBB}" STREQUAL "ON" )
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_INSTALL_DIR \"\${DREAM3D_SDK_ROOT}/tbb-${tbb_VERSION}-${tbb_os_name}/${extProjectName}\" CACHE PATH \"\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_DIR \"\${DREAM3D_SDK_ROOT}/tbb-${tbb_VERSION}-${tbb_os_name}/${extProjectName}/cmake\" CACHE PATH \"\")\n") 
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ARCH_TYPE \"intel64\" CACHE STRING \"\")\n")
-
 else()
   message(STATUS "LINUX: Please use your package manager to install Threading Building Blocks (TBB)")
   #------------------------------------------------------------------------------
@@ -81,6 +80,6 @@ else()
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_INSTALL_DIR \"/usr\" CACHE PATH \"\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_DIR \"/usr\" CACHE PATH \"\")\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_ARCH_TYPE \"intel64\" CACHE STRING \"\")\n")
-
 endif()
 
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(TBB_VERSION \"${tbb_VERSION}\" CACHE STRING \"\")\n")

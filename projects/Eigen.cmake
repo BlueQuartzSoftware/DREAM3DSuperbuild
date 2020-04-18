@@ -7,13 +7,13 @@ if("${BUILD_EIGEN}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "Eigen")
-set(Eigen_VERSION "3.3.7")
-message(STATUS "Building: ${extProjectName} ${Eigen_VERSION}: -DBUILD_EIGEN=${BUILD_EIGEN}" )
-set(Eigen_GIT_TAG ${Eigen_VERSION})
+set(Eigen3_VERSION "3.3.7")
+message(STATUS "Building: ${extProjectName} ${Eigen3_VERSION}: -DBUILD_EIGEN=${BUILD_EIGEN}" )
+set(Eigen_GIT_TAG ${Eigen3_VERSION})
 
-#set(Eigen_URL "https://bitbucket.org/eigen/eigen/get/${Eigen_VERSION}.tar.gz")
-#set(Eigen_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/Eigen/Eigen-${Eigen_VERSION}.tar.gz")
-set(Eigen_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${Eigen_VERSION}.tar.gz")
+#set(Eigen_URL "https://bitbucket.org/eigen/eigen/get/${Eigen3_VERSION}.tar.gz")
+#set(Eigen_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/Eigen/Eigen-${Eigen3_VERSION}.tar.gz")
+set(Eigen_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${Eigen3_VERSION}.tar.gz")
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
 
 if(WIN32)
@@ -28,7 +28,7 @@ else()
   endif()
 endif()
 
-set(Eigen_INSTALL "${DREAM3D_SDK}/${extProjectName}-${Eigen_VERSION}")
+set(Eigen_INSTALL "${DREAM3D_SDK}/${extProjectName}-${Eigen3_VERSION}")
 
 get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
 
@@ -41,14 +41,14 @@ configure_file(
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 
 ExternalProject_Add(${extProjectName}
-  # DOWNLOAD_NAME ${extProjectName}-${Eigen_VERSION}.tar.gz
+  # DOWNLOAD_NAME ${extProjectName}-${Eigen3_VERSION}.tar.gz
   # URL ${Eigen_URL}
   # TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
   # STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
   # DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
   # SOURCE_DIR "${SOURCE_DIR}"
   # BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  # INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${Eigen_VERSION}"
+  # INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${Eigen3_VERSION}"
 
   GIT_REPOSITORY "https://gitlab.com/libeigen/eigen.git"
   GIT_PROGRESS 1
@@ -87,11 +87,10 @@ ExternalProject_Add(${extProjectName}
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
-set(Eigen3_DIR "${DREAM3D_SDK}/Eigen-${Eigen_VERSION}/share/eigen3/cmake" CACHE PATH "" FORCE)
+set(Eigen3_DIR "${DREAM3D_SDK}/Eigen-${Eigen3_VERSION}/share/eigen3/cmake" CACHE PATH "" FORCE)
 
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# Eigen3 Library Location\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(Eigen3_DIR \"\${DREAM3D_SDK_ROOT}/Eigen-${Eigen_VERSION}/share/eigen3/cmake\" CACHE PATH \"\")\n")
-
-
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(Eigen3_DIR \"\${DREAM3D_SDK_ROOT}/Eigen-${Eigen3_VERSION}/share/eigen3/cmake\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(Eigen3_VERSION \"${Eigen3_VERSION}\" CACHE PATH \"\")\n")

@@ -85,6 +85,7 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# Qwt ${qwt_VERSION} Library\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(QWT_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(QWT_VERSION \"${qwt_VERSION}\" CACHE PATH \"\")\n")
 
 
 
