@@ -8,21 +8,22 @@ if("${DREAM3D_CLONE_SOURCES}" STREQUAL "OFF")
 endif()
 
 message(STATUS "Cloning: ${extProjectName}: -DDREAM3D_CLONE_SOURCES=${DREAM3D_CLONE_SOURCES}" )
+set(CLONE_REPOS TRUE)
 
 if("${DREAM3D_WORKSPACE}" STREQUAL "")
   message(STATUS "DREAM3D_WORKSPACE is Blank. Attempting to set to same directory as DREAM3DSuperbuild....")
   get_filename_component(DREAM3D_WORKSPACE "${CMAKE_CURRENT_SOURCE_DIR}" DIRECTORY)
   message(STATUS "DREAM3D_WORKSPACE: ${DREAM3D_WORKSPACE}")
-  if(EXISTS ${DREAM3D_WORKSPACE}/DREAM3D)
-    message(STATUS "*------------------------------------------------------------")
-    message(STATUS "*  The directory ${DREAM3D_WORKSPACE}/DREAM3D")
-    message(STATUS "*  WILL be over written with a fresh checkout. If you have any unsaved changes")
-    message(STATUS "*  or commits that need to be pushed. DO THAT BEFORE starting the")
-    message(STATUS "*  build process.")
-    message(STATUS "*------------------------------------------------------------")
-  endif()
 endif()
 
+if(EXISTS ${DREAM3D_WORKSPACE}/DREAM3D)
+  message(STATUS "*------------------------------------------------------------")
+  message(STATUS "*  The directory ${DREAM3D_WORKSPACE}/DREAM3D")
+  message(STATUS "*  WILL be over written with a fresh checkout. If you have any unsaved changes")
+  message(STATUS "*  or commits that need to be pushed. DO THAT BEFORE starting the")
+  message(STATUS "*  build process.")
+  message(STATUS "*------------------------------------------------------------")
+endif()
 
 #------------------------------------------------------------------------------
 #
@@ -34,7 +35,7 @@ function(CloneRepo)
   cmake_parse_arguments(Z "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
 
   set(projectName ${Z_PROJECT_NAME})
-  message(STATUS "Creating External Project: ${projectName}" )
+  message(STATUS "Cloning ${projectName} in ${Z_SOURCE_DIR}" )
 
   set(SOURCE_DIR "${Z_DREAM3D_WORKSPACE}")
 
@@ -76,10 +77,6 @@ if("${DREAM3D_WORKSPACE}" STREQUAL "")
     Please set the -DDREAM3D_WORKSPACE=/Path/to/Directory/of/DREAM3D to the directory where you want to clone all the DREAM3D \
     repositories. Anything in that directory may be over written.")
 endif()
-
-
-
-
 
 if(CLONE_REPOS)
   foreach(plugin ${DREAM3D_Base_Repos})

@@ -156,5 +156,3 @@ Click **Finish** and let CMake configure the project for you.
 When the configuration completes you should click the **Generate** button to actually generate the DREAM3DProj.sln file for Visual Studio to use. Once the generation step is complete you can use the **Open Project** button to open the project in Visual Studio. Once the project is open, in a similar fashion, go to the "Build->Build Solution" menul to build DREAM.3D. The defualt configuration is Debug.
 
 If you are interested in building from a command line using alternate IDEs (such as QtCreator, CLion, VSCode) all of these steps are repeatable through command line invocations.
-
-
