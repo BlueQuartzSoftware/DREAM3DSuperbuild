@@ -96,7 +96,7 @@ ExternalProject_Add(${extProjectName}
 ExternalProject_Add(${extProjectName}_T12_MAI_2020
     DEPENDS ${extProjectName}
     URL ${DATA_ROOT}/${extProjectName}/Data/T12-MAI-2010.tar.gz
-  #  URL_MD5 171a9d4396058775f9c9495916584928
+    URL_MD5 3c174a686bf5f5f025e19c6ca97df907
     SOURCE_DIR   ${DATA_ROOT}/${extProjectName}/Data/T12-MAI-2010
 
     TMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"

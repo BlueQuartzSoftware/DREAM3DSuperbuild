@@ -7,7 +7,8 @@ if("${BUILD_PYBIND11}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "pybind11")
-set(pybind11_VERSION "2.2")
+set(pybind11_GIT_TAG "v2.5.0")
+set(pybind11_VERSION "2.5.0")
 message(STATUS "Building: ${extProjectName} ${pybind11_VERSION}: -DBUILD_PYBIND11=${BUILD_PYBIND11}" )
 
 if(WIN32)
@@ -19,7 +20,7 @@ endif()
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "https://github.com/pybind/pybind11.git"
   GIT_PROGRESS 1
-  GIT_TAG v2.2.4
+  GIT_TAG ${pybind11_GIT_TAG}
 
   TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"

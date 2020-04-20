@@ -3,15 +3,35 @@
 #--------------------------------------------------------------------------------------------------
 OPTION(INSTALL_QT5 "Install Qt5" ON)
 
-set(Qt599 "0")
-set(Qt512 "1")
-set(Qt514 "0")
+if("${QtVersion}" STREQUAL "")
+  set(QtVersion "5.12")
+endif()
+
+if("${QtVersion}" STREQUAL "5.9")
+  set(Qt599 "1")
+  set(Qt512 "0")
+  set(Qt514 "0")
+endif()
+
+if("${QtVersion}" STREQUAL "5.12")
+  set(Qt599 "0")
+  set(Qt512 "1")
+  set(Qt514 "0")
+endif()
+
+if("${QtVersion}" STREQUAL "5.14")
+  set(Qt599 "0")
+  set(Qt512 "0")
+  set(Qt514 "1")
+endif()
+
+
 
 # ------------------------------------------------------------------------------
 # Qt 5.9.x is a LTS release
 if(Qt599)
   if(Qt512 OR Qt514)
-    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
+    message(FATAL_ERROR "Please set the -DQtVersion=(5.9 | 5.12 | 5.14) to select the version of Qt5 that you want to build against.")
   endif()
   set(qt5_version_major "5.9")
   set(qt5_version_full "5.9.9")
@@ -25,10 +45,11 @@ endif()
 
 # ------------------------------------------------------------------------------
 # Qt 5.12 should STAY at 5.12.4. 5.12.7 had issues with DREAM3D configuration throwing errors.
+# Qt 5.12.8 Now works with CMake
 # Qt 5.12 is a LTS release
 if(Qt512)
   if(Qt599 OR Qt514)
-    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
+    message(FATAL_ERROR "Please set the -DQtVersion=(5.9 | 5.12 | 5.14) to select the version of Qt5 that you want to build against.")
   endif()
   set(qt5_version_major "5.12")
   set(qt5_version_full "5.12.4")
@@ -42,7 +63,7 @@ endif()
 # Qt 5.12 is a LTS release
 if(Qt514)
   if(Qt599 OR Qt512)
-    message(FATAL_ERROR "Please select only 1 kind of Qt to install")
+    message(FATAL_ERROR "Please set the -DQtVersion=(5.9 | 5.12 | 5.14) to select the version of Qt5 that you want to build against.")
   endif()
   set(qt5_version_major "5.14")
   set(qt5_version_full "5.14.1")
