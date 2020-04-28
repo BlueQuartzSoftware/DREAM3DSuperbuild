@@ -92,29 +92,18 @@ You will now want to clone the actual DREAM.3D repositories and supporting respo
       echo -e "${GREEN}#------------------------------------------------------------------------"
       echo -e "${RED} rootdir=$rootdir"
 
-      mkdir -p "$rootdir"
-      cd $rootdir
-
-      printHeader DREAM3D
-      git clone -b develop ssh://git@github.com/bluequartzsoftware/DREAM3D
-      cd DREAM3D
-      git remote add upstream ssh://git@github.com/bluequartzsoftware/DREAM3D
-
-      mkdir ExternalProjects
-      cd ExternalProjects
-
-      REPOS="CMP SIMPL SIMPLView SIMPLVtkLib"
+      REPOS="CMP SIMPL SIMPLView H5Support EbsdLib DREAM3D"
       for P in $REPOS; do
-        cd $rootdir/DREAM3D/ExternalProjects
+        cd $rootdir
         printHeader $P
         git clone -b develop ssh://git@github.com/bluequartzsoftware/$P
         cd $P
         git remote add upstream ssh://git@github.com/bluequartzsoftware/$P
       done
 
-      cd $rootdir/DREAM3D/ExternalProjects
-      mkdir Plugins
-      cd Plugins
+      cd $rootdir/
+      mkdir $rootdir/DREAM3D_Plugins
+      cd $rootdir/DREAM3D_Plugins
 
       #------------------------------------------------------------------------------
       # These plugins are standard in DREAM.3D and are checked out into an "internal"
@@ -123,7 +112,7 @@ You will now want to clone the actual DREAM.3D repositories and supporting respo
       PLUGINS="ITKImageProcessing\
       SimulationIO"
       for P in $PLUGINS; do
-        cd $rootdir/DREAM3D/ExternalProjects/Plugins
+        cd $rootdir/DREAM3D_Plugins
         printHeader $P
         git clone -b develop ssh://git@github.com/bluequartzsoftware/$P
         cd $P
@@ -133,10 +122,9 @@ You will now want to clone the actual DREAM.3D repositories and supporting respo
       PLUGINS="
       DREAM3DReview\
       ImageProcessing\
-      TransformationPhase\
       UCSBUtilities" 
       for P in $PLUGINS; do
-        cd $rootdir/DREAM3D/ExternalProjects/Plugins
+        cd $rootdir/DREAM3D_Plugins
         printHeader $P
         git clone -b develop ssh://git@github.com/DREAM3D/$P
         cd $P
@@ -147,4 +135,3 @@ You will now want to clone the actual DREAM.3D repositories and supporting respo
     freshCheckout "${DEV_ROOT}"
 
 The previous shell script will create a folder called DREAM3D-Dev inside your home directory and clone the necessary repositories there.
-
