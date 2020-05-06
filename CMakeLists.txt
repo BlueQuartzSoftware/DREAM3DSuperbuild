@@ -154,8 +154,8 @@ include(Boost)
 # By Default use ITK4 until ITK5.1 is offically released.
 #--------------------------------------------------------------------------------------------------
 if("${ITKVersion}" STREQUAL "")
-  message(STATUS "ITK Version 4 is being used. If you want ITK Version 5 then use -DITKVersion=5 when configuring.")
-  set(ITKVersion "4")
+  message(STATUS "ITK Version 5 is being used. If you want ITK Version 4 then use -DITKVersion=4 when configuring.")
+  set(ITKVersion "5")
 endif()
 include(ITK${ITKVersion})
 
