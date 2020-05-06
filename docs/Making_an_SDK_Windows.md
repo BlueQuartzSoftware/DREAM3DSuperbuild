@@ -75,24 +75,24 @@ Create a folder called **workspace** in your home directory (C:\Users\\[username
 ### Instructions ###
 
 1. Open CMake and set the **Where is the source code** path to *C:\Users\\[username]\Workspace\DREAM3DSuperbuild*.
-![](Images/Windows/source_code_path.png)
+
+  ![Open CMake](Images/Windows/source_code_path.png)
 
 2. Set the **Where to build the binaries** path to *C:\Users\\[username]\Workspace\DREAM3DSuperbuild\Build*.
-![](Images/Windows/build_binaries.png)
+
+  ![Setting binary directory](Images/Windows/build_binaries.png)
 
 3. We are going to create a CMake variable.  Press the **Add Entry** button.
-![](Images/Windows/add_entry.png)
+
+    ![Create a CMake variable](Images/Windows/add_entry.png)
 
 4. Set the **Name** to *DREAM3D_SDK*.  Set the **Type** to *PATH* and set the **Value** to the location of the DREAM3D_SDK folder that we created earlier (*C:\DREAM3D_SDK*).
 
-![](Images/Windows/create_cmake_variable.png)
-
-Add another variable "DREAM3D_CLONE_SOURCES", type=BOOL, Value = ON.
-
-![](Images/Windows/create_cmake_variable_2.png)
+  ![Set Name of CMake variable](Images/Windows/create_cmake_variable.png)
 
 5. You should now have a few variables, DREAM3D_SDK.
-![](Images/Windows/cmake_before_configuration.png)
+
+  ![CMake before configure](Images/Windows/cmake_before_configuration.png)
 
 6. Press the **Configure** button in CMake.  If the build directory specified does not already exist, CMake will ask if you want to create the directory.  Click "Yes".
 
@@ -106,30 +106,30 @@ Add another variable "DREAM3D_CLONE_SOURCES", type=BOOL, Value = ON.
 
 Due to an incompatibility between VS2019 and ITK 4.13.x when configuring DREAM3DSuperbuild the user will need to also add "v141" to the "Optional toolset to use" text field. This just tells the compiler to use the compilers from VS2017 instead of the newer compilers from VS2019. No functionality is lost when doing this but this is the only way to allow the compilation to finish without any errors.
 
-![Select a Generator](Images/Windows/cmake_select_generator.png)
+  ![Select a Generator](Images/Windows/cmake_select_generator.png)
 
   Click **Finish**.  If the selected Visual Studio and its C++ compiler are not installed, CMake will throw an error and will not allow you to proceed until you have done so.
 
 8. At this point, Qt 5 will be automatically downloaded and installed.  Sometimes during the installation of Qt the Qt installer application will crash.  Simply try configuring again to relaunch the Qt installer.  Since the Qt download is over 1 GB in size, this may take some time so please be patient.
 
-![Downloading Qt](Images/Windows/downloading_qt.png)
+  ![Downloading Qt](Images/Windows/downloading_qt.png)
 
-Sometimes there is a pause between the download completing and the installer popping up, so just wait a minute or so for the installer to appear.
-![Installing Qt5](Images/Windows/qt_installer.png)
+  Sometimes there is a pause between the download completing and the installer popping up, so just wait a minute or so for the installer to appear.
+  ![Installing Qt5](Images/Windows/qt_installer.png)
 
 9. Press the **Configure** button in CMake again.
 
-![Debug Configured](Images/Windows/debug_configured.png)
+  ![Debug Configured](Images/Windows/debug_configured.png)
 
 10. Press the **Generate** button in CMake to generate the build files.
 
-![Generating Solution](Images/Windows/cmake_generated.png)
+  ![Generating Solution](Images/Windows/cmake_generated.png)
 
-    *Note*: Although you still need to press **Configure** in step 9, Qt will not download or install again because it was already downloaded and installed the first time through.
+  *Note*: Although you still need to press **Configure** in step 9, Qt will not download or install again because it was already downloaded and installed the first time through.
 
 11. Click "Open Project" to launch Visual Studio with the DREAM3DSuperBuild Project. Check that ALL_BUILD and Debug are selected.
 
-![Visual Studio](Images/Windows/visual_studio_project.png)
+  ![Visual Studio](Images/Windows/visual_studio_project.png)
 
 12. Click Build -> Build Solution to begin building the SDK.  This will take some time.  Please be patient as your SDK builds. Once the build starts all of the dependent libaries are either built or downloaded. All libraries are installed into the DREAM3D_SDK folder that you specified earlier. Nothing that DREAM.3D depends on is installed into any system directories.
 In addition all of the needed source codes for DREAM.3D itself will be cloned from GitHub and stored in directories rooted at the same level as the DREAM3DSuperbuild directory. You can override this behavior by specifying the **DREAM3D_WORKSPACE** CMake variable.
@@ -138,10 +138,39 @@ In addition all of the needed source codes for DREAM.3D itself will be cloned fr
 
 ## Building DREAM.3D ##
 
-Now that you have all of the dependent libraries built and the source codes for DREAM.3D has been cloned onto your computer you are now ready to compile DREAM.3D. For the examples below we are going to assume the following folder structure:
+Now that you have all of the dependent libraries built you are now ready to compile DREAM.3D. For the examples below we are going to assume the following folder structure:
 
 * DREAM3D_SDK is located at C:/DREAM3D_SDK
 * DREAM3D_WORKSPACE is located at C:/Users/\[USERNAME\]/Workspace
+
+There are 6 basic git repositories that need to be cloned:
+
+    git clone https://www.github.com/bluequartzsoftware/CMP.git
+    git clone https://www.github.com/bluequartzsoftware/H5Support.git
+    git clone https://www.github.com/bluequartzsoftware/EbsdLib.git
+    git clone https://www.github.com/bluequartzsoftware/SIMPL.git
+    git clone https://www.github.com/bluequartzsoftware/SIMPLView.git
+    git clone https://www.github.com/bluequartzsoftware/DREAM3D.git
+
+In addition there are a few extra repositories that are always built as part of the standard DREAM3D build:
+
+    git clone https://www.github.com/bluequartzsoftware/ITKImageProcessing DREAM3D_Plugins/ITKImageProcessing
+    git clone https://www.github.com/bluequartzsoftware/SimulationIO DREAM3D_Plugins/SimulationIO
+    git clone https://www.github.com/dream3d/DREAM3DReview DREAM3D_Plugins/DREAM3DReview
+    git clone https://www.github.com/dream3d/UCSBUtilities DREAM3D_Plugins/UCSBUtilities
+
+After you have finished cloning the sources your *Workspace* folder should look like this:
+
+    Workspace/CMP
+    Workspace/EbsdLib
+    Workspace/H5Support
+    Workspace/DREAM3D
+    Workspace/DREAM3D_Plugins/ITKImageProcessing
+    Workspace/DREAM3D_Plugins/SimulationIO
+    Workspace/DREAM3D_Plugins/DREAM3DReview
+    Workspace/DREAM3D_Plugins/UCSBUtilities
+    Workspace/SIMPL
+    Workspace/SIMPLView
 
 Use CMake-GUI to configure the DREAM.3D project. Before clicking the configure button it should look like the following (NOTE: Your username will be different than mine)
 
@@ -149,7 +178,7 @@ Use CMake-GUI to configure the DREAM.3D project. Before clicking the configure b
 
 Click the **Configure** button and select the proper Generator. We are using Visual Studio 15 2017 in this example. On CMake versions starting at 15.0 you now need to also select the "Platform" for the generator. In our case we want __x64__ because we are going to compile as a 64 bit application. Note that all of the selections should mirror what you selected when building the DREAM3D SDK.
 
-![](Images/Windows/Configure_DREAM3D_2.png)
+![Selecting the compiler toolset](Images/Windows/Configure_DREAM3D_2.png)
 
 Click **Finish** and let CMake configure the project for you.
 

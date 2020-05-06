@@ -121,7 +121,6 @@ You will now want to clone the actual DREAM.3D repositories and supporting respo
 
       PLUGINS="
       DREAM3DReview\
-      ImageProcessing\
       UCSBUtilities" 
       for P in $PLUGINS; do
         cd $rootdir/DREAM3D_Plugins

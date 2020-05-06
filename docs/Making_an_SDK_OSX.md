@@ -107,7 +107,7 @@ Sometimes there is a pause between the download completing and the installer pop
 13. Execute the command:
 
     `ninja`
-    
+
     It will build the Debug version of the SDK.  Please be patient, it takes a while to build all the dependent libraries.
 
 14. When the Debug version of the SDK is done building, navigate to **/Users/*[YOUR-HOME-FOLDER]*/Workspace/Builds/DREAM3DSuperbuild-Build/Release**.
@@ -115,8 +115,45 @@ Sometimes there is a pause between the download completing and the installer pop
 15. Execute the command:
 
     `ninja`
-    
+
     It will build the Release version of the SDK.  Please be patient, it takes a while to build all the dependent libraries.
 
 16. Navigate to **/Users/Shared/DREAM3D_SDK**. This is your newly created SDK and can be used to compile DREAM.3D.
 
+## Building DREAM.3D ##
+
+Now that you have all of the dependent libraries built you are now ready to compile DREAM.3D. For the examples below we are going to assume the following folder structure:
+
+* DREAM3D_SDK is located at /Users/Shared/DREAM3D_SDK
+* DREAM3D_WORKSPACE is located at /Users/[USERNAME\]/Workspace
+
+There are 6 basic git repositories that need to be cloned:
+
+    git clone https://www.github.com/bluequartzsoftware/CMP.git
+    git clone https://www.github.com/bluequartzsoftware/H5Support.git
+    git clone https://www.github.com/bluequartzsoftware/EbsdLib.git
+    git clone https://www.github.com/bluequartzsoftware/SIMPL.git
+    git clone https://www.github.com/bluequartzsoftware/SIMPLView.git
+    git clone https://www.github.com/bluequartzsoftware/DREAM3D.git
+
+In addition there are a few extra repositories that are always built as part of the standard DREAM3D build:
+
+    git clone https://www.github.com/bluequartzsoftware/ITKImageProcessing DREAM3D_Plugins/ITKImageProcessing
+    git clone https://www.github.com/bluequartzsoftware/SimulationIO DREAM3D_Plugins/SimulationIO
+    git clone https://www.github.com/dream3d/DREAM3DReview DREAM3D_Plugins/DREAM3DReview
+    git clone https://www.github.com/dream3d/UCSBUtilities DREAM3D_Plugins/UCSBUtilities
+
+After you have finished cloning the sources your *Workspace* folder should look like this:
+
+    Workspace/CMP
+    Workspace/EbsdLib
+    Workspace/H5Support
+    Workspace/DREAM3D
+    Workspace/DREAM3D_Plugins/ITKImageProcessing
+    Workspace/DREAM3D_Plugins/SimulationIO
+    Workspace/DREAM3D_Plugins/DREAM3DReview
+    Workspace/DREAM3D_Plugins/UCSBUtilities
+    Workspace/SIMPL
+    Workspace/SIMPLView
+
+Use CMake-GUI to configure the DREAM.3D project. Before clicking the configure button it should look like the following (NOTE: Your username will be different than mine)
