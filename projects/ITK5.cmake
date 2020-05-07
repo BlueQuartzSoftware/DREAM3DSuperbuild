@@ -114,10 +114,11 @@ ExternalProject_Add(${extProjectName}
     -DModule_ITKImageNoise:BOOL=ON
 
     -DModule_Montage:BOOL=ON
-    -DREMOTE_GIT_TAG_Montage:STRING=master
+    -DModule_Montage_GIT_TAG:STRING=master
 
     -DModule_TotalVariation:BOOL=ON
-    -DREMOTE_GIT_TAG_TotalVariation:STRING=master
+    -DModule_TotalVariation_GIT_TAG:STRING=master
+
     -DEigen3_DIR:PATH=${Eigen3_DIR}
   
   DEPENDS hdf5
