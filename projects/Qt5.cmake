@@ -52,10 +52,10 @@ if(Qt512)
     message(FATAL_ERROR "Please set the -DQtVersion=(5.9 | 5.12 | 5.14) to select the version of Qt5 that you want to build against.")
   endif()
   set(qt5_version_major "5.12")
-  set(qt5_version_full "5.12.4")
-  set(qt5_version_short "5.12.4")
+  set(qt5_version_full "5.12.8")
+  set(qt5_version_short "5.12.8")
   # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "qt5.5124")
+  set(qt5_installer_version "qt5.5128")
 endif()
 
 # ------------------------------------------------------------------------------
@@ -66,10 +66,10 @@ if(Qt514)
     message(FATAL_ERROR "Please set the -DQtVersion=(5.9 | 5.12 | 5.14) to select the version of Qt5 that you want to build against.")
   endif()
   set(qt5_version_major "5.14")
-  set(qt5_version_full "5.14.1")
-  set(qt5_version_short "5.14.1")
+  set(qt5_version_full "5.14.2")
+  set(qt5_version_short "5.14.2")
   # This variable is used inside the javascript file that performs the Qt installation
-  set(qt5_installer_version "qt5.5141")
+  set(qt5_installer_version "qt5.5142")
 endif()
 
 
