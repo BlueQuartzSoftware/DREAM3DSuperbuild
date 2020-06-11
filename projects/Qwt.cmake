@@ -10,7 +10,6 @@ set(extProjectName "qwt")
 set(qwt_VERSION "6.1.4")
 message(STATUS "Building: ${extProjectName} ${qwt_VERSION}: -DBUILD_QWT=${BUILD_QWT}" )
 
-#set(qwt_url "http://pilotfiber.dl.sourceforge.net/project/qwt/qwt/${qwt_VERSION}/${extProjectName}-${qwt_VERSION}.zip")
 set(qwt_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${qwt_VERSION}.tar.bz2")
 
 set(qwt_INSTALL "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}")
@@ -45,24 +44,24 @@ else()
 endif()
 
 ExternalProject_Add(${extProjectName}
-  # DOWNLOAD_NAME ${extProjectName}-${qwt_VERSION}.zip
-  # URL ${qwt_url}
-  # TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  # STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
-  # DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
-  # SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}-${qwt_VERSION}"
-  # #BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  # INSTALL_DIR "${qwt_INSTALL}"
-
-  GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/Qwt.git"
-  GIT_PROGRESS 1
-  GIT_TAG "origin/v6.1.4"
+  DOWNLOAD_NAME ${extProjectName}-${qwt_VERSION}.zip
+  URL ${qwt_url}
   TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
   DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
   SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}-${qwt_VERSION}"
   BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${qwt_INSTALL}"
+
+  # GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/Qwt.git"
+  # GIT_PROGRESS 1
+  # GIT_TAG "origin/v6.1.4"
+  # TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
+  # STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
+  # DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
+  # SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}-${qwt_VERSION}"
+  # BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+  # INSTALL_DIR "${qwt_INSTALL}"
 
   CONFIGURE_COMMAND ${Qt5_QMAKE_EXECUTABLE} <SOURCE_DIR>/qwt.pro
   PATCH_COMMAND ${CMAKE_COMMAND} -E copy ${qwtConfig_FILE} <SOURCE_DIR>/qwtconfig.pri
