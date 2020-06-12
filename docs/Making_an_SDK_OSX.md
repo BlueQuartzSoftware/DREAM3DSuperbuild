@@ -20,6 +20,10 @@ A compatible compiler needs to be installed on your system to be able to build D
 
 For more information, please visit [Installing a Compiler Suite](http://www.dream3d.io/6_Developer/CompilerSuite/index.html).
 
+| Compiler Version | OS X Version |
+| ---------------- | ------------ |
+| Xcode 11 | OS X 10.15 |
+
 ## Procedure ##
 
 #### Basic Setup ####

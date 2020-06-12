@@ -22,13 +22,18 @@ For more information, please visit [Installing a Compiler Suite](http://www.drea
 
 ## Prerequisites ##
 
-DREAM.3D requires a C++14 compliant compiler. GCC Version 7.4 is used for testing under Ubuntu 16.04 LTS environment.
+DREAM.3D requires a C++17 compliant compiler.
+
+| Compiler Version |
+| ---------------- |
+| GCC 8 |
+| Clang 7 |
 
 You should be able to use "apt-get" or "yum" or your preferred package manager to get all the dependecies except possibly HDF5 1.10.3. If you need to build HDF5 1.10.3, build it as Shared Libraries and build all the types, (base, C++, High Level) and install it somewhere in the system.
 
 + Git
 + [CMake 3.14.x](http://www.cmake.org)
-+ Compiler Suite (GCC 7.x is now required. Recent Versions of Clang will also work.)
++ Compiler Suite (at least GCC 8 or Clang 7)
 + _optionally_ install ninja from [GitHub](https://github.com/ninja-build/ninja/releases) or your package manager.
 
 ## Procedure ##

@@ -18,7 +18,11 @@ If you have already fulfilled all of these prerequisites, skip to the [Procedure
 
 A compatible compiler needs to be installed on your system to be able to build DREAM.3D.
 
-This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Versions 2015 and 2017 are supported in this release and should be usable.  Both the **Professional** and **Community** versions will work.
+| Product | Product Version | Compiler Version | MSVC++ Toolset |
+| ------- | --------------- | ---------------- | -------------- |
+| Visual Studio 2017 Pro & Community | 15.8 | 19.15 | 14.15 |
+
+This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Version 2017 is supported in this release and should be usable.  Both the **Professional** and **Community** versions will work.
 
 If you are using VS2019 please ensure that when you installed VS2019 that you also installed the VS2017 (v141) toolset. It will be needed later on in the process.
 
