@@ -151,10 +151,15 @@ include(Haru)
 include(Boost)
 
 #--------------------------------------------------------------------------------------------------
-# By Default use ITK4 until ITK5.1 is offically released.
+# If we are on Apple we need a FileSystem compatible with older versions of macOS
+#--------------------------------------------------------------------------------------------------
+include(ghcFileSystem)
+
+#--------------------------------------------------------------------------------------------------
+# By Default use ITK 5.1
 #--------------------------------------------------------------------------------------------------
 if("${ITKVersion}" STREQUAL "")
-  message(STATUS "ITK Version 5 is being used. If you want ITK Version 4 then use -DITKVersion=4 when configuring.")
+  message(STATUS "ITK Version 5.1 is being used. If you want ITK Version 4 then use -DITKVersion=4 when configuring.")
   set(ITKVersion "5")
 endif()
 include(ITK${ITKVersion})
