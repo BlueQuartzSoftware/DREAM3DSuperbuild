@@ -5,6 +5,9 @@ if(WIN32)
     return()
 endif()
 
+if(CMAKE_COMPILER_IS_GNUCC AND "${CMAKE_SYSTEM_NAME}" STREQUAL "Linux" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.99)
+  return()
+endif()
 
 set(extProjectName "ghcFilesystem")
 set(ghcFilesystem_GIT_TAG "v1.3.2")
