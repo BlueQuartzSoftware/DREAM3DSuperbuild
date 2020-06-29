@@ -114,10 +114,10 @@ ExternalProject_Add(${extProjectName}
     -DModule_ITKImageNoise:BOOL=ON
 
     -DModule_Montage:BOOL=ON
-    -DModule_Montage_GIT_TAG:STRING=master
+    -DModule_Montage_GIT_TAG:STRING=2e70001
 
     -DModule_TotalVariation:BOOL=ON
-    -DModule_TotalVariation_GIT_TAG:STRING=master
+    -DModule_TotalVariation_GIT_TAG:STRING=2a295a5
 
     -DEigen3_DIR:PATH=${Eigen3_DIR}
   
