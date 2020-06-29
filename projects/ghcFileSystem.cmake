@@ -1,30 +1,30 @@
 #--------------------------------------------------------------------------------------------------
 # Are we building FileSystem? Only needed on macOS systems
 #--------------------------------------------------------------------------------------------------
-if(NOT APPLE)
+if(WIN32)
     return()
 endif()
 
 
-set(extProjectName "ghcFileSystem")
-set(ghcFileSystem_GIT_TAG "v1.3.2")
-set(ghcFileSystem_VERSION "1.3.2")
-message(STATUS "Building: ${extProjectName} ${ghcFileSystem_VERSION}: macOS Detected. ghcFileSystem required" )
+set(extProjectName "ghcFilesystem")
+set(ghcFilesystem_GIT_TAG "v1.3.2")
+set(ghcFilesystem_VERSION "1.3.2")
+message(STATUS "Building: ${extProjectName} ${ghcFilesystem_VERSION}:  ghcFilesystem required" )
 
-set(ghcFileSystem_INSTALL "${DREAM3D_SDK}/${extProjectName}-${ghcFileSystem_VERSION}-${CMAKE_BUILD_TYPE}")
+set(ghcFilesystem_INSTALL "${DREAM3D_SDK}/${extProjectName}-${ghcFilesystem_VERSION}-${CMAKE_BUILD_TYPE}")
 
 
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "https://github.com/gulrak/filesystem.git"
   GIT_PROGRESS 1
-  GIT_TAG ${ghcFileSystem_GIT_TAG}
+  GIT_TAG ${ghcFilesystem_GIT_TAG}
 
   TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
   DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
   SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source"
   BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  INSTALL_DIR "${ghcFileSystem_INSTALL}"
+  INSTALL_DIR "${ghcFilesystem_INSTALL}"
 
   CMAKE_ARGS
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
@@ -48,11 +48,11 @@ ExternalProject_Add(${extProjectName}
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# GulRok FileSystem\n")
-if(APPLE)
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(ghcFileSystem_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${ghcFileSystem_VERSION}-\${BUILD_TYPE}/lib/cmake/${extProjectName}\" CACHE PATH \"\")\n")
+if(NOT WIN32)
+  FILE(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${ghcFilesystem_VERSION}-\${BUILD_TYPE}/lib/cmake/${extProjectName}\" CACHE PATH \"\")\n")
 else()
     message(FATAL_ERROR "GHC FileSystem is ONLY needed on MacOS. If you are on Linux or Windows it is not needed as the std::file_system can be used instead.")
 endif()
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${ghcFileSystem_DIR})\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(ghcFileSystem_VERSION \"${ghcFileSystem_VERSION}\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${ghcFilesystem_DIR})\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_VERSION \"${ghcFilesystem_VERSION}\" CACHE PATH \"\")\n")
 
