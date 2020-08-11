@@ -7,10 +7,10 @@ if("${BUILD_QWT}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "qwt")
-set(qwt_VERSION "6.1.4")
+set(qwt_VERSION "6.1.5")
 message(STATUS "Building: ${extProjectName} ${qwt_VERSION}: -DBUILD_QWT=${BUILD_QWT}" )
 
-set(qwt_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${qwt_VERSION}.tar.bz2")
+set(qwt_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${qwt_VERSION}.tar.gz")
 
 set(qwt_INSTALL "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}")
 
