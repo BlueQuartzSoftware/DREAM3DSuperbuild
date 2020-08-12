@@ -2,7 +2,7 @@
 # Are we building FileSystem? Only needed on macOS systems
 #--------------------------------------------------------------------------------------------------
 if(WIN32)
-    return()
+  return()
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCC AND "${CMAKE_SYSTEM_NAME}" STREQUAL "Linux" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.99)
@@ -12,10 +12,9 @@ endif()
 set(extProjectName "ghcFilesystem")
 set(ghcFilesystem_GIT_TAG "v1.3.2")
 set(ghcFilesystem_VERSION "1.3.2")
-message(STATUS "Building: ${extProjectName} ${ghcFilesystem_VERSION}:  ghcFilesystem required" )
+message(STATUS "Building: ${extProjectName} ${ghcFilesystem_VERSION}:  ghcFilesystem required")
 
 set(ghcFilesystem_INSTALL "${DREAM3D_SDK}/${extProjectName}-${ghcFilesystem_VERSION}-${CMAKE_BUILD_TYPE}")
-
 
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "https://github.com/gulrak/filesystem.git"
@@ -48,14 +47,13 @@ ExternalProject_Add(${extProjectName}
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
-FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "# GulRok FileSystem\n")
+file(APPEND ${DREAM3D_SDK_FILE} "\n")
+file(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
+file(APPEND ${DREAM3D_SDK_FILE} "# GulRok FileSystem\n")
 if(NOT WIN32)
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${ghcFilesystem_VERSION}-\${BUILD_TYPE}/lib/cmake/${extProjectName}\" CACHE PATH \"\")\n")
+  file(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${ghcFilesystem_VERSION}-\${BUILD_TYPE}/lib/cmake/${extProjectName}\" CACHE PATH \"\")\n")
 else()
     message(FATAL_ERROR "GHC FileSystem is ONLY needed on MacOS. If you are on Linux or Windows it is not needed as the std::file_system can be used instead.")
 endif()
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${ghcFilesystem_DIR})\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_VERSION \"${ghcFilesystem_VERSION}\" CACHE STRING \"\")\n")
-
+file(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${ghcFilesystem_DIR})\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_VERSION \"${ghcFilesystem_VERSION}\" CACHE STRING \"\")\n")
