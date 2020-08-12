@@ -162,5 +162,5 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# Boost Library Location\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(BOOST_ROOT \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${boost_version}\" CACHE PATH \"\")\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(BOOST_VERSION \"${boost_version}\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(BOOST_VERSION \"${boost_version}\" CACHE STRING \"\")\n")
 

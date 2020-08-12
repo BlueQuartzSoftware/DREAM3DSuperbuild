@@ -57,5 +57,5 @@ else()
     message(FATAL_ERROR "GHC FileSystem is ONLY needed on MacOS. If you are on Linux or Windows it is not needed as the std::file_system can be used instead.")
 endif()
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${ghcFilesystem_DIR})\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_VERSION \"${ghcFilesystem_VERSION}\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_VERSION \"${ghcFilesystem_VERSION}\" CACHE STRING \"\")\n")
 
