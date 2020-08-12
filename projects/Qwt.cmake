@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 # Are we building Qwt (ON by default)
 #--------------------------------------------------------------------------------------------------
-OPTION(BUILD_QWT "Build Qwt" ON)
-if("${BUILD_QWT}" STREQUAL "OFF")
+option(BUILD_QWT "Build Qwt" ON)
+if(NOT BUILD_QWT)
   return()
 endif()
 
 set(extProjectName "qwt")
 set(qwt_VERSION "6.1.5")
-message(STATUS "Building: ${extProjectName} ${qwt_VERSION}: -DBUILD_QWT=${BUILD_QWT}" )
+message(STATUS "Building: ${extProjectName} ${qwt_VERSION}: -DBUILD_QWT=${BUILD_QWT}")
 
 set(qwt_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${qwt_VERSION}.tar.gz")
 
@@ -80,15 +80,8 @@ ExternalProject_Add(${extProjectName}
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
-FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "# Qwt ${qwt_VERSION} Library\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(QWT_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}\" CACHE PATH \"\")\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(QWT_VERSION \"${qwt_VERSION}\" CACHE PATH \"\")\n")
-
-
-
-
-
-
-
+file(APPEND ${DREAM3D_SDK_FILE} "\n")
+file(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
+file(APPEND ${DREAM3D_SDK_FILE} "# Qwt ${qwt_VERSION} Library\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(QWT_INSTALL \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}\" CACHE PATH \"\")\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(QWT_VERSION \"${qwt_VERSION}\" CACHE PATH \"\")\n")
