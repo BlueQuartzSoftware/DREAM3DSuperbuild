@@ -1,14 +1,14 @@
 #--------------------------------------------------------------------------------------------------
 # Are we building Eigen (ON by default)
 #--------------------------------------------------------------------------------------------------
-OPTION(BUILD_EIGEN "Build Eigen" ON)
-if("${BUILD_EIGEN}" STREQUAL "OFF")
+option(BUILD_EIGEN "Build Eigen" ON)
+if(NOT BUILD_EIGEN)
   return()
 endif()
 
 set(extProjectName "Eigen")
 set(Eigen3_VERSION "3.3.7")
-message(STATUS "Building: ${extProjectName} ${Eigen3_VERSION}: -DBUILD_EIGEN=${BUILD_EIGEN}" )
+message(STATUS "Building: ${extProjectName} ${Eigen3_VERSION}: -DBUILD_EIGEN=${BUILD_EIGEN}")
 set(Eigen_GIT_TAG ${Eigen3_VERSION})
 
 #set(Eigen_URL "https://bitbucket.org/eigen/eigen/get/${Eigen3_VERSION}.tar.gz")
@@ -24,7 +24,7 @@ configure_file(
   "${_self_dir}/patches/Eigen_DartConfiguration.tcl.in"
   "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}/DartConfiguration.tcl"
   @ONLY
-  )
+)
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 
@@ -71,14 +71,12 @@ ExternalProject_Add(${extProjectName}
   LOG_INSTALL 1
 )
 
-
-
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
 set(Eigen3_DIR "${DREAM3D_SDK}/Eigen-${Eigen3_VERSION}/share/eigen3/cmake" CACHE PATH "" FORCE)
 
-FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "# Eigen3 Library Location\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(Eigen3_DIR \"\${DREAM3D_SDK_ROOT}/Eigen-${Eigen3_VERSION}/share/eigen3/cmake\" CACHE PATH \"\")\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(Eigen3_VERSION \"${Eigen3_VERSION}\" CACHE PATH \"\")\n")
+file(APPEND ${DREAM3D_SDK_FILE} "\n")
+file(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
+file(APPEND ${DREAM3D_SDK_FILE} "# Eigen3 Library Location\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(Eigen3_DIR \"\${DREAM3D_SDK_ROOT}/Eigen-${Eigen3_VERSION}/share/eigen3/cmake\" CACHE PATH \"\")\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(Eigen3_VERSION \"${Eigen3_VERSION}\" CACHE PATH \"\")\n")
