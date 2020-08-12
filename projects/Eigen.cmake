@@ -16,18 +16,6 @@ set(Eigen_GIT_TAG ${Eigen3_VERSION})
 set(Eigen_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${Eigen3_VERSION}.tar.gz")
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
 
-if(WIN32)
-  set(Eigen_CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
-elseif(APPLE)
-  set(Eigen_CXX_FLAGS "-stdlib=libc++ -std=c++11")
-else()
-  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(Eigen_CXX_FLAGS "-stdlib=libc++ -std=c++11")
-  else()
-    set(Eigen_CXX_FLAGS "-std=c++11")
-  endif()
-endif()
-
 set(Eigen_INSTALL "${DREAM3D_SDK}/${extProjectName}-${Eigen3_VERSION}")
 
 get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
