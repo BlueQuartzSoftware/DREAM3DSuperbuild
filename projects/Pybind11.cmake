@@ -1,8 +1,8 @@
 #--------------------------------------------------------------------------------------------------
 # Are we building Pybind11 (ON by default)
 #--------------------------------------------------------------------------------------------------
-OPTION(BUILD_PYBIND11 "Build Pybind11" ON)
-if("${BUILD_PYBIND11}" STREQUAL "OFF")
+option(BUILD_PYBIND11 "Build Pybind11" ON)
+if(NOT BUILD_PYBIND11)
   return()
 endif()
 
@@ -35,10 +35,10 @@ ExternalProject_Add(${extProjectName}
 
     -DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET}
     -DCMAKE_OSX_SYSROOT=${OSX_SDK}
-    -DCMAKE_CXX_STANDARD=11 
+    -DCMAKE_CXX_STANDARD=11
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
     -Wno-dev
-    -DPYBIND11_TEST=OFF 
+    -DPYBIND11_TEST=OFF
 
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
@@ -50,15 +50,15 @@ ExternalProject_Add(${extProjectName}
 
 #-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
-FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "# pybind11\n")
+file(APPEND ${DREAM3D_SDK_FILE} "\n")
+file(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
+file(APPEND ${DREAM3D_SDK_FILE} "# pybind11\n")
 if(APPLE)
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}-\${BUILD_TYPE}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
+  file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}-\${BUILD_TYPE}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
 elseif(WIN32)
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
+  file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
 else()
-  FILE(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}-\${BUILD_TYPE}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
+  file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}-\${BUILD_TYPE}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
 endif()
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${pybind11_DIR})\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_VERSION \"${pybind11_VERSION}\" CACHE STRING \"\")\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${pybind11_DIR})\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_VERSION \"${pybind11_VERSION}\" CACHE STRING \"\")\n")
