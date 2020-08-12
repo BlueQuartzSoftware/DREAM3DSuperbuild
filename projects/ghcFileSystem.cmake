@@ -14,7 +14,7 @@ set(ghcFilesystem_GIT_TAG "v1.3.2")
 set(ghcFilesystem_VERSION "1.3.2")
 message(STATUS "Building: ${extProjectName} ${ghcFilesystem_VERSION}:  ghcFilesystem required")
 
-set(ghcFilesystem_INSTALL "${DREAM3D_SDK}/${extProjectName}-${ghcFilesystem_VERSION}-${CMAKE_BUILD_TYPE}")
+set(ghcFilesystem_INSTALL "${DREAM3D_SDK}/${extProjectName}-${ghcFilesystem_VERSION}")
 
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "https://github.com/gulrak/filesystem.git"
@@ -50,10 +50,6 @@ ExternalProject_Add(${extProjectName}
 file(APPEND ${DREAM3D_SDK_FILE} "\n")
 file(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 file(APPEND ${DREAM3D_SDK_FILE} "# GulRok FileSystem\n")
-if(NOT WIN32)
-  file(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${ghcFilesystem_VERSION}-\${BUILD_TYPE}/lib/cmake/${extProjectName}\" CACHE PATH \"\")\n")
-else()
-    message(FATAL_ERROR "GHC FileSystem is ONLY needed on MacOS. If you are on Linux or Windows it is not needed as the std::file_system can be used instead.")
-endif()
+file(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${ghcFilesystem_VERSION}/lib/cmake/${extProjectName}\" CACHE PATH \"\")\n")
 file(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${ghcFilesystem_DIR})\n")
 file(APPEND ${DREAM3D_SDK_FILE} "set(ghcFilesystem_VERSION \"${ghcFilesystem_VERSION}\" CACHE STRING \"\")\n")
