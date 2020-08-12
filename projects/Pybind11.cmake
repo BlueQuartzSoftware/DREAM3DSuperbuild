@@ -11,11 +11,7 @@ set(pybind11_GIT_TAG "v2.6.1")
 set(pybind11_VERSION "2.6.1")
 message(STATUS "Building: ${extProjectName} ${pybind11_VERSION}: -DBUILD_PYBIND11=${BUILD_PYBIND11}" )
 
-if(WIN32)
-  set(pybind11_INSTALL "${DREAM3D_SDK}/${extProjectName}-${pybind11_VERSION}")
-else()
-  set(pybind11_INSTALL "${DREAM3D_SDK}/${extProjectName}-${pybind11_VERSION}-${CMAKE_BUILD_TYPE}")
-endif()
+set(pybind11_INSTALL "${DREAM3D_SDK}/${extProjectName}-${pybind11_VERSION}")
 
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "https://github.com/pybind/pybind11.git"
@@ -53,12 +49,6 @@ ExternalProject_Add(${extProjectName}
 file(APPEND ${DREAM3D_SDK_FILE} "\n")
 file(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
 file(APPEND ${DREAM3D_SDK_FILE} "# pybind11\n")
-if(APPLE)
-  file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}-\${BUILD_TYPE}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
-elseif(WIN32)
-  file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
-else()
-  file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}-\${BUILD_TYPE}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
-endif()
+file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${pybind11_VERSION}/share/cmake/${extProjectName}\" CACHE PATH \"\")\n")
 file(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${pybind11_DIR})\n")
 file(APPEND ${DREAM3D_SDK_FILE} "set(pybind11_VERSION \"${pybind11_VERSION}\" CACHE STRING \"\")\n")
