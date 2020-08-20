@@ -109,7 +109,11 @@ if(NOT DEFINED DREAM3D_DATA_DIR)
     TEST_COMMAND ""
   )
 else()
-  message(STATUS "Using Installed DREAM3D_Data: -DDREAM3D_DATA_DIR=${DREAM3D_DATA_DIR}")
+  if(NOT EXISTS ${DREAM3D_DATA_DIR})
+    message(WARNING "Path does not exist: DREAM3D_DATA_DIR=${DREAM3D_DATA_DIR}")
+  else()
+    message(STATUS "Using Installed DREAM3D_Data: -DDREAM3D_DATA_DIR=${DREAM3D_DATA_DIR}")
+  endif()
 endif()
 
 file(APPEND ${DREAM3D_SDK_FILE} "\n")
