@@ -6,7 +6,7 @@ if(${CMAKE_MAJOR_VERSION} STREQUAL "3")
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-cmake_minimum_required(VERSION 3.14.0)
+cmake_minimum_required(VERSION 3.16.0)
 
 project(DREAM3DSuperBuild VERSION 2.0.0.0 LANGUAGES C CXX)
 
