@@ -9,6 +9,7 @@ CMakeLists.txt.user
 /Debug/
 /Release/
 /zRel/
+/qt599_itk4_release/
 
 /clang/
 /xcode/
