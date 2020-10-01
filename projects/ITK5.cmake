@@ -7,8 +7,8 @@ if("${BUILD_ITK}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "ITK")
-set(ITK_GIT_TAG "v5.1.0")
-set(ITK_VERSION "5.1.0")
+set(ITK_GIT_TAG "v5.1.1")
+set(ITK_VERSION "5.1.1")
 message(STATUS "Building: ${extProjectName} ${ITK_VERSION}: -DBUILD_ITK=${BUILD_ITK}" )
 
 option(ITK_SCIFIO_SUPPORT "Add support for SCIFIO to the ITK build" OFF)
@@ -114,10 +114,10 @@ ExternalProject_Add(${extProjectName}
     -DModule_ITKImageNoise:BOOL=ON
 
     -DModule_Montage:BOOL=ON
-    -DModule_Montage_GIT_TAG:STRING=2e70001
+    -DModule_Montage_GIT_TAG:STRING=v0.5.3
 
     -DModule_TotalVariation:BOOL=ON
-    -DModule_TotalVariation_GIT_TAG:STRING=2a295a5
+    -DModule_TotalVariation_GIT_TAG:STRING=v0.2.0
 
     -DEigen3_DIR:PATH=${Eigen3_DIR}
   
