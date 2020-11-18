@@ -7,12 +7,12 @@ if("${BUILD_HDF5}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "hdf5")
-set(HDF5_VERSION "1.10.4")
+set(HDF5_VERSION "1.10.7")
 message(STATUS "Building: ${extProjectName} ${HDF5_VERSION}: -DBUILD_HDF5=${BUILD_HDF5}" )
-set(HDF5_GIT_TAG "hdf5-1_10_4")
+set(HDF5_GIT_TAG "hdf5-1_10_7")
 
 #set(HDF5_URL "http://www.hdfgroup.org/ftp/HDF5/prev-releases/hdf5-${HDF5_VERSION}/src/hdf5-${HDF5_VERSION}.tar.gz")
-set(HDF5_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/hdf5-${HDF5_VERSION}.tar.gz")
+#set(HDF5_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/hdf5-${HDF5_VERSION}.tar.gz")
 
 if(WIN32)
   set(HDF5_INSTALL "${DREAM3D_SDK}/${extProjectName}-${HDF5_VERSION}")
@@ -44,7 +44,7 @@ ExternalProject_Add(${extProjectName}
   # BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
   # INSTALL_DIR "${HDF5_INSTALL}"
 
-  GIT_REPOSITORY "https://bitbucket.hdfgroup.org/scm/hdffv/hdf5.git"
+  GIT_REPOSITORY "https://github.com/HDFGroup/hdf5/"
   GIT_PROGRESS 1
   GIT_TAG ${HDF5_GIT_TAG}
   TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
@@ -67,6 +67,7 @@ ExternalProject_Add(${extProjectName}
     -DHDF5_BUILD_CPP_LIB=ON 
     -DHDF5_BUILD_HL_LIB=ON
     -DBUILD_TESTING=OFF
+    -DHDF_PACKAGE_NAMESPACE=hdf5::
 
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
