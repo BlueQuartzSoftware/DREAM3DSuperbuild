@@ -7,8 +7,8 @@ if("${BUILD_PYBIND11}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "pybind11")
-set(pybind11_GIT_TAG "v2.5.0")
-set(pybind11_VERSION "2.5.0")
+set(pybind11_GIT_TAG "v2.6.1")
+set(pybind11_VERSION "2.6.1")
 message(STATUS "Building: ${extProjectName} ${pybind11_VERSION}: -DBUILD_PYBIND11=${BUILD_PYBIND11}" )
 
 if(WIN32)
