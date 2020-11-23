@@ -14,8 +14,8 @@ set(qwt_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/do
 
 set(qwt_INSTALL "${DREAM3D_SDK}/${extProjectName}-${qwt_VERSION}-${qt5_version_full}")
 
-set(qwtConfig_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/qwtconfig.pri")
-set(qwtSrcPro_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/src.pro")
+set(qwtConfig_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/Build/qwtconfig.pri")
+set(qwtSrcPro_FILE "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/Build/src.pro")
 set(COMMENT "")
 if(NOT APPLE)
   set(COMMENT "#")
@@ -48,7 +48,7 @@ ExternalProject_Add(${extProjectName}
   URL ${qwt_url}
   TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/Stamp"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}
   SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/Source/${extProjectName}-${qwt_VERSION}"
   BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${qwt_INSTALL}"
