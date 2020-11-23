@@ -57,7 +57,7 @@ set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 set(D3DSP_BASE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${ITK_VERSION}")
 
 #------------------------------------------------------------------------------
-# In the below we are using ITK 5.0 from the 5.0.0 tag.
+# In the below we are using ITK 5.1.1 from the 5.1.1 tag.
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
   GIT_PROGRESS 1

@@ -46,11 +46,11 @@ endif()
 ExternalProject_Add(${extProjectName}
   DOWNLOAD_NAME ${extProjectName}-${qwt_VERSION}.zip
   URL ${qwt_url}
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/Stamp"
   DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
-  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}-${qwt_VERSION}"
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/Source/${extProjectName}-${qwt_VERSION}"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${qwt_VERSION}-${qt5_version_full}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${qwt_INSTALL}"
 
   # GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/Qwt.git"
