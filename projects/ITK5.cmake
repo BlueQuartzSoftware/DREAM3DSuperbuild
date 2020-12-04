@@ -7,8 +7,10 @@ if("${BUILD_ITK}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "ITK")
-set(ITK_GIT_TAG "v5.1.0")
-set(ITK_VERSION "5.1.0")
+set(ITK_GIT_TAG "v5.1.1")
+set(ITK_VERSION "5.1.1")
+
+message(STATUS "ITK Version ${ITK_VERSION} is being used. If you want ITK Version 4 then use -DITKVersion=4 when configuring.")
 message(STATUS "Building: ${extProjectName} ${ITK_VERSION}: -DBUILD_ITK=${BUILD_ITK}" )
 
 option(ITK_SCIFIO_SUPPORT "Add support for SCIFIO to the ITK build" OFF)
@@ -27,7 +29,10 @@ if(WIN32)
   set(CXX_FLAGS "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MP")
   set(HDF5_CMAKE_MODULE_DIR "${HDF5_INSTALL}/cmake/hdf5")
 elseif(APPLE)
-  set(APPLE_CMAKE_ARGS "-DCMAKE_OSX_DEPLOYMENT_TARGET=${OSX_DEPLOYMENT_TARGET} -DCMAKE_OSX_SYSROOT=${OSX_SDK} -DCMAKE_SKIP_INSTALL_RPATH=OFF -DCMAKE_SKIP_RPATH=OFF")
+  set(CMAKE_OSX_DEPLOYMENT_TARGET "${OSX_DEPLOYMENT_TARGET}")
+  set(CMAKE_OSX_SYSROOT "${OSX_SDK}")
+  set(CMAKE_SKIP_INSTALL_RPATH "OFF")
+  set(CMAKE_SKIP_RPATH "OFF")
   set(BINARY_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(ITK_INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${ITK_VERSION}-${CMAKE_BUILD_TYPE}")
   set(CXX_FLAGS "-stdlib=libc++ -std=c++14")
@@ -57,7 +62,7 @@ set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 set(D3DSP_BASE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${ITK_VERSION}")
 
 #------------------------------------------------------------------------------
-# In the below we are using ITK 5.0 from the 5.0.0 tag.
+# In the below we are using ITK 5.1.1 from the 5.1.1 tag.
 ExternalProject_Add(${extProjectName}
   GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
   GIT_PROGRESS 1
@@ -75,8 +80,14 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
     -DCMAKE_CXX_FLAGS=${CXX_FLAGS}
-    ${APPLE_CMAKE_ARGS}
 
+    -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=${OSX_DEPLOYMENT_TARGET}
+    -DCMAKE_OSX_SYSROOT:PATH=${OSX_SDK}
+    -DCMAKE_SKIP_INSTALL_RPATH:BOOL=${CMAKE_SKIP_INSTALL_RPATH}
+    -DCMAKE_SKIP_RPATH:BOOL=${CMAKE_SKIP_RPATH}
+
+    -DCMAKE_C_COMPILER:FILEPATH=${CMAKE_C_COMPILER}
+    -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}
     -DCMAKE_CXX_STANDARD:STRING=14
     -DCMAKE_CXX_STANDARD_REQUIRED:BOOL=ON
     -DCMAKE_MAKE_PROGRAM=${CMAKE_MAKE_PROGRAM}
@@ -114,10 +125,10 @@ ExternalProject_Add(${extProjectName}
     -DModule_ITKImageNoise:BOOL=ON
 
     -DModule_Montage:BOOL=ON
-    -DModule_Montage_GIT_TAG:STRING=2e70001
+    -DModule_Montage_GIT_TAG:STRING=v0.5.3
 
     -DModule_TotalVariation:BOOL=ON
-    -DModule_TotalVariation_GIT_TAG:STRING=2a295a5
+    -DModule_TotalVariation_GIT_TAG:STRING=v0.2.0
 
     -DEigen3_DIR:PATH=${Eigen3_DIR}
   
@@ -144,5 +155,5 @@ else()
 endif()
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(DREAM3D_USE_ITK \"ON\")\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${ITK_DIR})\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(ITK_VERSION \"${ITK_VERSION}\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(ITK_VERSION \"${ITK_VERSION}\" CACHE STRING \"\")\n")
 

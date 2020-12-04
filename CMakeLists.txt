@@ -6,7 +6,7 @@ if(${CMAKE_MAJOR_VERSION} STREQUAL "3")
   cmake_policy(SET CMP0054 NEW)
 endif()
 
-cmake_minimum_required(VERSION 3.14.0)
+cmake_minimum_required(VERSION 3.16.0)
 
 project(DREAM3DSuperBuild VERSION 2.0.0.0 LANGUAGES C CXX)
 
@@ -55,6 +55,7 @@ message(STATUS "DREAM3D_SDK_FILE:   ${DREAM3D_SDK_FILE}")
 set(BUILD_SHARED_LIBS ON)
 
 if(APPLE)
+  set(OSX_DEPLOYMENT_TARGET "10.10")
   set(OSX_SDK "NOT-FOUND")
   EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
   STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
@@ -62,36 +63,46 @@ if(APPLE)
   IF (DARWIN_VERSION EQUAL 14) # macOS 10.10 Yosemite
     message(STATUS "Found macOS 10.10 Yosemite as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk")
+    set(OSX_DEPLOYMENT_TARGET "10.10")
+    message(FATAL_ERROR "MacOS 10.10 Yosemite NOT supported")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 15) # macOS 10.11 El Capitan
     message(STATUS "Found macOS 10.11 El Capitan as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
+    set(OSX_DEPLOYMENT_TARGET "10.11")
+    message(FATAL_ERROR "MacOS 10.11 El Capitan NOT supported")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 16) # macOS 10.12 Sierra (Xcode 8.x or Xcode 9.x)
     message(STATUS "Found macOS 10.12 Sierra as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(OSX_DEPLOYMENT_TARGET "10.12")
+    message(FATAL_ERROR "MacOS 10.12 Sierra NOT supported")
   ENDIF ()
   
   IF (DARWIN_VERSION EQUAL 17) # macOS 10.13 High Sierra (Xcode 9.x)
     message(STATUS "Found macOS 10.13 High Sierra as the host. Darwin Version:${DARWIN_VERSION}")  
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(OSX_DEPLOYMENT_TARGET "10.13")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 18) # macOS 10.14 Mojave (Xcode 10.x)
     message(STATUS "Found macOS 10.14 Mojave as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(OSX_DEPLOYMENT_TARGET "10.14")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 19) # macOS 10.15 Catalina (Xcode 11.x or Xcode 12.x)
     message(STATUS "Found macOS 10.15 Catalina as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(OSX_DEPLOYMENT_TARGET "10.15")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 20) # macOS 11.00 Big Sur (Xcode 12.x)
     message(STATUS "Found macOS 11.00 Big Sur as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(OSX_DEPLOYMENT_TARGET "11.00")
   ENDIF ()
 
   if("${OSX_SDK}" STREQUAL "NOT-FOUND")
@@ -105,8 +116,6 @@ if(APPLE)
     ")
 
   endif()
-
-  set(OSX_DEPLOYMENT_TARGET "10.13")
 
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/projects/apple/OSX_DREAM3D_SDK.cmake
               ${DREAM3D_SDK}/DREAM3D_SDK.cmake @ONLY )
@@ -165,7 +174,6 @@ include(ghcFileSystem)
 # By Default use ITK 5.1
 #--------------------------------------------------------------------------------------------------
 if("${ITKVersion}" STREQUAL "")
-  message(STATUS "ITK Version 5.1 is being used. If you want ITK Version 4 then use -DITKVersion=4 when configuring.")
   set(ITKVersion "5")
 endif()
 include(ITK${ITKVersion})

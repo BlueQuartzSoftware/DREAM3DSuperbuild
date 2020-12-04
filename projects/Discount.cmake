@@ -29,6 +29,8 @@ ExternalProject_Add(${extProjectName}
   INSTALL_DIR "${discount_INSTALL}"
 
   CMAKE_ARGS
+    -DCMAKE_C_COMPILER:FILEPATH=${CMAKE_C_COMPILER}
+    -DCMAKE_CXX_COMPILER:FILEPATH=${CMAKE_CXX_COMPILER}
     -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
     -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
 
@@ -61,4 +63,4 @@ else()
   FILE(APPEND ${DREAM3D_SDK_FILE} "set(discount_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${discount_VERSION}-\${BUILD_TYPE}/lib/cmake/${extProjectName}\" CACHE PATH \"\")\n")
 endif()
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${discount_DIR})\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(discount_VERSION \"${discount_VERSION}\" CACHE PATH \"\")\n")
+FILE(APPEND ${DREAM3D_SDK_FILE} "set(discount_VERSION \"${discount_VERSION}\" CACHE STRING \"\")\n")
