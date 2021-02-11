@@ -7,8 +7,8 @@ if(NOT BUILD_PYBIND11)
 endif()
 
 set(extProjectName "pybind11")
-set(pybind11_GIT_TAG "v2.6.1")
-set(pybind11_VERSION "2.6.1")
+set(pybind11_GIT_TAG "v2.6.2")
+set(pybind11_VERSION "2.6.2")
 message(STATUS "Building: ${extProjectName} ${pybind11_VERSION}: -DBUILD_PYBIND11=${BUILD_PYBIND11}" )
 
 set(pybind11_INSTALL "${DREAM3D_SDK}/${extProjectName}-${pybind11_VERSION}")
