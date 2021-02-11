@@ -5,8 +5,6 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
   message(STATUS "* DREAM.3D First Configuration Run                    *")
   message(STATUS "* DREAM3D_SDK Loading from ${CMAKE_CURRENT_LIST_DIR}  *")
   message(STATUS "*******************************************************")
-  set(CMAKE_CXX_FLAGS "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas -mfpmath=sse -Wno-inconsistent-missing-override" CACHE STRING "" FORCE)
-  set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "" FORCE)
   # Set our Deployment Target to match Qt
   set(CMAKE_OSX_DEPLOYMENT_TARGET "@OSX_DEPLOYMENT_TARGET@" CACHE STRING "" FORCE)
   set(CMAKE_OSX_SYSROOT "@OSX_SDK@" CACHE STRING "" FORCE)
