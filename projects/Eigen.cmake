@@ -7,13 +7,10 @@ if(NOT BUILD_EIGEN)
 endif()
 
 set(extProjectName "Eigen")
-set(Eigen3_VERSION "3.3.7")
+set(Eigen3_VERSION "3.3.9")
 message(STATUS "Building: ${extProjectName} ${Eigen3_VERSION}: -DBUILD_EIGEN=${BUILD_EIGEN}")
 set(Eigen_GIT_TAG ${Eigen3_VERSION})
 
-#set(Eigen_URL "https://bitbucket.org/eigen/eigen/get/${Eigen3_VERSION}.tar.gz")
-#set(Eigen_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/Eigen/Eigen-${Eigen3_VERSION}.tar.gz")
-set(Eigen_URL "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/${extProjectName}-${Eigen3_VERSION}.tar.gz")
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
 
 set(Eigen_INSTALL "${DREAM3D_SDK}/${extProjectName}-${Eigen3_VERSION}")
