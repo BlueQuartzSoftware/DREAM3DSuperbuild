@@ -147,9 +147,6 @@ FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(BUILD_SHARED_LIBS ON CACHE BOOL \"\")\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "set(DREAM3D_SDK_ROOT \"${DREAM3D_SDK}\")\n")
 
-FILE(APPEND ${DREAM3D_SDK_FILE} "\n#--------------------------------------------------------------------------------------------------\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "# DREAM.3D does not use QtWebEngine to render the docs anymore. Let the system do it.\n")
-FILE(APPEND ${DREAM3D_SDK_FILE} "set(SIMPL_USE_QtWebEngine OFF)\n")
 
 FILE(APPEND ${DREAM3D_SDK_FILE} "\n#--------------------------------------------------------------------------------------------------\n")
 FILE(APPEND ${DREAM3D_SDK_FILE} "# Always write out the compile_commands.json file to help out things like QtCreator and VS Code\n")
