@@ -46,7 +46,9 @@ if(NOT DEFINED DREAM3D_FIRST_CONFIGURE)
     list(SORT MyPluginList)
   endif()
 
-  set(DREAM3D_EXTRA_PLUGINS "${MyPluginList}" CACHE STRING "" FORCE)
+  if(NOT DREAM3D_EXTRA_PLUGINS)
+    set(DREAM3D_EXTRA_PLUGINS "${MyPluginList}" CACHE STRING "" FORCE)
+  endif()
 
   set(DREAM3D_FIRST_CONFIGURE "ON" CACHE STRING "Determines if DREAM3D has already been configured at least once.")
 endif()
