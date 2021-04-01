@@ -77,12 +77,18 @@ if("${INSTALL_QT5}" STREQUAL "OFF" AND "${Qt5_QMAKE_EXECUTABLE}" STREQUAL "")
 endif()
 
 if(NOT INSTALL_QT5 AND NOT "${Qt5_QMAKE_EXECUTABLE}" STREQUAL "")
+  
+  if(NOT EXISTS "${Qt5_QMAKE_EXECUTABLE}")
+    message(FATAL_ERROR "QMake does not exist at path '${Qt5_QMAKE_EXECUTABLE}'. Please double check the path to qmake.")
+  endif()
 
   execute_process(
     COMMAND "${Qt5_QMAKE_EXECUTABLE}" -query QT_VERSION
     OUTPUT_VARIABLE qt5_version_full
+    RESULT_VARIABLE qmake_result
     OUTPUT_STRIP_TRAILING_WHITESPACE ERROR_STRIP_TRAILING_WHITESPACE
   )
+
   execute_process(
     COMMAND "${Qt5_QMAKE_EXECUTABLE}" -query QT_INSTALL_LIBS
     OUTPUT_VARIABLE QT_INSTALL_LIBS
@@ -90,7 +96,7 @@ if(NOT INSTALL_QT5 AND NOT "${Qt5_QMAKE_EXECUTABLE}" STREQUAL "")
   )
 
   set(extProjectName "Qt${qt5_version_full}")
-  message(STATUS "Using Installed ${extProjectName}: -DQt5_QMAKE_EXECUTABLE=${Qt5_QMAKE_EXECUTABLE}" )
+  message(STATUS "USING: Qt ${qt5_version_full}: -DQt5_QMAKE_EXECUTABLE=${Qt5_QMAKE_EXECUTABLE}" )
 
   FILE(APPEND ${DREAM3D_SDK_FILE} "\n")
   FILE(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
