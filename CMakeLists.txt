@@ -59,7 +59,6 @@ if(APPLE)
   set(OSX_SDK "NOT-FOUND")
   EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
   STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
-  #message(STATUS "DARWIN_VERSION: ${DARWIN_VERSION}")
   IF (DARWIN_VERSION EQUAL 14) # macOS 10.10 Yosemite
     message(STATUS "Found macOS 10.10 Yosemite as the host. Darwin Version:${DARWIN_VERSION}")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk")
@@ -116,7 +115,7 @@ if(APPLE)
     ")
 
   endif()
-
+  message(STATUS "CMAKE_HOST_SYSTEM_PROCESSOR: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/projects/apple/OSX_DREAM3D_SDK.cmake
               ${DREAM3D_SDK}/DREAM3D_SDK.cmake @ONLY )
 elseif(WIN32)

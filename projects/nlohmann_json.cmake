@@ -35,6 +35,7 @@ ExternalProject_Add(${extProjectName}
     -DCMAKE_OSX_SYSROOT=${OSX_SDK}
     -DCMAKE_CXX_STANDARD_REQUIRED=ON
     -Wno-dev
+    -DJSON_BuildTests=OFF
 
   LOG_DOWNLOAD 1
   LOG_UPDATE 1
