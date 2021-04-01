@@ -37,11 +37,11 @@ else()
 endif()
 
 if(NOT MKDOCS_FOUND)
-  message("mkdocs is missing or not defined and will impact your ability to generate the documentation.\n\
-  When building DREAM3D, set SIMPL_USE_MKDOCS = OFF and SIMPL_USE_DISCOUNT = ON\n\
-  or disable the generation of the documentation by setting SIMPLView_BUILD_DOCUMENTATION=OFF.\n\
-  One would typically install mkdocs using 'pip install mkdocs-material'\n\
-  You may also need to do 'pip install msgpack'")
+  message("   mkdocs is missing or not defined and will impact your ability to generate the documentation.\n\
+   When building DREAM3D, set '-DSIMPL_USE_MKDOCS=OFF' and '-DSIMPL_USE_DISCOUNT=ON'\n\
+   or disable the generation of the documentation by setting '-DSIMPLView_BUILD_DOCUMENTATION=OFF'.\n\n\
+   One would typically install mkdocs using 'pip install mkdocs-material'\n\
+   You may also need to do 'pip install msgpack'")
 else()
   message(STATUS "Found: mkdocs ${MKDOCS_VERSION}")
 endif()
