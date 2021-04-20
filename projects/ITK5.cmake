@@ -7,8 +7,8 @@ if("${BUILD_ITK}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "ITK")
-set(ITK_GIT_TAG "v5.1.2")
-set(ITK_VERSION "5.1.2")
+set(ITK_GIT_TAG "v5.2.0")
+set(ITK_VERSION "5.2.0")
 
 message(STATUS "ITK Version ${ITK_VERSION} is being used. If you want ITK Version 4 then use -DITKVersion=4 when configuring.")
 message(STATUS "Building: ${extProjectName} ${ITK_VERSION}: -DBUILD_ITK=${BUILD_ITK}" )
@@ -125,10 +125,10 @@ ExternalProject_Add(${extProjectName}
     -DModule_ITKImageNoise:BOOL=ON
 
     -DModule_Montage:BOOL=ON
-    -DModule_Montage_GIT_TAG:STRING=v0.5.3
+    -DModule_Montage_GIT_TAG:STRING=v0.7.3
 
     -DModule_TotalVariation:BOOL=ON
-    -DModule_TotalVariation_GIT_TAG:STRING=v0.2.0
+    -DModule_TotalVariation_GIT_TAG:STRING=v0.2.1
 
     -DEigen3_DIR:PATH=${Eigen3_DIR}
   
