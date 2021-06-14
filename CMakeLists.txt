@@ -51,6 +51,12 @@ set(download_dir ${DREAM3D_SDK})
 message(STATUS "DREAM3D_SDK Folder: ${DREAM3D_SDK}")
 message(STATUS "DREAM3D_SDK_FILE:   ${DREAM3D_SDK_FILE}")
 
+#------------------------------------------------------------------------------
+# Set the custom download location for all of the sources
+# -----------------------------------------------------------------------------
+set(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE OFF)
+set(DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX "http://dream3d.bluequartz.net/binaries/SDK/")
+
 
 set(BUILD_SHARED_LIBS ON)
 

@@ -13,7 +13,13 @@ set(tbb_VERSION "2020.1")
 
 message(STATUS "Building: ${extProjectName} ${tbb_VERSION}: -DBUILD_TBB=${BUILD_TBB}" )
 
-set(tbb_url_server "https://github.com/intel/tbb/releases/download/v2020.1")
+
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(tbb_url_server "${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}")
+else()
+  set(tbb_url_server "https://github.com/intel/tbb/releases/download/v2020.1/")
+endif()
+
 
 set(tbb_os_name "")
 set(tbb_os_ext "")
@@ -29,7 +35,8 @@ else()
   set(tbb_os_ext "tgz")
 endif()
 
-set(tbb_URL "${tbb_url_server}/tbb-${tbb_VERSION}-${tbb_os_name}.${tbb_os_ext}")
+set(tbb_URL "${tbb_url_server}tbb-${tbb_VERSION}-${tbb_os_name}.${tbb_os_ext}")
+
 set(tbb_INSTALL "${DREAM3D_SDK}/tbb-${tbb_VERSION}-${tbb_os_name}")
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
@@ -38,14 +45,16 @@ set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 # Linux has TBB Compiled and installed
 if(WIN32 OR APPLE OR "${BUILD_TBB}" STREQUAL "ON" )
   ExternalProject_Add(${extProjectName}
-    # DOWNLOAD_NAME ${extProjectName}-${tbb_VERSION}.tar.gz
     URL ${tbb_URL}
+
     TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
     STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
     DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
     SOURCE_DIR "${tbb_INSTALL}"
     BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
     INSTALL_DIR "${tbb_INSTALL}"
+    
+    
     CONFIGURE_COMMAND "" 
     BUILD_COMMAND "" 
     INSTALL_COMMAND ""

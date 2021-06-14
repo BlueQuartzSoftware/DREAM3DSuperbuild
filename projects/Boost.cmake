@@ -11,8 +11,8 @@ set(extProjectName "boost")
 set(boost_version "1.66.0")
 message(STATUS "Building: ${extProjectName} ${boost_version}: -DBUILD_BOOST=${BUILD_BOOST}" )
 set(boost_version_u "1_66_0")
-set(boost_url "https://github.com/BlueQuartzSoftware/DREAM3DSuperbuild/releases/download/v6.6/boost_${boost_version_u}.tar.gz")
 
+set(boost_url "${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}${extProjectName}_${boost_version_u}.tar.gz")
 set(boost_INSTALL "${DREAM3D_SDK}/${extProjectName}-${boost_version}")
 set(boost_BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build")
 

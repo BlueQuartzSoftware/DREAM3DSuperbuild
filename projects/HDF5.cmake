@@ -34,24 +34,28 @@ if(WIN32)
 
 endif()
 
-ExternalProject_Add(${extProjectName}
-  # DOWNLOAD_NAME ${extProjectName}-${HDF5_VERSION}.tar.gz
-  # URL ${HDF5_URL}
-  # TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  # STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  # DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
-  # SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}"
-  # BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  # INSTALL_DIR "${HDF5_INSTALL}"
 
-  GIT_REPOSITORY "https://github.com/HDFGroup/hdf5/"
-  GIT_PROGRESS 1
-  GIT_TAG ${HDF5_GIT_TAG}
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
-  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}"
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(EP_SOURCE_ARGS  
+    DOWNLOAD_NAME ${extProjectName}-${HDF5_VERSION}.tar.gz
+    URL ${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}${extProjectName}-${HDF5_VERSION}.tar.gz
+  )
+else()
+  set(EP_SOURCE_ARGS  
+    GIT_REPOSITORY "https://github.com/HDFGroup/hdf5/"
+    GIT_PROGRESS 1
+    GIT_TAG ${HDF5_GIT_TAG}
+  )
+endif()
+
+ExternalProject_Add(${extProjectName}
+  ${EP_SOURCE_ARGS}
+
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${HDF5_VERSION}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${HDF5_VERSION}/Stamp/${CMAKE_BUILD_TYPE}"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}-${HDF5_VERSION}
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${HDF5_VERSION}/Source/${extProjectName}"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${HDF5_VERSION}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${HDF5_INSTALL}"
 
   CMAKE_ARGS

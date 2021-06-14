@@ -61,12 +61,25 @@ endif( CMAKE_BUILD_TYPE MATCHES Debug )
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 set(D3DSP_BASE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${ITK_VERSION}")
 
+
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(EP_SOURCE_ARGS  
+    DOWNLOAD_NAME ${extProjectName}-${ITK_VERSION}.zip
+    URL ${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}${extProjectName}-${ITK_VERSION}.zip
+  )
+else()
+  set(EP_SOURCE_ARGS  
+    GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
+    GIT_PROGRESS 1
+    GIT_TAG ${ITK_GIT_TAG}
+  )
+endif()
+
 #------------------------------------------------------------------------------
 # In the below we are using ITK 5.1.1 from the 5.1.1 tag.
 ExternalProject_Add(${extProjectName}
-  GIT_REPOSITORY "https://github.com/InsightSoftwareConsortium/ITK.git"
-  GIT_PROGRESS 1
-  GIT_TAG ${ITK_GIT_TAG}
+  ${EP_SOURCE_ARGS}
+
   TMP_DIR "${D3DSP_BASE_DIR}/tmp/${CMAKE_BUILD_TYPE}"
   STAMP_DIR "${D3DSP_BASE_DIR}/Stamp/${CMAKE_BUILD_TYPE}"
   DOWNLOAD_DIR ${D3DSP_BASE_DIR}

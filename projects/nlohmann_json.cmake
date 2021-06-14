@@ -13,16 +13,28 @@ message(STATUS "Building: ${extProjectName} ${nlohmann_json_VERSION}:  nlohmann_
 
 set(nlohmann_json_INSTALL "${DREAM3D_SDK}/${extProjectName}-${nlohmann_json_VERSION}")
 
-ExternalProject_Add(${extProjectName}
-  GIT_REPOSITORY "https://github.com/nlohmann/json/"
-  GIT_PROGRESS 1
-  GIT_TAG ${nlohmann_json_GIT_TAG}
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(EP_SOURCE_ARGS  
+    DOWNLOAD_NAME ${extProjectName}-${nlohmann_json_VERSION}.zip
+    URL ${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}${extProjectName}-${nlohmann_json_VERSION}.zip
+  )
+else()
+  set(EP_SOURCE_ARGS  
+    GIT_REPOSITORY "https://github.com/nlohmann/json/"
+    GIT_PROGRESS 1
+    GIT_TAG ${nlohmann_json_GIT_TAG}
+  )
+endif()
 
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
-  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source"
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+
+ExternalProject_Add(${extProjectName}
+  ${EP_SOURCE_ARGS}
+
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${nlohmann_json_VERSION}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${nlohmann_json_VERSION}/Stamp"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}-${nlohmann_json_VERSION}/Download
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${nlohmann_json_VERSION}/Source"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${nlohmann_json_VERSION}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${nlohmann_json_INSTALL}"
 
   CMAKE_ARGS

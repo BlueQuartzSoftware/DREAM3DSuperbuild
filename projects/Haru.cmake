@@ -21,16 +21,27 @@ if(NOT APPLE AND NOT WIN32)
 endif()
 
 
-ExternalProject_Add(${extProjectName}
-  GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/libharu.git"
-  GIT_PROGRESS 1
-  GIT_TAG develop
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(EP_SOURCE_ARGS  
+    DOWNLOAD_NAME ${extProjectName}-${haru_VERSION}.zip
+    URL ${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}${extProjectName}-${haru_VERSION}.zip
+  )
+else()
+  set(EP_SOURCE_ARGS  
+    GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/libharu.git"
+    GIT_PROGRESS 1
+    GIT_TAG develop
+  )
+endif()
 
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
-  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source"
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+ExternalProject_Add(${extProjectName}
+  ${EP_SOURCE_ARGS}
+
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${haru_VERSION}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${haru_VERSION}/Stamp"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}-${haru_VERSION}/Download
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${haru_VERSION}/Source"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${haru_VERSION}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${haru_INSTALL}"
 
   CMAKE_ARGS

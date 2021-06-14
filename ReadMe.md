@@ -9,8 +9,8 @@ This project will download, configure and build a complete DREAM3D SDK and optio
 + haru 2.0.0
 + Eigen 3.3.9
 + HDF5 1.10.7
-+ ITK 5.1.2
-+ Qt 5.12.8
++ ITK 5.2.0
++ Qt 5.14.2
 + Qwt 6.1.5 or higher
 + TBB 2020.1
 + ghcFilesystem 1.3.2 (Linux/macOS)
@@ -45,6 +45,15 @@ For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on L
   + Windows defaults to Visual Studio. Be sure the CMake generator that you select ends with "Win64"
   + macOS and Linux default to "MakeFiles".
 + When the process is finished a complete DREAM.3D application should be waiting for you to run.
+
+## Alternate Download Site ##
+
+If your corporate policy does not allow downloading from GitHub but does allow http downloading from http://dream3d.bluequartz.net then use the following CMake variable to use this alternate download site:
+
+    DREAM3D_USE_CUSTOM_DOWNLOAD_SITE=ON
+
+All sources and prebuilt binaries will be downloaded from the dream3d.bluequartz.net domain.
+
 
 ## Resources ##
 

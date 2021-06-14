@@ -11,7 +11,7 @@ set(Eigen3_VERSION "3.3.9")
 message(STATUS "Building: ${extProjectName} ${Eigen3_VERSION}: -DBUILD_EIGEN=${BUILD_EIGEN}")
 set(Eigen_GIT_TAG ${Eigen3_VERSION})
 
-set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
+set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${Eigen3_VERSION}/Source/${extProjectName}")
 
 set(Eigen_INSTALL "${DREAM3D_SDK}/${extProjectName}-${Eigen3_VERSION}")
 
@@ -19,30 +19,33 @@ get_filename_component(_self_dir ${CMAKE_CURRENT_LIST_FILE} PATH)
 
 configure_file(
   "${_self_dir}/patches/Eigen_DartConfiguration.tcl.in"
-  "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}/DartConfiguration.tcl"
+  "${DREAM3D_SDK}/superbuild/${extProjectName}-${Eigen3_VERSION}/Build/${CMAKE_BUILD_TYPE}/DartConfiguration.tcl"
   @ONLY
 )
+
+
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(EP_SOURCE_ARGS  
+    DOWNLOAD_NAME ${extProjectName}-${Eigen3_VERSION}.tar.gz
+    URL ${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}${extProjectName}-${Eigen3_VERSION}.tar.gz
+  )
+else()
+  set(EP_SOURCE_ARGS  
+    GIT_REPOSITORY https://gitlab.com/libeigen/eigen.git
+    GIT_PROGRESS 1
+    GIT_TAG ${Eigen_GIT_TAG}
+  )
+endif()
 
 set_property(DIRECTORY PROPERTY EP_BASE ${DREAM3D_SDK}/superbuild)
 
 ExternalProject_Add(${extProjectName}
-  # DOWNLOAD_NAME ${extProjectName}-${Eigen3_VERSION}.tar.gz
-  # URL ${Eigen_URL}
-  # TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  # STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  # DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
-  # SOURCE_DIR "${SOURCE_DIR}"
-  # BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
-  # INSTALL_DIR "${DREAM3D_SDK}/${extProjectName}-${Eigen3_VERSION}"
-
-  GIT_REPOSITORY "https://gitlab.com/libeigen/eigen.git"
-  GIT_PROGRESS 1
-  GIT_TAG ${Eigen_GIT_TAG}
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp/${CMAKE_BUILD_TYPE}"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}
+  ${EP_SOURCE_ARGS}
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${Eigen3_VERSION}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${Eigen3_VERSION}/Stamp/${CMAKE_BUILD_TYPE}"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}-${Eigen3_VERSION}
   SOURCE_DIR "${SOURCE_DIR}"
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${Eigen3_VERSION}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${Eigen_INSTALL}"
 
   CMAKE_ARGS

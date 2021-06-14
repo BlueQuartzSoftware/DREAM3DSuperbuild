@@ -25,13 +25,15 @@ if("${QtVersion}" STREQUAL "5.15")
   set(Qt515 "1")
 endif()
 
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE AND Qt515)
+  message(FATAL_ERROR "Using a custom download site and Qt version 5.15 is not supported. Please use Qt 5.14 or 5.12 instead")
+endif()
 # ------------------------------------------------------------------------------
-# Qt 5.12 should STAY at 5.12.4. 5.12.7 had issues with DREAM3D configuration throwing errors.
-# Qt 5.12.8 Now works with CMake
+# Qt 5.12.8
 # Qt 5.12 is a LTS release
 if(Qt512)
   if(Qt514 OR Qt515)
-    message(FATAL_ERROR "Please set the -DQtVersion=(5.9 | 5.12 | 5.14) to select the version of Qt5 that you want to build against.")
+    message(FATAL_ERROR "Please set the -DQtVersion=(5.12 | 5.14 | 5.15)  to select the version of Qt5 that you want to build against.")
   endif()
   set(qt5_version_major "5.12")
   set(qt5_version_full "5.12.8")
@@ -42,10 +44,9 @@ endif()
 
 # ------------------------------------------------------------------------------
 # Qt 5.14.x
-# Qt 5.12 is a LTS release
 if(Qt514)
   if(Qt512 OR Qt515)
-    message(FATAL_ERROR "Please set the -DQtVersion=(5.9 | 5.12 | 5.14) to select the version of Qt5 that you want to build against.")
+    message(FATAL_ERROR "Please set the -DQtVersion=(5.12 | 5.14 | 5.15)  to select the version of Qt5 that you want to build against.")
   endif()
   set(qt5_version_major "5.14")
   set(qt5_version_full "5.14.2")
@@ -59,7 +60,7 @@ endif()
 # Qt 5.12 is a LTS release
 if(Qt515)
   if(Qt512 OR Qt514)
-    message(FATAL_ERROR "Please set the -DQtVersion=(5.9 | 5.12 | 5.14 | 5.15) to select the version of Qt5 that you want to build against.")
+    message(FATAL_ERROR "Please set the -DQtVersion=(5.12 | 5.14 | 5.15) to select the version of Qt5 that you want to build against.")
   endif()
   set(qt5_version_major "5.15")
   set(qt5_version_full "5.15.2")
@@ -143,8 +144,14 @@ configure_file(
   @ONLY
 )
 
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(qt5_url ${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}/qt)
+else()
+  set(qt5_url http://qt.mirror.constant.com/archive/qt)
+endif()
+
 if(APPLE)
-  set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_major}/${qt5_version_short}/qt-opensource-mac-x64-${qt5_version_full}.dmg")
+  set(qt5_url "${qt5_url}/${qt5_version_major}/${qt5_version_short}/qt-opensource-mac-x64-${qt5_version_full}.dmg")
 
   set(Qt5_OSX_BASE_NAME qt-opensource-mac-x64-${qt5_version_full})
 
@@ -183,7 +190,7 @@ if(APPLE)
 
 elseif(WIN32)
   set(qt5_online_installer "qt-opensource-windows-x86-${qt5_version_full}.exe")
-  set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_major}/${qt5_version_short}/qt-opensource-windows-x86-${qt5_version_full}.exe")
+  set(qt5_url "${qt5_url}/${qt5_version_major}/${qt5_version_short}/qt-opensource-windows-x86-${qt5_version_full}.exe")
 
   if(NOT EXISTS "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}")
     message(STATUS "===============================================================")
@@ -210,7 +217,7 @@ elseif(WIN32)
   set(Qt5_QMAKE_EXECUTABLE ${QT_INSTALL_LOCATION}/${qt5_version_short}/${QT_MSVC_VERSION_NAME}/bin/qmake.exe)
 else()
   set(qt5_online_installer "qt-opensource-linux-x64-${qt5_version_full}.run")
-  set(qt5_url "http://qt.mirror.constant.com/archive/qt/${qt5_version_major}/${qt5_version_short}/${qt5_online_installer}")
+  set(qt5_url "${qt5_url}/${qt5_version_major}${qt5_version_short}/${qt5_online_installer}")
 
   if(NOT EXISTS "${DREAM3D_SDK}/superbuild/${extProjectName}/Download/${qt5_online_installer}")
     message(STATUS "===============================================================")

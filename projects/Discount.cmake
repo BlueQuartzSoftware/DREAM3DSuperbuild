@@ -16,16 +16,26 @@ else()
   set(discount_INSTALL "${DREAM3D_SDK}/${extProjectName}-${discount_VERSION}-${CMAKE_BUILD_TYPE}")
 endif()
 
-ExternalProject_Add(${extProjectName}
-  GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/discount.git"
-  GIT_PROGRESS 1
-  #GIT_TAG master
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(EP_SOURCE_ARGS  
+    DOWNLOAD_NAME ${extProjectName}-${discount_VERSION}.tar.gz
+    URL ${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}${extProjectName}-${discount_VERSION}.tar.gz
+  )
+else()
+  set(EP_SOURCE_ARGS  
+    GIT_REPOSITORY "https://github.com/BlueQuartzSoftware/discount.git"
+    GIT_PROGRESS 1
+  )
+endif()
 
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
-  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source"
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+
+ExternalProject_Add(${extProjectName}
+  ${EP_SOURCE_ARGS}
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${discount_VERSION}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${discount_VERSION}/Stamp"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}-${discount_VERSION}/Download
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${discount_VERSION}/Source"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${discount_VERSION}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${discount_INSTALL}"
 
   CMAKE_ARGS

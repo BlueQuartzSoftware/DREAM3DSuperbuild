@@ -13,16 +13,28 @@ message(STATUS "Building: ${extProjectName} ${pybind11_VERSION}: -DBUILD_PYBIND1
 
 set(pybind11_INSTALL "${DREAM3D_SDK}/${extProjectName}-${pybind11_VERSION}")
 
-ExternalProject_Add(${extProjectName}
+if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
+  set(EP_SOURCE_ARGS  
+    DOWNLOAD_NAME ${extProjectName}-${pybind11_VERSION}.tar.gz
+    URL ${DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX}${extProjectName}-${pybind11_VERSION}.tar.gz
+  )
+else()
+  set(EP_SOURCE_ARGS  
   GIT_REPOSITORY "https://github.com/pybind/pybind11.git"
   GIT_PROGRESS 1
   GIT_TAG ${pybind11_GIT_TAG}
+  )
+endif()
 
-  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Stamp"
-  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}/Download
-  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source"
-  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Build/${CMAKE_BUILD_TYPE}"
+
+ExternalProject_Add(${extProjectName}
+  ${EP_SOURCE_ARGS}
+
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${pybind11_VERSION}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${pybind11_VERSION}/Stamp"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}-${pybind11_VERSION}/Download
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${pybind11_VERSION}/Source"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${pybind11_VERSION}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${pybind11_INSTALL}"
 
   CMAKE_ARGS
