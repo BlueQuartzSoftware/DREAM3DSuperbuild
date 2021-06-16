@@ -54,9 +54,8 @@ message(STATUS "DREAM3D_SDK_FILE:   ${DREAM3D_SDK_FILE}")
 #------------------------------------------------------------------------------
 # Set the custom download location for all of the sources
 # -----------------------------------------------------------------------------
-set(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE OFF)
-set(DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX "http://dream3d.bluequartz.net/binaries/SDK/")
-
+option(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE "Download Sources from a custom location" OFF)
+set(DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX "http://dream3d.bluequartz.net/binaries/SDK/" CACHE STRING "Custom HTTP(s) URL")
 
 set(BUILD_SHARED_LIBS ON)
 
