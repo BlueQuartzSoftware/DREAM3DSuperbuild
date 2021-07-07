@@ -60,63 +60,80 @@ set(DREAM3D_CUSTOM_DOWNLOAD_URL_PREFIX "http://dream3d.bluequartz.net/binaries/S
 set(BUILD_SHARED_LIBS ON)
 
 if(APPLE)
-  set(OSX_DEPLOYMENT_TARGET "10.10")
+  set(OSX_DEPLOYMENT_TARGET "10.15")
   set(OSX_SDK "NOT-FOUND")
   EXEC_PROGRAM(uname ARGS -v  OUTPUT_VARIABLE DARWIN_VERSION)
   STRING(REGEX MATCH "[0-9]+" DARWIN_VERSION ${DARWIN_VERSION})
   IF (DARWIN_VERSION EQUAL 14) # macOS 10.10 Yosemite
-    message(STATUS "Found macOS 10.10 Yosemite as the host. Darwin Version:${DARWIN_VERSION}")
-    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk")
+    set(MACOS_NAME "Yosemite")
     set(OSX_DEPLOYMENT_TARGET "10.10")
-    message(FATAL_ERROR "MacOS 10.10 Yosemite NOT supported")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
+    message(FATAL_ERROR "MacOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} NOT supported")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 15) # macOS 10.11 El Capitan
-    message(STATUS "Found macOS 10.11 El Capitan as the host. Darwin Version:${DARWIN_VERSION}")
-    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
+    set(MACOS_NAME "El Capitan")
     set(OSX_DEPLOYMENT_TARGET "10.11")
-    message(FATAL_ERROR "MacOS 10.11 El Capitan NOT supported")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
+    message(FATAL_ERROR "MacOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} NOT supported")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 16) # macOS 10.12 Sierra (Xcode 8.x or Xcode 9.x)
-    message(STATUS "Found macOS 10.12 Sierra as the host. Darwin Version:${DARWIN_VERSION}")
-    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(MACOS_NAME "Sierra")
     set(OSX_DEPLOYMENT_TARGET "10.12")
-    message(FATAL_ERROR "MacOS 10.12 Sierra NOT supported")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
+    message(FATAL_ERROR "MacOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} NOT supported")
   ENDIF ()
   
   IF (DARWIN_VERSION EQUAL 17) # macOS 10.13 High Sierra (Xcode 9.x)
-    message(STATUS "Found macOS 10.13 High Sierra as the host. Darwin Version:${DARWIN_VERSION}")  
-    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(MACOS_NAME "High Sierra")
     set(OSX_DEPLOYMENT_TARGET "10.13")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
+    message(FATAL_ERROR "MacOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} NOT supported")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 18) # macOS 10.14 Mojave (Xcode 10.x)
-    message(STATUS "Found macOS 10.14 Mojave as the host. Darwin Version:${DARWIN_VERSION}")
-    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(MACOS_NAME "Mojave")
     set(OSX_DEPLOYMENT_TARGET "10.14")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 19) # macOS 10.15 Catalina (Xcode 11.x or Xcode 12.x)
-    message(STATUS "Found macOS 10.15 Catalina as the host. Darwin Version:${DARWIN_VERSION}")
-    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    set(MACOS_NAME "Catalina")
     set(OSX_DEPLOYMENT_TARGET "10.15")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
   ENDIF ()
 
   IF (DARWIN_VERSION EQUAL 20) # macOS 11.00 Big Sur (Xcode 12.x)
-    message(STATUS "Found macOS 11.00 Big Sur as the host. Darwin Version:${DARWIN_VERSION}")
+    set(MACOS_NAME "Big Sur")
+    set(OSX_DEPLOYMENT_TARGET "11.00")
     set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
     set(OSX_DEPLOYMENT_TARGET "11.00")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
+  ENDIF ()
+
+  IF (DARWIN_VERSION EQUAL 21) # macOS 12.00 Monterey (Xcode 12.x)
+    set(MACOS_NAME "Monterey")
+    set(OSX_DEPLOYMENT_TARGET "12.00")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
   ENDIF ()
 
   if("${OSX_SDK}" STREQUAL "NOT-FOUND")
     message(FATAL_ERROR "This version of macOS (${DARWIN_VERSION}) is not recognized.\
-    The following versions are supported:\n\
-    (17) macOS 10.13 High Sierra\n\
-    (18) macOS 10.14 Mojave\n\
-    (19) macOS 10.15 Catalina\n\
-    (20) macOS 11.00 Big Sur\n\
-    Please edit ${CMAKE_CURRENT_LIST_FILE} and add this version of macOS to the detection logic.
+      The following versions are supported:\n\
+      (18) macOS 10.15 Mojave\n\
+      (19) macOS 10.15 Catalina\n\
+      (20) macOS 11.00 Big Sur\n\
+      (21) macOS 12.00 Monterey\n\
+      Please edit ${CMAKE_CURRENT_LIST_FILE} and add this version of macOS to the detection logic.
     ")
 
   endif()
@@ -125,19 +142,9 @@ if(APPLE)
               ${DREAM3D_SDK}/DREAM3D_SDK.cmake @ONLY )
 elseif(WIN32)
 
-  if(MSVC90)
-    message(FATAL_ERROR "Visual Studio Version 9 2009 is NOT supported.")
-  endif(MSVC90)
-  if(MSVC10)
-    message(FATAL_ERROR "Visual Studio Version 10 2010 is NOT supported.")
-  endif(MSVC10)
-  if(MSVC11)
-    message(FATAL_ERROR "Visual Studio Version 11 2012 is NOT supported.")
-  endif(MSVC11)
-  if(MSVC12)
-    message(FATAL_ERROR "Visual Studio Version 12 2013 is NOT supported.")
-  endif(MSVC12)
-
+  if(MSVC_VERSION LESS 1910)
+    message(FATAL_ERROR "Visual Studio Version 16 2017 or greater is required.")
+  endif()
   configure_file(${CMAKE_CURRENT_SOURCE_DIR}/projects/win32/WIN_DREAM3D_SDK.cmake
               ${DREAM3D_SDK}/DREAM3D_SDK.cmake COPYONLY )
 else()
@@ -168,7 +175,7 @@ include(Boost)
 include(nlohmann_json)
 
 #--------------------------------------------------------------------------------------------------
-# If we are on Apple we need a FileSystem compatible with older versions of macOS
+# If we are on Apple we need a FileSystem compatible with macOS < 10.15 or GCC < version 9
 #--------------------------------------------------------------------------------------------------
 include(ghcFileSystem)
 

@@ -1,11 +1,15 @@
 #--------------------------------------------------------------------------------------------------
-# Are we building FileSystem? Only needed on macOS systems
+# Are we building FileSystem? Only needed on macOS systems or Linux Systems
 #--------------------------------------------------------------------------------------------------
 if(WIN32)
   return()
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCC AND "${CMAKE_SYSTEM_NAME}" STREQUAL "Linux" AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.99)
+  return()
+endif()
+
+if(OSX_DEPLOYMENT_TARGET VERSION_GREATER 10.14)
   return()
 endif()
 
