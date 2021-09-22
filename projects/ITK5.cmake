@@ -7,8 +7,8 @@ if("${BUILD_ITK}" STREQUAL "OFF")
 endif()
 
 set(extProjectName "ITK")
-set(ITK_GIT_TAG "v5.2.0")
-set(ITK_VERSION "5.2.0")
+set(ITK_GIT_TAG "v5.2.1")
+set(ITK_VERSION "5.2.1")
 
 message(STATUS "ITK Version ${ITK_VERSION} is being used. If you want ITK Version 4 then use -DITKVersion=4 when configuring.")
 message(STATUS "Building: ${extProjectName} ${ITK_VERSION}: -DBUILD_ITK=${BUILD_ITK}" )
