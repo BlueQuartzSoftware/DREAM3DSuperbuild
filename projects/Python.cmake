@@ -8,7 +8,7 @@ if(NOT USE_PYTHON)
   return()
 endif()
 
-set(PYTHON_REQ_VERSION 3.6)
+set(PYTHON_REQ_VERSION 3.8)
 message(STATUS "Using: Python ${PYTHON_REQ_VERSION}: -DUSE_PYTHON=${USE_PYTHON}" )
 
 find_package(Python ${PYTHON_REQ_VERSION} COMPONENTS Interpreter)
