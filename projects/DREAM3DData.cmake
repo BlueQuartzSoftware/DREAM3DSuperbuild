@@ -70,7 +70,7 @@ if(NOT DEFINED DREAM3D_DATA_DIR)
   ExternalProject_Add(${extProjectName}_IMAGE
     DEPENDS ${extProjectName}
     URL ${DATA_ROOT}/${extProjectName}/Data/Image.tar.gz
-    URL_MD5 86a6d56f058af13ae672da61632d00ce
+    URL_MD5 a5437b67107d1b1457a2bc32e79f805c
     SOURCE_DIR   ${DATA_ROOT}/${extProjectName}/Data/Image
 
     TMP_DIR "${DATA_ROOT}/${DATA_TEMP}/${extProjectName}/tmp/${CMAKE_BUILD_TYPE}"
