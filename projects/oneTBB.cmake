@@ -11,7 +11,7 @@ set(oneTBB_GIT_TAG "v2021.4.0")
 set(oneTBB_VERSION "2021.4.0")
 message(STATUS "Building: ${extProjectName} ${oneTBB_VERSION}: -DBUILD_oneTBB=${BUILD_oneTBB}")
 
-set(oneTBB_INSTALL "${NX_SDK}/${extProjectName}-${oneTBB_VERSION}-${CMAKE_BUILD_TYPE}")
+set(oneTBB_INSTALL "${DREAM3D_SDK}/${extProjectName}-${oneTBB_VERSION}-${CMAKE_BUILD_TYPE}")
 
 if(DREAM3D_USE_CUSTOM_DOWNLOAD_SITE)
   set(EP_SOURCE_ARGS  
@@ -30,11 +30,11 @@ endif()
 ExternalProject_Add(${extProjectName}
   ${EP_SOURCE_ARGS}
 
-  TMP_DIR "${NX_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/tmp/${CMAKE_BUILD_TYPE}"
-  STAMP_DIR "${NX_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/Stamp"
-  DOWNLOAD_DIR ${NX_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/Download
-  SOURCE_DIR "${NX_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/Source"
-  BINARY_DIR "${NX_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/Build/${CMAKE_BUILD_TYPE}"
+  TMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/tmp/${CMAKE_BUILD_TYPE}"
+  STAMP_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/Stamp"
+  DOWNLOAD_DIR ${DREAM3D_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/Download
+  SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/Source"
+  BINARY_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}-${oneTBB_VERSION}/Build/${CMAKE_BUILD_TYPE}"
   INSTALL_DIR "${oneTBB_INSTALL}"
 
   CMAKE_ARGS
@@ -56,11 +56,11 @@ ExternalProject_Add(${extProjectName}
   LOG_INSTALL 1
 )
 
-#-- Append this information to the NX_SDK CMake file that helps other developers
+#-- Append this information to the DREAM3D_SDK CMake file that helps other developers
 #-- configure DREAM3D for building
-file(APPEND ${NX_SDK_FILE} "\n")
-file(APPEND ${NX_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
-file(APPEND ${NX_SDK_FILE} "# oneTBB\n")
-file(APPEND ${NX_SDK_FILE} "set(TBB_DIR \"\${NX_SDK_ROOT}/${extProjectName}-${oneTBB_VERSION}-\${BUILD_TYPE}/lib/cmake/TBB\" CACHE PATH \"\")\n")
-file(APPEND ${NX_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${TBB_DIR})\n")
-file(APPEND ${NX_SDK_FILE} "set(TBB_VERSION \"${oneTBB_VERSION}\" CACHE STRING \"\")\n")
+file(APPEND ${DREAM3D_SDK_FILE} "\n")
+file(APPEND ${DREAM3D_SDK_FILE} "#--------------------------------------------------------------------------------------------------\n")
+file(APPEND ${DREAM3D_SDK_FILE} "# oneTBB\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(TBB_DIR \"\${DREAM3D_SDK_ROOT}/${extProjectName}-${oneTBB_VERSION}-\${BUILD_TYPE}/lib/cmake/TBB\" CACHE PATH \"\")\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(CMAKE_MODULE_PATH \${CMAKE_MODULE_PATH} \${TBB_DIR})\n")
+file(APPEND ${DREAM3D_SDK_FILE} "set(TBB_VERSION \"${oneTBB_VERSION}\" CACHE STRING \"\")\n")
