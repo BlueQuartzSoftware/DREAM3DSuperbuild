@@ -21,16 +21,21 @@ A compatible compiler needs to be installed on your system to be able to build D
 | Product | Product Version | Compiler Version | MSVC++ Toolset |
 | ------- | --------------- | ---------------- | -------------- |
 | Visual Studio 2017 Pro & Community | 15.8 | 19.15 | 14.15 |
+| Visual Studio 2019 Pro & Community | 16. |  |  |
 
 This tutorial uses Visual Studio to build an SDK from DREAM3DSuperbuild.  Ensure you have the proper Version of Visual Studio installed.  Version 2017 is supported in this release and should be usable.  Both the **Professional** and **Community** versions will work.
 
-If you are using VS2019 please ensure that when you installed VS2019 that you also installed the VS2017 (v141) toolset. It will be needed later on in the process.
+You will also need a compatible python environment. Python version 3.8 or newer is needed as a base with the added dependency of the "mkdocs" system which is used to generate the user facing documentation for DREAM.3D. The easiest way to do this is to open a python command prompt and do
 
-You will also need a compatible python environment. Python version 3.6 or 3.7 is needed as a base with the added dependency of the "mkdocs" system which is used to generate the user facing documentation for DREAM.3D. The easiest way to do this is to open a python command prompt and do
+```console
+    pip install mkdocs-material
+```
+or from an Anaconda prompt:
+```console
+    conda install mkdocs-material
+```
 
-        pip install mkdocs-material
-
-DREAM.3D Developers specifically use Anaconda3 environments for development and have the most experience with those python environments. If you want to use python from another distribution it *should* be usable as long as you install "mldocs-material" through pip. 
+DREAM.3D Developers specifically use Anaconda3 environments for development and have the most experience with those python environments. If you want to use python from another distribution it *should* be usable as long as you install "mkdocs-material" through pip. 
 
 For more information, please visit [Installing a Compiler Suite](http://www.dream3d.io/6_Developer/CompilerSuite/index.html).
 
@@ -55,16 +60,20 @@ To install Git, please visit the [Git website](https://git-scm.com/downloads).
 
 **2: Download and install CMake from https://cmake.org/download:**
 
-Scroll down the page until you see the **Latest Release** section.  The latest release may be a higher version than 3.13.0
+Scroll down the page until you see the **Latest Release** section.  The latest release may be a higher version than 3.22.0
 
 ![](Images/Windows/cmake_download_page.png)
 
-Press the download link to download the zip file of the latest release of CMake.  It does not matter if the download is for 32-bit (win32-x86) or 64-bit (win64-x64).  Again, the latest release may be a higher version than 3.13.0, but that is ok.
+Press the download link to download the zip file of the latest release of CMake.  It does not matter if the download is for 32-bit (win32-x86) or 64-bit (win64-x64).  Again, the latest release may be a higher version than 3.22.0, but that is ok.
 
 Click on the zip file that you just downloaded to extract it into a folder.
 
 Move the newly extracted folder into the **DREAM3D_SDK** folder that we created earlier.
 ![](Images/Windows/cmake_in_sdk_folder.png)
+
+### Install Qt5 ###
+
+[Download the official Qt5 installer](https://download.qt.io/official_releases/online_installers/qt-unified-windows-x64-online.exe) and run it. Have it install Qt5.15.x. Ignore anything about `iOS` or `Android` in the process. Take note of where the Qt installer wants to actually install Qt. It will be typically in 'C:/Qt' which is fine. You can generally place it anywhere you need/are allowed to place it.
 
 ### Clone Repository ###
 
@@ -75,6 +84,8 @@ Create a folder called **workspace** in your home directory (C:\Users\\[username
 ![](Images/Windows/dream3d_superbuild_placement.png)
 
 *Note*: If you use git through command prompt, the coloring in your terminal will be different, but the command to clone the repository will be the same.
+
+
 
 ### Instructions ###
 
@@ -104,22 +115,12 @@ Create a folder called **workspace** in your home directory (C:\Users\\[username
 
 + If you are using Visual Studio 2019, select Visual Studio 16 2019.
 + If you are using Visual Studio 2017, select Visual Studio 15 2017 Win64.
-+ If you are using Visual Studio 2015, select Visual Studio 14 2015 Win64.
 
-### VS2019 WARNING ###
+8. Set the Qt Variables. Use the CMake-GUI ( or pass them in as -D variables on the command line). DO be sure to select the proper version based on the version of Visual Studio that you will be using. For this example we are using VS2019. VS2017_64 is also available.
+  * Qt5_DIR: C:/DREAM3D_SDK/Qt5.15.2/5.15.2/msvc2019_64/lib/cmake/Qt5
+  * QT5_QMAKE_EXECUTABLE: C:/DREAM3D_SDK/Qt5.15.2/5.15.2/msvc2019_64/bin/qmake.exe
 
-Due to an incompatibility between VS2019 and ITK 4.13.x when configuring DREAM3DSuperbuild the user will need to also add "v141" to the "Optional toolset to use" text field. This just tells the compiler to use the compilers from VS2017 instead of the newer compilers from VS2019. No functionality is lost when doing this but this is the only way to allow the compilation to finish without any errors.
-
-  ![Select a Generator](Images/Windows/cmake_select_generator.png)
-
-  Click **Finish**.  If the selected Visual Studio and its C++ compiler are not installed, CMake will throw an error and will not allow you to proceed until you have done so.
-
-8. At this point, Qt 5 will be automatically downloaded and installed.  Sometimes during the installation of Qt the Qt installer application will crash.  Simply try configuring again to relaunch the Qt installer.  Since the Qt download is over 1 GB in size, this may take some time so please be patient.
-
-  ![Downloading Qt](Images/Windows/downloading_qt.png)
-
-  Sometimes there is a pause between the download completing and the installer popping up, so just wait a minute or so for the installer to appear.
-  ![Installing Qt5](Images/Windows/qt_installer.png)
+  AGAIN: MAKE SURE YOU Set the paths correctly for YOUR installation of Qt5.
 
 9. Press the **Configure** button in CMake again.
 
@@ -129,14 +130,11 @@ Due to an incompatibility between VS2019 and ITK 4.13.x when configuring DREAM3D
 
   ![Generating Solution](Images/Windows/cmake_generated.png)
 
-  *Note*: Although you still need to press **Configure** in step 9, Qt will not download or install again because it was already downloaded and installed the first time through.
-
 11. Click "Open Project" to launch Visual Studio with the DREAM3DSuperBuild Project. Check that ALL_BUILD and Debug are selected.
 
   ![Visual Studio](Images/Windows/visual_studio_project.png)
 
 12. Click Build -> Build Solution to begin building the SDK.  This will take some time.  Please be patient as your SDK builds. Once the build starts all of the dependent libaries are either built or downloaded. All libraries are installed into the DREAM3D_SDK folder that you specified earlier. Nothing that DREAM.3D depends on is installed into any system directories.
-In addition all of the needed source codes for DREAM.3D itself will be cloned from GitHub and stored in directories rooted at the same level as the DREAM3DSuperbuild directory. You can override this behavior by specifying the **DREAM3D_WORKSPACE** CMake variable.
 
 13. Change Debug selection to Release and repeat Step 12.
 
@@ -177,6 +175,12 @@ After you have finished cloning the sources your *Workspace* folder should look 
     Workspace/SIMPLView
 
 Use CMake-GUI to configure the DREAM.3D project. Before clicking the configure button it should look like the following (NOTE: Your username will be different than mine)
+
+We are going to create a CMake variable.  Press the **Add Entry** button.
+
+1. As before, set the **Name** to *DREAM3D_SDK*.  Set the **Type** to *PATH* and set the **Value** to the location of the DREAM3D_SDK folder that we created earlier (*C:\DREAM3D_SDK*).
+
+![Set Name of CMake variable](Images/Windows/create_cmake_variable.png)
 
 ![Images/Windows/DREAM3D_Configure.png](Images/Windows/Configure_DREAM3D_1.png)
 

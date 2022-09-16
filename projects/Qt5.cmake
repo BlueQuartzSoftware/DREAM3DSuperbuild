@@ -1,10 +1,22 @@
 #--------------------------------------------------------------------------------------------------
 # Are we installing Qt (ON by default)
 #--------------------------------------------------------------------------------------------------
-OPTION(INSTALL_QT5 "Install Qt5" ON)
+OPTION(INSTALL_QT5 "Install Qt5" OFF)
+
+if(NOT INSTALL_QT5)
+  message(STATUS "Qt5 is needed to build. Please go to https://download.qt.io/official_releases/online_installers/  and \n
+  download the version of the QtOnline installer for your plarform. \n
+  NOTE:Install version 5.15.x ONLY. DO NOT INSTALL 6.x at all. You only need the version applicable for your platform.\n
+  You can skip the installation for Android, iOS and 32 bit anything.\n
+  Windows can skip VS2015 anything.\n
+  After Qt5 is installed you will need to set 2 CMake variables: (These are examples for Windows)\n
+    1: QT5_DIR=C:/DREAM3D_SDK/Qt5.15.2/5.15.2/msvc2019_64/lib/cmake/Qt5\n
+    2: Qt5_QMAKE_EXECUTABLE=C:/DREAM3D_SDK/Qt5.15.2/5.15.2/msvc2019_64/bin/qmake.exe\n
+    ")
+endif()
 
 if("${QtVersion}" STREQUAL "")
-  set(QtVersion "5.12")
+  set(QtVersion "5.15")
 endif()
 
 if("${QtVersion}" STREQUAL "5.12")
