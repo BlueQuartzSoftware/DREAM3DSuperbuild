@@ -125,6 +125,13 @@ if(APPLE)
     message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
   ENDIF ()
 
+  IF (DARWIN_VERSION EQUAL 22) # macOS 13.00 Ventura (Xcode 14.x)
+    set(MACOS_NAME "Ventura")
+    set(OSX_DEPLOYMENT_TARGET "13.00")
+    set(OSX_SDK "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
+    message(STATUS "Found macOS ${OSX_DEPLOYMENT_TARGET} ${MACOS_NAME} as the host. Darwin Version:${DARWIN_VERSION}")
+  ENDIF ()
+
   if("${OSX_SDK}" STREQUAL "NOT-FOUND")
     message(FATAL_ERROR "This version of macOS (${DARWIN_VERSION}) is not recognized.\
       The following versions are supported:\n\
@@ -132,6 +139,7 @@ if(APPLE)
       (19) macOS 10.15 Catalina\n\
       (20) macOS 11.00 Big Sur\n\
       (21) macOS 12.00 Monterey\n\
+      (22) macOS 13.00 Ventura\n\
       Please edit ${CMAKE_CURRENT_LIST_FILE} and add this version of macOS to the detection logic.
     ")
 
