@@ -48,3 +48,17 @@ For information on how to build a DREAM.3D SDK using the DREAM3D Superbuild on L
 + General information is available at the [DREAM.3D home page](http://dream3d.bluequartz.net).
 
 + An online version of the DREAM.3D documentation is at [http://www.dream3d.io](http://www.dream3d.io)
+
+
+## PW1 Build
+
+```
+cd DREAM3DSuperbuild
+mkdir Debug && mkdir Release
+cd Release
+cmake -DDREAM3D_SDK=/opt/DREAM3D_SDK -DCMAKE_BUILD_TYPE=Release -DSIMPLView_BUILD_DOCUMENTATION=OFF  -DSIMPL_USE_MKDOCS=OFF -DQt5_QMAKE_EXECUTABLE=/opt/DREAM3D_SDK/Qt/5.12.8/gcc_64/bin/qmake -DINSTALL_QT5=OFF -DBUILD_TBB=ON ../
+make -j
+cd ../Debug
+cmake -DDREAM3D_SDK=/opt/DREAM3D_SDK -DCMAKE_BUILD_TYPE=Debug -DSIMPLView_BUILD_DOCUMENTATION=OFF  -DSIMPL_USE_MKDOCS=OFF -DQt5_QMAKE_EXECUTABLE=/opt/DREAM3D_SDK/Qt/5.12.8/gcc_64/bin/qmake -DINSTALL_QT5=OFF -DBUILD_TBB=ON ../
+make -j
+```

@@ -204,13 +204,13 @@ endif()
 #--------------------------------------------------------------------------------------------------
 set(GitHub_DREAM3D_Plugins 
   DREAM3DReview
-  ImageProcessing  
-  UCSBUtilities 
+  #ImageProcessing  
+  #UCSBUtilities 
 )
 
 set(GitHub_BLUEQUARTZ_Plugins
   ITKImageProcessing
-  SimulationIO
+  #SimulationIO
 )
 
 file(READ ${CMAKE_CURRENT_SOURCE_DIR}/projects/DREAM3D_SDK_PluginList.txt DREAM3D_PLUGIN_CODE)

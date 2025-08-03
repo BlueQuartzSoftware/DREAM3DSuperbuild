@@ -4,7 +4,7 @@ set(ITK_VERSION "4.13.2")
 message(STATUS "External Project: ${extProjectName}: ${ITK_VERSION}" )
 
 #set(ITK_URL "http://pilotfiber.dl.sourceforge.net/project/itk/itk/4.9/InsightToolkit-${ITK_VERSION}.tar.gz")
-set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/Sources/ITK/InsightToolkit-${ITK_VERSION}.tar.gz")
+set(ITK_URL "http://dream3d.bluequartz.net/binaries/SDK/InsightToolkit-${ITK_VERSION}.tar.gz")
 
 option(ITK_SCIFIO_SUPPORT "Add support for SCIFIO to the ITK build" OFF)
 set(SOURCE_DIR "${DREAM3D_SDK}/superbuild/${extProjectName}/Source/${extProjectName}")
